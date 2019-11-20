@@ -1,0 +1,13 @@
+{
+	"extends": [
+		"@omrilotan"
+	],
+	"overrides": [
+		{
+			"files": [ "src/**/*.js" ],
+			"env": {
+				"browser": true
+			}
+		}
+	]
+}

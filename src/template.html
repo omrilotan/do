@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+		<title>Doowat - Never a dull moment</title>
+		<meta name="description" content="{{ thing }}">
+		<link rel="stylesheet" href="/styles.css">
+		<link rel="manifest" href="/manifest.webmanifest">
+	</head>
+	<body>
+		<article>
+			{{ thing }}
+		</article>
+		<footer>
+			<a id="draw" href="/en/">Another!</a>
+			<a href="/about/en/">About</a>
+		</footer>
+		<script src="/scripts.js"></script>
+		<script>navigator.onLine && location.protocol.startsWith('https') && 'serviceWorker' in navigator && navigator.serviceWorker.register('/sw.js?ck=v1')</script>
+	</body>
+</html>

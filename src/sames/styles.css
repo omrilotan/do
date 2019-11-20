@@ -1,0 +1,116 @@
+:root {
+	--foreground-colour: #fff;
+	--foreground-colour-opposite: #000;
+	--background-colour: #fff;
+	--selection-background: #fff;
+	--selection-colour: #000;
+	--footer-height: 3em;
+}
+::selection {
+	background: var(--selection-background);
+	color: var(--selection-colour);
+}
+* {
+	margin: 0;
+	padding: 0;
+	font-weight: 100;
+}
+html,body {
+	height: 100%;
+}
+body {
+	font: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
+	color: var(--foreground-colour);
+	background: var(--background-colour);
+	display: grid;
+	grid-template-rows: auto var(--footer-height);
+}
+b, strong {
+	font-weight: 500;
+}
+a {
+	text-decoration: none;
+}
+main, header, article, footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+h1 {
+	font-size: 2.1em;
+	width: 90%;
+}
+h2, p {
+	width: 90%;
+}
+h2 {
+	font-size: 1em;
+}
+p {
+	font-size: 1em;
+	margin-bottom: .25em;
+}
+a {
+	color: var(--foreground-colour-opposite);
+	background: var(--background-colour);
+	filter: hue-rotate(180deg);
+}
+a:hover {
+	filter: hue-rotate(90deg);
+}
+article {
+	font-size: 1.5em;
+	padding: .5em;
+}
+footer {
+	flex-direction: row;
+	align-items: stretch;
+}
+footer a {
+	color: var(--foreground-colour);
+	background: none;
+	filter: none;
+	line-height: var(--footer-height);
+	flex-grow: 1;
+	text-align: center;
+	background: var(--foreground-colour);
+	color: var(--background-colour);
+}
+footer a:hover {
+	/*color: var(--foreground-colour);*/
+	background: rgba(255, 255, 255, .8);
+	/*filter: hue-rotate(180deg);*/
+	/*filter: invert(.1);*/
+}
+.play {
+	display: inline-block;
+	width: 4em;
+	line-height: 4em;
+	text-align: center;
+	border-radius: 50%;
+	margin: 1em;
+}
+.play:before {
+	content: "\25B6";
+	transform: scale(3) translate(.1em, 0);
+	display: inline-block;
+	color: var(--background-colour);
+	filter: hue-rotate(180deg);
+}
+.play:hover:before {
+	filter: hue-rotate(270deg);
+}
+@media(orientation:landscape) {
+	article {
+		font-size: 10vh;
+	}
+}
+@media(orientation:portrait) {
+	article {
+		font-size: 10vw;
+	}
+}
+footer {
+
+}
