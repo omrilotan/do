@@ -4,19 +4,19 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-		<title>Doowat - Never a dull moment</title>
+		<title>doowat - let's do something</title>
 		<meta name="description" content="{{ thing }}">
 		<link rel="stylesheet" href="/styles.css">
 		<link rel="manifest" href="/manifest.webmanifest">
+		<link rel="author" href="https://github.com/omrilotan/doowat">
+		<link rel="license" href="https://raw.githubusercontent.com/omrilotan/doowat/master/LICENSE">
 	</head>
 	<body>
 		<article>
 			{{ thing }}
+			<a id="draw" href="/en/" class="play font-face">do</a>
+			<a class="about" href="/about/en/"></a>
 		</article>
-		<footer>
-			<a id="draw" href="/en/">Another!</a>
-			<a href="/about/en/">About</a>
-		</footer>
 		<script src="/scripts.js"></script>
 		<script>navigator.onLine && location.protocol.startsWith('https') && 'serviceWorker' in navigator && navigator.serviceWorker.register('/sw.js?ck=v1')</script>
 	</body>

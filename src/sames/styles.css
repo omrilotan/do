@@ -1,105 +1,103 @@
 :root {
 	--foreground-colour: #fff;
 	--foreground-colour-opposite: #000;
+	--foreground-colour-seethrough: rgba(255, 255, 255, .4);
 	--background-colour: #fff;
 	--selection-background: #fff;
 	--selection-colour: #000;
-	--footer-height: 3em;
 }
 ::selection {
 	background: var(--selection-background);
 	color: var(--selection-colour);
+}
+@font-face {
+  font-family: 'Fredoka One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Fredoka One'), local('FredokaOne-Regular'), url(https://fonts.gstatic.com/s/fredokaone/v7/k3kUo8kEI-tA1RRcTZGmTlHGCaen8wf-.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+.font-face {
+	font-family: 'Fredoka One', cursive;
+  animation: fade-in 1.5s linear;
+}
+@keyframes fade-in {
+  0% {opacity:0;}
+  80% {opacity:0;}
+  100% {opacity:1;}
 }
 * {
 	margin: 0;
 	padding: 0;
 	font-weight: 100;
 }
-html,body {
+html {
 	height: 100%;
 }
 body {
+	min-height: 100%;
 	font: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
 	color: var(--foreground-colour);
 	background: var(--background-colour);
 	display: grid;
-	grid-template-rows: auto var(--footer-height);
 }
-b, strong {
-	font-weight: 500;
-}
-a {
-	text-decoration: none;
-}
-main, header, article, footer {
+main, article {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 }
-h1 {
-	font-size: 2.1em;
-	width: 90%;
-}
-h2, p {
-	width: 90%;
-}
-h2 {
-	font-size: 1em;
-}
-p {
-	font-size: 1em;
-	margin-bottom: .25em;
-}
-a {
-	color: var(--foreground-colour-opposite);
-	background: var(--background-colour);
-	filter: hue-rotate(180deg);
-}
-a:hover {
-	filter: hue-rotate(90deg);
-}
 article {
 	font-size: 1.5em;
 	padding: .5em;
 }
-footer {
-	flex-direction: row;
-	align-items: stretch;
-}
-footer a {
-	color: var(--foreground-colour);
-	background: none;
-	filter: none;
-	line-height: var(--footer-height);
-	flex-grow: 1;
+h1 {
+	width: 90%;
+	font-size: 2.1em;
 	text-align: center;
-	background: var(--foreground-colour);
-	color: var(--background-colour);
 }
-footer a:hover {
-	/*color: var(--foreground-colour);*/
-	background: rgba(255, 255, 255, .8);
-	/*filter: hue-rotate(180deg);*/
-	/*filter: invert(.1);*/
+p {
+	width: 90%;
+	font-size: .7em;
+	margin-bottom: .25em;
+}
+a {
+	color: var(--foreground-colour);
+	text-decoration: none;
+}
+strong {
+	font-weight: 500;
+}
+.link {
+	display: inline-block;
+	border-bottom: 1px solid var(--foreground-colour-seethrough);
+	line-height: 1em;
+}
+mark, .play {
+	color: var(--foreground-colour-opposite);
+	background: var(--background-colour);
+	filter: hue-rotate(180deg);
 }
 .play {
 	display: inline-block;
-	width: 4em;
-	line-height: 4em;
 	text-align: center;
 	border-radius: 50%;
+	color: var(--foreground-colour);
+	width: 4em;
+	line-height: 4em;
 	margin: 1em;
 }
-.play:before {
-	content: "\25B6";
-	transform: scale(3) translate(.1em, 0);
-	display: inline-block;
-	color: var(--background-colour);
-	filter: hue-rotate(180deg);
+.about {
+	position: absolute;
+	bottom: .5em;
+	right: .5em;
 }
-.play:hover:before {
-	filter: hue-rotate(270deg);
+.about:before {
+	content: "\1F92A";
+}
+.center {
+	text-align: center;
 }
 @media(orientation:landscape) {
 	article {
@@ -110,7 +108,4 @@ footer a:hover {
 	article {
 		font-size: 10vw;
 	}
-}
-footer {
-
 }
