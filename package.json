@@ -21,7 +21,7 @@
     "async-execute": "^1.1.0",
     "chai": "^4.2.0",
     "clear-module": "^4.0.0",
-    "eslint": "^6.5.1",
+    "eslint": "^6.7.0",
     "eslint-plugin-log": "^1.2.3",
     "mocha": "^6.2.2"
   }
