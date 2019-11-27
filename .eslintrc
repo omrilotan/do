@@ -1,0 +1,22 @@
+{
+	"extends": [
+		"@omrilotan"
+	],
+	"overrides": [
+		{
+			"files": [ "src/**/*.js" ],
+			"env": {
+				"browser": true
+			},
+			"rules": {
+				"comma-dangle": [ "error", "never" ],
+			}
+		},
+		{
+			"files": [ "src/sames/serviceworker.js" ],
+			"env": {
+				"serviceworker": true
+			}
+		}
+	]
+}

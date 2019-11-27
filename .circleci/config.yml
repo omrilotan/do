@@ -1,0 +1,30 @@
+defaults: &defaults
+  working_directory: ~/app
+  docker:
+    - image: circleci/node:12
+
+version: 2.1
+jobs:
+  autofix:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: npm i
+      - run: npm run lint -- --fix
+      - run: npm run sort
+      - run:
+          name: commit auto fixes
+          command: |
+            if [ "$(git diff --quiet && echo 0 || echo $?)" -gt 0 ]; then
+              git config --global user.email $(git show -s --format=%ae)
+              git config --global user.name $(git show -s --format=%an)
+              git commit -am "Autofix"
+              git push -u origin ${CIRCLE_BRANCH}
+              circleci step halt
+            fi
+workflows:
+  version: 2.1
+  integration:
+    jobs:
+      - autofix:
+          context: globalenv

@@ -1,0 +1,33 @@
+{
+  "name": "doowat",
+  "version": "0.0.0",
+  "private": true,
+  "description": "doowat - do something fun",
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/doowat.git"
+  },
+  "homepage": "https://omrilotan.com/doowat",
+  "scripts": {
+    "build": "node lib/build",
+    "clean": "rimraf docs",
+    "lint": "eslint '**/*.js'",
+    "sort": "./scripts/sort/index.js ./src/doos/en.txt",
+    "start": "node lib/watch",
+    "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'"
+  },
+  "devDependencies": {
+    "@omrilotan/eslint-config": "^1.1.0",
+    "async-execute": "^1.1.0",
+    "chai": "^4.2.0",
+    "clear-module": "^4.0.0",
+    "eslint": "^6.7.0",
+    "eslint-plugin-log": "^1.2.3",
+    "mime-types": "^2.1.25",
+    "mocha": "^6.2.2",
+    "paraphrase": "^1.7.3",
+    "rimraf": "^3.0.0"
+  }
+}
