@@ -11,3 +11,6 @@ tab_width = 2
 
 [*.{yml,json,webmanifest}]
 indent_style = space
+
+[*.svg]
+insert_final_newline = false

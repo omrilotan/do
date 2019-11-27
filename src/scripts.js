@@ -1,4 +1,4 @@
-(function({hex}) {
+(function({ hex }) {
 	const random = items => items[Math.floor(Math.random() * items.length)];
 
 	document.documentElement.style.setProperty('--background-colour', random(hex));
