@@ -1,10 +1,37 @@
 {
-	"short_name": "Doowat",
-	"name": "Doowat",
-	"icons": [],
-	"background_color": "#FFFFFF",
-	"theme_color": "#FFFFFF",
-	"display": "standalone",
-	"start_url": "/",
-	"scope": "/"
+  "name": "doowat",
+  "short_name": "doowat",
+  "description": "Do something fun with your kid for a moment.",
+  "categories": [
+    "creativity",
+    "lifestyle",
+    "parenting"
+  ],
+  "background_color": "#FFFFFF",
+  "theme_color": "#000000",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "serviceworker": {
+    "src": "./serviceworker.js",
+    "scope": "/"
+  },
+  "icons": [
+    {
+      "src": "zany.svg",
+      "sizes": "150x150"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot.webp",
+      "sizes": "1280x720",
+      "type": "image/webp"
+    },
+    {
+      "src": "screenshot2.webp",
+      "sizes": "1280x720",
+      "type": "image/webp"
+    }
+  ]
 }

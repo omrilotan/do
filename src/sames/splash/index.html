@@ -7,18 +7,19 @@
 		<title>{{ title }}</title>
 		<meta name="description" content="Take some funny selfies with your child. Ask them to pick their favourite. Let them pick a family member to send the picture to.">
 		<link rel="stylesheet" href="/styles.css">
-		<link rel="manifest" href="/manifest.webmanifest">
-		<link rel="author" href="https://github.com/omrilotan/doowat">
-		<link rel="license" href="https://raw.githubusercontent.com/omrilotan/doowat/master/LICENSE">
-		<link rel="prerender" href="/about/en/">
-		<link rel="prerender" href="/en/">
+		<style>
+img[src="/zany.svg"] {
+	background: transparent;
+	width: 5em;
+	height: 5em;
+}
+		</style>
 	</head>
 	<body>
 		<article>
 			<h1 class="font-face">{{ name }}</h1>
+			<img src="/zany.svg">
 			{{ tagline }}
-			<a id="draw" href="/en/" class="play font-face">do</a>
-			<p class="center"><a href="/about/en/" class="link"><img src="/zany.svg"> What is this?</a></p>
 		</article>
 		<script src="/scripts.js"></script>
 	</body>

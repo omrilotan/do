@@ -2,7 +2,7 @@
   "name": "doowat",
   "version": "0.0.0",
   "private": true,
-  "description": "doowat - let's do something",
+  "description": "doowat - do something fun",
   "author": "omrilotan",
   "license": "MIT",
   "repository": {
@@ -11,6 +11,7 @@
   },
   "homepage": "https://omrilotan.com/doowat",
   "scripts": {
+    "clean": "rimraf docs",
     "start": "node lib/watch",
     "build": "node lib/build",
     "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'",
@@ -23,6 +24,9 @@
     "clear-module": "^4.0.0",
     "eslint": "^6.7.0",
     "eslint-plugin-log": "^1.2.3",
-    "mocha": "^6.2.2"
+    "mime-types": "^2.1.25",
+    "mocha": "^6.2.2",
+    "paraphrase": "^1.7.3",
+    "rimraf": "^3.0.0"
   }
 }

@@ -5,13 +5,35 @@
 
 	const cacheKey = `cache-key-${version}`;
 
-	const CACHED_FILES = ['index.html','about/en/index.html'];
+	const CACHED_FILES = [
+		'index.html',
+		'about/en/index.html',
+		'/scripts.js',
+		'/styles.css',
+		'favicon.ico'
+	];
 
 	self.addEventListener(
 		'install',
 		event => event.waitUntil(
 			caches.open(cacheKey).then(
-				cache => cache.addAll(CACHED_FILES)
+				cache => {
+					fetch('/en/list.json').then(
+						response => response.ok && response.json()
+					).then(
+						list => {
+							const files = list.map(
+								id => `/en/${id}/`
+							).concat(
+								CACHED_FILES
+							);
+
+							cache.addAll(files);
+						}
+					).catch(
+						console.error
+					);
+				}
 			)
 		)
 	);
