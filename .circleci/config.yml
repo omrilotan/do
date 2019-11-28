@@ -5,7 +5,7 @@ defaults: &defaults
 
 version: 2.1
 jobs:
-  autofix:
+  tests:
     <<: *defaults
     steps:
       - checkout
@@ -22,9 +22,58 @@ jobs:
               git push -u origin ${CIRCLE_BRANCH}
               circleci step halt
             fi
+      - run: npm t
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  release:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Set user
+          command: |
+            git config --global user.name a1vy
+            git config --global user.email a01101100vy@gmail.com
+      - run:
+          name: Clone docs and clean everything
+          command: |
+            git clone -b gh-pages --single-branch $CIRCLE_REPOSITORY_URL docs
+            cd docs
+            ls -a | grep -v .git | grep -v .circleci | egrep -vU "\.$" | xargs rm -rf
+            cd -
+      - run: npm run build
+      - run:
+          name: Check for changes and commit
+          command: |
+            cd docs
+            git diff --exit-code && circleci step halt
+            git add .
+            git commit -m "$(curl -s whatthecommit.com/index.txt)"
+            git push origin master --force-with-lease
+            cd -
+      - run:
+          name: CloufFlare - Purge everything
+          command: |
+            curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CF_ZONE}/purge_cache" \
+             -H "X-Auth-Email: ${CF_EMAIL}" \
+             -H "X-Auth-Key: ${CF_API_KEY}" \
+             -H "Content-Type: application/json" \
+             --data '{"purge_everything":true}'
 workflows:
   version: 2.1
   integration:
     jobs:
-      - autofix:
+      - tests:
           context: globalenv
+      - release:
+          context: globalenv
+          requires:
+            - tests
+          filters:
+            branches:
+              only:
+                - build

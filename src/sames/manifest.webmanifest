@@ -1,7 +1,7 @@
 {
-  "name": "doowat",
-  "short_name": "doowat",
-  "description": "Do something fun.",
+  "name": "{{ name }}",
+  "short_name": "{{ name }}",
+  "description": "{{ tagline }}",
   "categories": [
     "creativity",
     "lifestyle",
@@ -40,6 +40,10 @@
     "src": "images/zany-192.png",
     "sizes": "192x192",
     "type": "image/png"
+  }, {
+    "src": "images/zany-512.png",
+    "sizes": "512x512",
+    "type": "image/png"
   }],
   "screenshots": [
     {
@@ -49,6 +53,11 @@
     },
     {
       "src": "images/screenshot-activity.webp",
+      "sizes": "720x1280",
+      "type": "image/webp"
+    },
+    {
+      "src": "images/screenshot-splash.webp",
       "sizes": "720x1280",
       "type": "image/webp"
     }

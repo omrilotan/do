@@ -56,8 +56,46 @@
 		'fetch',
 		event => event.respondWith(
 			caches.match(event.request).then(
-				response => response || fetch(event.request)
+				response => {
+					if (response) {
+						if (navigator.onLine) {
+
+							// Refresh (async)
+							fetch(event.request).then(
+								response => {
+									caches.open(cacheKey).then(
+										cache => cache.put(event.request, response.clone())
+									);
+								}
+							);
+						}
+
+						return response;
+					} else {
+						if (!navigator.onLine && isPage(event.request.url)) {
+							return fetch(new Request('/offline/'));
+						}
+
+						return fetch(event.request).then(
+							function(response) {
+								const clone = response.clone();
+
+								// Refresh (async)
+								caches.open(cacheKey).then(
+									cache => cache.put(event.request, clone)
+								);
+								return response;
+							}
+						);
+					}
+				}
 			)
 		)
 	);
+
+	function isPage(url) {
+		const ext = url.replace(/\?.*/, '').split('.').pop();
+
+		return ext === 'html' || !/^\w*$/.test(ext);
+	}
 })();

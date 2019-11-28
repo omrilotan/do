@@ -21,7 +21,7 @@
 }
 .font-face {
 	font-family: 'Fredoka One', cursive;
-  animation: fade-in 1.5s linear;
+  animation: fade-in 1s linear;
 }
 @keyframes fade-in {
   0% {opacity:0;}
@@ -46,15 +46,26 @@ body {
 	background: var(--background-colour);
 	display: grid;
 }
+@media(orientation:landscape) {
+	body {
+		font-size: 10vh;
+	}
+}
+@media(orientation:portrait) {
+	body {
+		font-size: 10vw;
+	}
+}
+
 main, article {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	padding: .5em;
 }
 article {
-	font-size: 1.5em;
-	padding: .5em;
+	font-size: 1em;
 }
 h1 {
 	width: 90%;
@@ -62,8 +73,7 @@ h1 {
 	text-align: center;
 }
 p {
-	width: 90%;
-	font-size: .7em;
+	font-size: .6em;
 	margin-bottom: .25em;
 }
 a {
@@ -73,16 +83,14 @@ a {
 strong {
 	font-weight: 500;
 }
-img[src="/zany.svg"] {
+img[src="/zany.svg"],
+img[src="/share.svg"] {
 	width: 1em;
 	height: 1em;
-	/*background: #fff;*/
-	/*border-radius: 50%;*/
 }
 .link {
-	display: inline-block;
-	border-bottom: 1px solid var(--foreground-colour-seethrough);
-	line-height: 1em;
+	display: contents;
+	text-decoration: underline;
 }
 mark, .play {
 	color: var(--foreground-colour-opposite);
@@ -124,16 +132,12 @@ mark, .play {
 	bottom: .5em;
 	right: .5em;
 }
+.share {
+	position: absolute;
+	bottom: .5em;
+	left: .5em;
+	cursor: pointer;
+}
 .center {
 	text-align: center;
-}
-@media(orientation:landscape) {
-	article {
-		font-size: 10vh;
-	}
-}
-@media(orientation:portrait) {
-	article {
-		font-size: 10vw;
-	}
 }
