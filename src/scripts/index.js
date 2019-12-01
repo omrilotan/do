@@ -24,5 +24,5 @@ const next = () => fetch('/en/list.json')
 ;
 
 next();
-serviceWorker('/serviceworker.js?ck=v1');
+serviceWorker();
 share();
