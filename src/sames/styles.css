@@ -24,9 +24,9 @@
   animation: fade-in 1s linear;
 }
 @keyframes fade-in {
-  0% {opacity:0;}
-  80% {opacity:0;}
-  100% {opacity:1;}
+  0% { opacity: 0; }
+  80% { opacity: 0; }
+  100% { opacity: 1; }
 }
 * {
 	margin: 0;
@@ -93,7 +93,7 @@ img[src="/share.svg"] {
 	text-decoration: underline;
 }
 mark, .play {
-	color: var(--foreground-colour-opposite);
+	color: var(--foreground-colour);
 	background: var(--background-colour);
 	filter: hue-rotate(180deg);
 }
@@ -102,17 +102,14 @@ mark, .play {
 	position: relative;
 	text-align: center;
 	border-radius: 50%;
-	color: var(--foreground-colour);
 	width: 4em;
 	line-height: 4em;
 	margin: 1em;
-	transition: background .3s, box-shadow .2s;
+	transition: box-shadow .3s;
 	box-shadow: inset -.1em -.2em rgba(0, 0, 0, .3);
 }
 .play:focus, .play:active {
-	color: var(--background-colour);
-	background: var(--background-colour-transparent);
-	box-shadow: inset 0 0 rgba(0, 0, 0, .3)
+	box-shadow: inset .1em .2em rgba(0, 0, 0, .3);
 }
 .about {
 	position: fixed;
