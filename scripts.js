@@ -32,7 +32,7 @@
 	}
 
 	function share() {
-		if (navigator.share) {
+		if (navigator.share && navigator.onLine) {
 			const article = document.querySelector('article');
 			if (!article) { return; }
 
