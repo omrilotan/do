@@ -105,10 +105,12 @@ mark, .play {
 	width: 4em;
 	line-height: 4em;
 	margin: 1em;
-	transition: box-shadow .3s;
+	transition: box-shadow .3s, transform .3s;
+	transform: translate(0, 0);
 	box-shadow: inset -.1em -.2em rgba(0, 0, 0, .3);
 }
 .play:focus, .play:active {
+	transform: translate(.05em, .1em);
 	box-shadow: inset .1em .2em rgba(0, 0, 0, .3);
 }
 .about {

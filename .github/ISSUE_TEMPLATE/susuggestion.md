@@ -2,7 +2,7 @@
 name: Activity Suggestion
 about: Suggest an idea for an activity
 title: I have a suggestion for an activity
-labels: suggestion, good-first-issue
+labels: suggestion, good first issue
 assignees: omrilotan
 ---
 

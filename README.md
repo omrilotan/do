@@ -5,4 +5,4 @@ Doing things with kids can take longer: Popping out for groceries; Walking to yo
 
 Here are some fun things to do while you're at it. Draw a [random, easy activity](https://doowat.net/en/). Save your favourites.
 
-Feel free to contribute! [Make a suggestion](https://github.com/omrilotan/doowat/issues/new?template=susuggestion.md) - I will be grateful 🤩.
+Feel free to contribute! [Suggest an activity](https://github.com/omrilotan/doowat/issues/new/choose) - that could be awesome 🤩.
