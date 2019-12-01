@@ -1,5 +1,6 @@
 * text eol=lf
 
-*.ico  binary
-*.webp binary
-*.svg  text
+*.ico  binary eol=crlf
+*.webp binary eol=crlf
+*.png binary eol=crlf
+*.svg  text eol=crlf
