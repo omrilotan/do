@@ -47,7 +47,8 @@
 					url: document.location.href
 				}).catch(console.error)
 			);
-			img.src = '/share.svg';
+			img.setAttribute('src', '/share.svg');
+			img.setAttribute('alt', 'share');
 			share.appendChild(img);
 			article.appendChild(share);
 		}
