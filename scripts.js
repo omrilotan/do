@@ -12,23 +12,28 @@
 		;
 	}
 
-	function serviceWorker(url) {
-		navigator.onLine &&
-			'serviceWorker' in navigator &&
-			navigator.serviceWorker.register(url);
+	var serviceWorker = () => navigator.onLine &&
+		'serviceWorker' in navigator &&
+		navigator.serviceWorker.register(`/serviceworker.js?ck=v-${cacheKey()}`);
+
+	function cacheKey() {
+		const metaCache = document.querySelector('meta[name="cache-key-version"]');
+		return metaCache
+			? metaCache.getAttribute('content')
+			: Math.random().toString('36').substr(5)
+		;
 	}
 
 	function link(href) {
-		const draw = document.getElementById('draw');
-		if (!draw) { return; }
-
-		draw.setAttribute('href', href);
-
 		const prerender = document.createElement('link');
 		prerender.setAttribute('rel', 'prerender');
 		prerender.setAttribute('href', href);
 		prerender.setAttribute('as', 'fetch');
 		document.querySelector('head').appendChild(prerender);
+
+		document.querySelectorAll('[name="draw"]').forEach(
+			draw => draw.setAttribute('href', href)
+		);
 	}
 
 	function share() {
@@ -74,7 +79,7 @@
 	;
 
 	next();
-	serviceWorker('/serviceworker.js?ck=v1');
+	serviceWorker();
 	share();
 
 }());
