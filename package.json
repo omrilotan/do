@@ -15,7 +15,7 @@
     "clean": "rimraf docs",
     "lint": "eslint '**/*.js'",
     "prestart": "npm run clean",
-    "sort": "./scripts/sort/index.js ./src/dos/en.txt",
+    "sort": "./scripts/sort/index.js ./src/activities/en.txt",
     "start": "node lib/watch",
     "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'"
   },

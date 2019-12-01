@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		{{ meta }}
+		<meta name="robots" content="noindex">
+		<meta name="googlebot" content="noindex">
+	</head>
+	<body>
+		<main>
+			<h1 class="font-face">🥴</h1>
+		</main>
+		<script>
+			const random = items => items[Math.floor(Math.random() * items.length)];
+			const keys = {{ keys }};
+			window.location.href=`/en/${random(keys)}/`;
+		</script>
+	</body>
+</html>

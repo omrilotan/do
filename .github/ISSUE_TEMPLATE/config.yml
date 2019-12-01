@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: Existing activities
-    url: https://github.com/omrilotan/doowat/blob/master/src/dos/en.txt
+    url: https://github.com/omrilotan/doowat/blob/master/src/activities/en.txt
     about: Take a look at the list of all existing activities
