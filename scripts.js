@@ -12,16 +12,70 @@
 		;
 	}
 
-	var serviceWorker = () => navigator.onLine &&
-		'serviceWorker' in navigator &&
-		navigator.serviceWorker.register(`/serviceworker.js?ck=v-${cacheKey()}`);
+	function toast() {
+		const dialog = document.createElement('dialog');
+		dialog.appendChild(document.createTextNode('New update available!'));
+
+		const menu = document.createElement('menu');
+
+		const update = document.createElement('button');
+		update.appendChild(document.createTextNode('update'));
+		update.onclick = () => dialog.close() || window.location.reload();
+
+		const close = document.createElement('button');
+		close.appendChild(document.createTextNode('close'));
+		close.onclick = () => dialog.close();
+
+		dialog.appendChild(menu);
+		menu.appendChild(update);
+		menu.appendChild(close);
+		document.body.appendChild(dialog);
+
+		dialog.showModal();
+		setTimeout(() => dialog.classList.add('show'));
+		setTimeout(() => dialog.classList.remove('show'), 20000);
+	}
+
+	const rand = () => Math.random().toString('36').substr(5);
+	let updated = false;
+
+	async function registerServiceWorker() {
+		const supported = navigator.onLine && 'serviceWorker' in navigator;
+		if (!supported) { return; }
+
+		const registration = await navigator.serviceWorker.register(`/serviceworker.js?ck=v-${cacheKey()}`);
+
+		if (window.location.pathname === '/') {
+			!window.matchMedia('(display-mode:standalone)').metches
+				&& listenToUpdates(registration);
+			registration.update();
+		}
+	}
+
+	window.addEventListener('beforeunload', function() { updated = true; });
+
+	function listenToUpdates(registration) {
+		registration.onupdatefound = function updatefound() {
+			if (updated) { return; }
+			updated = true;
+
+			window.registration = registration;
+			const { installing } = registration;
+
+			installing.onstatechange = function statechanged() {
+				installing.state === 'installed'
+					&& navigator.serviceWorker.controller
+					&& toast();
+			};
+		};
+	}
 
 	function cacheKey() {
 		const metaCache = document.querySelector('meta[name="cache-key-version"]');
 
 		return metaCache
 			? metaCache.getAttribute('content')
-			: Math.random().toString('36').substr(5)
+			: rand()
 		;
 	}
 
@@ -80,7 +134,7 @@
 	;
 
 	next();
-	serviceWorker();
+	registerServiceWorker();
 	share();
 
 }());
