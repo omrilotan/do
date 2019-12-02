@@ -56,7 +56,6 @@ body {
 		font-size: 10vw;
 	}
 }
-
 main, article {
 	display: flex;
 	justify-content: center;
@@ -126,4 +125,15 @@ mark, .play {
 }
 .center {
 	text-align: center;
+}
+.standalone-only {
+	display: none;
+}
+@media(display-mode:standalone) {
+	.web-only {
+		display: none;
+	}
+	.standalone-only {
+		display: initial;
+	}
 }
