@@ -45,9 +45,9 @@ form {
 }
 .card, textarea {
 	padding: .5em;
-	filter: invert(1);
+	filter: hue-rotate(180deg);
 	background: var(--background-colour);
-	color: var(--foreground-colour-opposite);
+	color: var(--foreground-colour);
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -59,7 +59,7 @@ textarea {
 	transition: filter .3s;
 }
 textarea[disabled] {
-	filter: invert(0);
+	filter: hue-rotate(0deg);
 }
 div {
 	overflow: hidden;
@@ -113,7 +113,7 @@ div {
 	document.querySelector('div').appendChild(fragment);
 })();
 function send(text) {
-	fetch('https://hooks.slack.com/services/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', {
+	fetch('https://hooks.slack.com/services/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', {
 		method: 'POST',
 		body: JSON.stringify({ text })
 	}).then(thanks);
