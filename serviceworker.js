@@ -63,7 +63,7 @@
 							// Refresh (async)
 							fetch(event.request).then(
 								response => {
-									caches.open(cacheKey).then(
+									response.ok && caches.open(cacheKey).then(
 										cache => cache.put(event.request, response.clone())
 									);
 								}
@@ -81,7 +81,7 @@
 								const clone = response.clone();
 
 								// Refresh (async)
-								caches.open(cacheKey).then(
+								response.ok && caches.open(cacheKey).then(
 									cache => cache.put(event.request, clone)
 								);
 								return response;
