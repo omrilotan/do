@@ -102,13 +102,17 @@ div {
 	fragment.appendChild(form);
 	fragment.appendChild(title);
 
-	Object.entries(dictionary).forEach(([key, value]) => {
-		const anchor = document.createElement('a');
-		anchor.classList.add('card');
-		anchor.setAttribute('href', `/en/${key}/`);
-		anchor.appendChild(document.createTextNode(value));
-		fragment.appendChild(anchor);
-	});
+	Object.entries(dictionary).sort(
+			() => Math.random() - .5
+		).forEach(
+		([key, value]) => {
+			const anchor = document.createElement('a');
+			anchor.classList.add('card');
+			anchor.setAttribute('href', `/en/${key}/`);
+			anchor.appendChild(document.createTextNode(value));
+			fragment.appendChild(anchor);
+		}
+	);
 
 	document.querySelector('div').appendChild(fragment);
 })();
