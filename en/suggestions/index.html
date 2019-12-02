@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+		<title>doowat - do something fun</title>
+		<link rel="stylesheet" href="/styles.css">
+		<link rel="manifest" href="/manifest.webmanifest">
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="author" href="https://github.com/omrilotan/doowat">
+		<link rel="license" href="https://raw.githubusercontent.com/omrilotan/doowat/master/LICENSE">
+		<meta name="application-name" content="doowat">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#FFFFFF">
+		<meta itemprop="image" content="/images/app-icon.png">
+		<meta property="og:image" content="/images/doowat.png">
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content="1024">
+		<meta property="og:image:height" content="1024">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://doowat.net">
+		<meta property="og:title" content="doowat">
+		<meta property="og:description" content="do something fun">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/images/app-icon.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="translucent">
+		<meta name="apple-mobile-web-app-title" content="doowat">
+		<link rel="apple-touch-icon" href="/images/app-icon.png">
+		<meta name="cache-key-version" content="1">
+		<meta name="robots" content="noindex">
+		<meta name="googlebot" content="noindex">
+		<meta name="description" content="doowat - Suggest an activity">
+		<style>
+form {
+	width: 100%;
+	display: flex;
+}
+.card {
+	display: block;
+	font-size: .5em;
+	margin-bottom: 1em;
+}
+.card, textarea {
+	padding: .5em;
+	filter: invert(1);
+	background: var(--background-colour);
+	color: var(--foreground-colour-opposite);
+	width: 100%;
+	box-sizing: border-box;
+}
+textarea {
+	border: none;
+	font-size: .5em;
+	min-height: 5em;
+	resize: vertical;
+	transition: filter .3s;
+}
+textarea[disabled] {
+	filter: invert(0);
+}
+div {
+	overflow: hidden;
+	transition: height 1s ease-out;
+}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header>
+				Make a suggestion
+				<p>Have a suggestion for an activity?</p>
+			</header>
+			<div>
+			</div>
+			<a name="draw" href="/en/" class="play font-face">do</a>
+		</main>
+		<script src="/scripts.js"></script>
+		<script>
+(async function () {
+	const form = document.createElement('form');
+	const textarea = document.createElement('textarea');
+	textarea.setAttribute('placeholder', 'Add your suggestion');
+	textarea.addEventListener(
+		'keypress',
+		function sendForm(event) {
+			if ((window.event ? window.event.keyCode : (event.keyCode || event.which)) === 13) {
+				event.preventDefault();
+				textarea.setAttribute('disabled', 'disabled');
+				send(textarea.value);
+			}
+		}
+	);
+	form.appendChild(textarea);
+
+	const dictionary = await fetch('/en/dictionary.json').then(res => res.json());
+	const fragment = document.createDocumentFragment();
+	const title = document.createElement('p');
+	title.appendChild(document.createTextNode('Here are the ones we already have'));
+	fragment.appendChild(form);
+	fragment.appendChild(title);
+
+	Object.entries(dictionary).forEach(([key, value]) => {
+		const anchor = document.createElement('a');
+		anchor.classList.add('card');
+		anchor.setAttribute('href', `/en/${key}/`);
+		anchor.appendChild(document.createTextNode(value));
+		fragment.appendChild(anchor);
+	});
+
+	document.querySelector('div').appendChild(fragment);
+})();
+function send(text) {
+	fetch('/suggest', {
+		method: 'POST',
+		body: JSON.stringify({ text })
+	}).then(thanks);
+}
+function thanks() {
+	const wrapper = document.querySelector('div');
+	wrapper.style.height = wrapper.offsetHeight + 'px';
+	setTimeout(() => { wrapper.style.height = '0px'; });
+	const header = document.querySelector('header')
+	while (header.firstChild) {
+		header.removeChild(header.firstChild);
+	}
+	const p = document.createElement('p');
+	p.appendChild(document.createTextNode('Your suggestion was submitted'));
+
+	header.appendChild(document.createTextNode('Thank you'));
+	header.appendChild(p);
+}
+		</script>
+	</body>
+</html>

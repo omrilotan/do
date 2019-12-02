@@ -46,7 +46,7 @@
 		const registration = await navigator.serviceWorker.register(`/serviceworker.js?ck=v-${cacheKey()}`);
 
 		if (window.location.pathname === '/') {
-			!window.matchMedia('(display-mode:standalone)').metches
+			window.matchMedia('(display-mode:standalone)').metches
 				&& listenToUpdates(registration);
 			registration.update();
 		}
