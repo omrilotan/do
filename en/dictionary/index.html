@@ -37,7 +37,7 @@
 .cards a {
 	display: block;
 	font-size: .7em;
-	margin-bottom: 5vw;
+	margin-bottom: var(--margin-unit);
 	padding: .5em 1em 1em;
 	filter: hue-rotate(180deg);
 	background: var(--background-colour);
@@ -50,7 +50,9 @@
 	</head>
 	<body>
 		<main>
-			<p>Here's a list of all the activities</p>
+			<header>
+				Existing Activities
+			</header>
 			<div class="cards">
 				<a href="/en/43169a2852ce4bb1580df3855c63a78a/">Choose a category (colours, animals, dinosaurs). Take turns naming items until one of you gets stuck.</a>
 <a href="/en/25d0e3543e6dbd26d80a3124271e4090/">Count how many trees you pass on your way to the bus stop. Brag that factoid to someone you meet.</a>
@@ -81,7 +83,11 @@
 <a href="/en/de671184bef99dccd25262c2892a91a0/">Walk everywhere backwards.</a>
 <a href="/en/95d75260f789fac9928b24c366eb4528/">Walk sideways.</a>
 			</div>
+			<p>
+				<a href="/en/suggest" class="link">Suggest an activity</a>
+			</p>
 			<a name="draw" href="/en/" class="play font-face">do</a>
+			<a class="about" href="/en/about/"><img src="/zany.svg"></a>
 		</main>
 		<script src="/scripts.js"></script>
 	</body>

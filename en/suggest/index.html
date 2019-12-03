@@ -34,26 +34,31 @@
 		<meta name="googlebot" content="noindex">
 		<meta name="description" content="doowat - Suggest an activity">
 		<style>
+::placeholder {
+  color: black;
+}
+div {
+	overflow: hidden;
+	transition: height 1s ease-out;
+}
 form {
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 }
-.card {
-	display: block;
-	font-size: .5em;
-	margin-bottom: 1em;
-}
-.card, textarea {
+textarea, button {
+	font: var(--font-running);
 	padding: .5em;
 	filter: hue-rotate(180deg);
 	background: var(--background-colour);
 	color: var(--foreground-colour);
 	width: 100%;
 	box-sizing: border-box;
-}
-textarea {
 	border: none;
 	font-size: .5em;
+	margin-bottom: var(--margin-unit);
+}
+textarea {
 	min-height: 5em;
 	resize: vertical;
 	transition: filter .3s;
@@ -61,21 +66,28 @@ textarea {
 textarea[disabled] {
 	filter: hue-rotate(0deg);
 }
-div {
-	overflow: hidden;
-	transition: height 1s ease-out;
-}
 		</style>
 	</head>
 	<body>
 		<main>
 			<header>
 				Make a suggestion
-				<p>Have a suggestion for an activity?</p>
 			</header>
 			<div>
+				<form>
+					<p>
+						<a href="https://github.com/omrilotan/doowat/issues/new/choose" class="link" rel="noreferrer noopener" target="_blank">Suggest an activity on Github</a> - become a contributor 🤩.
+					</p>
+					<p>Alternatively, send a suggestion using this testbox. 🧐 Activities should require no preparations.</p>
+					<textarea placeholder="Think of activity suggestions for doowat together"></textarea>
+					<button>Submit</button>
+					<p>
+						<a href="/en/dictionary" class="link">Review existing activities</a>
+					</p>
+				</form>
 			</div>
 			<a name="draw" href="/en/" class="play font-face">do</a>
+			<a class="about" href="/en/about/"><img src="/zany.svg"></a>
 		</main>
 		<script src="/scripts.js"></script>
 		<script>
@@ -84,62 +96,32 @@ const patch = [
 	'BR8C1U9FH',
 	'xcLq7eXtb9ndt6ai34JRQ8K8'
 ];
-(async function () {
-	const form = document.createElement('form');
-	const textarea = document.createElement('textarea');
-	textarea.setAttribute('placeholder', 'Add your suggestion');
-	textarea.addEventListener(
-		'keypress',
-		function sendForm(event) {
-			if ((window.event ? window.event.keyCode : (event.keyCode || event.which)) === 13) {
-				event.preventDefault();
-				textarea.setAttribute('disabled', 'disabled');
-				send(textarea.value);
-			}
-		}
-	);
-	form.appendChild(textarea);
 
-	const dictionary = await fetch('/en/dictionary.json').then(res => res.json());
-	const fragment = document.createDocumentFragment();
-	const title = document.createElement('p');
-	title.appendChild(document.createTextNode('Here are the ones we already have'));
-	fragment.appendChild(form);
-	fragment.appendChild(title);
+document.forms[0].addEventListener(
+	'submit',
+	function sendForm(event) {
+		event.preventDefault();
+		const [{ value }] = event.target;
+		if (!value) { return; }
+		send(value).then(thanks);
+	}
+);
 
-	Object.entries(dictionary).sort(
-			() => Math.random() - .5
-		).forEach(
-		([key, value]) => {
-			const anchor = document.createElement('a');
-			anchor.classList.add('card');
-			anchor.setAttribute('href', `/en/${key}/`);
-			anchor.appendChild(document.createTextNode(value));
-			fragment.appendChild(anchor);
-		}
-	);
+const send = text => fetch('https://hooks.slack.com/services/' + patch.join('/'), {
+	method: 'POST',
+	body: JSON.stringify({ text })
+});
 
-	document.querySelector('div').appendChild(fragment);
-})();
-function send(text) {
-	fetch('https://hooks.slack.com/services/' + patch.join('/'), {
-		method: 'POST',
-		body: JSON.stringify({ text })
-	}).then(thanks);
-}
 function thanks() {
-	const wrapper = document.querySelector('div');
-	wrapper.style.height = wrapper.offsetHeight + 'px';
-	setTimeout(() => { wrapper.style.height = '0px'; });
+	const div = document.querySelector('div');
+	div.style.height = div.offsetHeight + 'px';
+	setTimeout(() => { div.style.height = '0px'; }, 200);
 	const header = document.querySelector('header')
 	while (header.firstChild) {
 		header.removeChild(header.firstChild);
 	}
-	const p = document.createElement('p');
-	p.appendChild(document.createTextNode('Your suggestion was submitted'));
 
-	header.appendChild(document.createTextNode('Thank you'));
-	header.appendChild(p);
+	header.appendChild(document.createTextNode('Thanks'));
 }
 		</script>
 	</body>
