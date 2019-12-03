@@ -61,7 +61,7 @@ main, article {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	padding: .5em;
+	padding: 5vw;
 }
 article {
 	font-size: 1em;
@@ -112,15 +112,16 @@ mark, .play {
 	transform: translate(.05em, .1em);
 	box-shadow: inset .1em .2em rgba(0, 0, 0, .3);
 }
-.about {
+.about, .share {
 	position: fixed;
-	bottom: .5em;
-	right: .5em;
+	bottom: 5vw;
+	height: 1em;
+}
+.about {
+	right: 5vw;
 }
 .share {
-	position: fixed;
-	bottom: .5em;
-	left: .5em;
+	left: 5vw;
 	cursor: pointer;
 }
 .center {
