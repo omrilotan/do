@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		{{ meta }}
+		<meta name="robots" content="noindex">
+		<meta name="googlebot" content="noindex">
+		<meta name="description" content="{{ name }} - Dictionary">
+		<style>
+.cards a {
+	display: block;
+	font-size: .7em;
+	margin-bottom: 5vw;
+	padding: .5em 1em 1em;
+	filter: hue-rotate(180deg);
+	background: var(--background-colour);
+	color: var(--foreground-colour);
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: .5em;
+}
+		</style>
+	</head>
+	<body>
+		<main>
+			<p>Here's a list of all the activities</p>
+			<div class="cards">
+				{{ cards }}
+			</div>
+			<a name="draw" href="/en/" class="play font-face">do</a>
+		</main>
+		<script src="/scripts.js"></script>
+	</body>
+</html>
