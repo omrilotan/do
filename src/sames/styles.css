@@ -6,6 +6,8 @@
 	--background-colour-transparent: rgba(255, 255, 255, 0);
 	--selection-background: #fff;
 	--selection-colour: #000;
+	--font-running: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
+	--margin-unit: 5vw;
 }
 ::selection {
 	background: var(--selection-background);
@@ -41,7 +43,7 @@ html {
 }
 body {
 	min-height: 100%;
-	font: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
+	font: var(--font-running);
 	color: var(--foreground-colour);
 	background: var(--background-colour);
 	display: grid;
@@ -61,10 +63,13 @@ main, article {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	padding: 5vw;
+	padding: var(--margin-unit);
+}
+header {
+	font-size: 1em;
+	margin-bottom: var(--margin-unit);
 }
 article {
-	font-size: 1em;
 }
 h1 {
 	width: 90%;
@@ -73,7 +78,7 @@ h1 {
 }
 p {
 	font-size: .6em;
-	margin-bottom: .25em;
+	margin-bottom: var(--margin-unit);
 }
 a {
 	color: var(--foreground-colour);
@@ -114,14 +119,14 @@ mark, .play {
 }
 .about, .share {
 	position: fixed;
-	bottom: 5vw;
+	bottom: var(--margin-unit);
 	height: 1em;
 }
 .about {
-	right: 5vw;
+	right: var(--margin-unit);
 }
 .share {
-	left: 5vw;
+	left: var(--margin-unit);
 	cursor: pointer;
 }
 .center {
@@ -140,8 +145,8 @@ mark, .play {
 }
 dialog {
 	position: fixed;
-	bottom: 5vw;
-	left: 5vw;
+	bottom: var(--margin-unit);
+	left: var(--margin-unit);
 	width: 90vw;
 	background: rgba(0, 0, 0, .9);
 	border: 0;

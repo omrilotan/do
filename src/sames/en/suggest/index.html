@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		{{ meta }}
+		<meta name="robots" content="noindex">
+		<meta name="googlebot" content="noindex">
+		<meta name="description" content="{{ name }} - Suggest an activity">
+		<style>
+::placeholder {
+  color: black;
+}
+div {
+	overflow: hidden;
+	transition: height 1s ease-out;
+}
+form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+textarea, button {
+	font: var(--font-running);
+	padding: .5em;
+	filter: hue-rotate(180deg);
+	background: var(--background-colour);
+	color: var(--foreground-colour);
+	width: 100%;
+	box-sizing: border-box;
+	border: none;
+	font-size: .5em;
+	margin-bottom: var(--margin-unit);
+}
+textarea {
+	min-height: 5em;
+	resize: vertical;
+	transition: filter .3s;
+}
+textarea[disabled] {
+	filter: hue-rotate(0deg);
+}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header>
+				Make a suggestion
+			</header>
+			<div>
+				<form>
+					<p>
+						<a href="https://github.com/omrilotan/doowat/issues/new/choose" class="link" rel="noreferrer noopener" target="_blank">Suggest an activity on Github</a> - become a contributor 🤩.
+					</p>
+					<p>Alternatively, send a suggestion using this testbox. 🧐 Activities should require no preparations.</p>
+					<textarea placeholder="Think of activity suggestions for doowat together"></textarea>
+					<button>Submit</button>
+					<p>
+						<a href="/en/dictionary" class="link">Review existing activities</a>
+					</p>
+				</form>
+			</div>
+			<a name="draw" href="/en/" class="play font-face">do</a>
+			<a class="about" href="/en/about/"><img src="/zany.svg"></a>
+		</main>
+		<script src="/scripts.js"></script>
+		<script>
+const patch = [
+	'T9Y79PHFF',
+	'BR8C1U9FH',
+	'xcLq7eXtb9ndt6ai34JRQ8K8'
+];
+
+document.forms[0].addEventListener(
+	'submit',
+	function sendForm(event) {
+		event.preventDefault();
+		const [{ value }] = event.target;
+		if (!value) { return; }
+		send(value).then(thanks);
+	}
+);
+
+const send = text => fetch('https://hooks.slack.com/services/' + patch.join('/'), {
+	method: 'POST',
+	body: JSON.stringify({ text })
+});
+
+function thanks() {
+	const div = document.querySelector('div');
+	div.style.height = div.offsetHeight + 'px';
+	setTimeout(() => { div.style.height = '0px'; }, 200);
+	const header = document.querySelector('header')
+	while (header.firstChild) {
+		header.removeChild(header.firstChild);
+	}
+
+	header.appendChild(document.createTextNode('Thanks'));
+}
+		</script>
+	</body>
+</html>
