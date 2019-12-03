@@ -54,43 +54,52 @@
 
 	self.addEventListener(
 		'fetch',
-		event => event.respondWith(
-			caches.match(event.request).then(
-				response => {
-					if (response) {
-						if (navigator.onLine) {
+		function(event) {
+			const { request } = event;
 
-							// Refresh (async)
-							fetch(event.request).then(
-								response => {
+			if (request.method.toUpperCase() !== 'GET') {
+				event.respondWith(fetch(request));
+				return;
+			}
+
+			event.respondWith(
+				caches.match(request).then(
+					response => {
+						if (response) {
+							if (navigator.onLine) {
+
+								// Refresh (async)
+								fetch(request).then(
+									response => {
+										response.ok && caches.open(cacheKey).then(
+											cache => cache.put(request, response.clone())
+										);
+									}
+								);
+							}
+
+							return response;
+						} else {
+							if (!navigator.onLine && isPage(request.url)) {
+								return fetch(new Request('/offline/'));
+							}
+
+							return fetch(request).then(
+								function(response) {
+									const clone = response.clone();
+
+									// Refresh (async)
 									response.ok && caches.open(cacheKey).then(
-										cache => cache.put(event.request, response.clone())
+										cache => cache.put(request, clone)
 									);
+									return response;
 								}
 							);
 						}
-
-						return response;
-					} else {
-						if (!navigator.onLine && isPage(event.request.url)) {
-							return fetch(new Request('/offline/'));
-						}
-
-						return fetch(event.request).then(
-							function(response) {
-								const clone = response.clone();
-
-								// Refresh (async)
-								response.ok && caches.open(cacheKey).then(
-									cache => cache.put(event.request, clone)
-								);
-								return response;
-							}
-						);
 					}
-				}
+				)
 			)
-		)
+		}
 	);
 
 	function isPage(url) {
