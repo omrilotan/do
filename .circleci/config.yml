@@ -20,7 +20,7 @@ jobs:
               git config --global user.name $(git show -s --format=%an)
               git commit -am "😎 Autofix"
               git push -u origin ${CIRCLE_BRANCH}
-              circleci step halt
+              exit 1
             fi
       - run: npm t
       - persist_to_workspace:
