@@ -1,6 +1,6 @@
 ---
 name: General issue or suggestion
-about: Of you can't find a suitable template - use this
+about: If you can't find a suitable template - use this one
 assignees: omrilotan
 ---
 
