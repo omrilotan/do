@@ -121,6 +121,7 @@ mark, .play {
 	position: fixed;
 	bottom: var(--margin-unit);
 	height: 1em;
+	line-height: 1em;
 }
 .about {
 	right: var(--margin-unit);

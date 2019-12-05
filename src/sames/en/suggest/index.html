@@ -6,9 +6,6 @@
 		<meta name="googlebot" content="noindex">
 		<meta name="description" content="{{ name }} - Suggest an activity">
 		<style>
-::placeholder {
-  color: black;
-}
 div {
 	overflow: hidden;
 	transition: height 1s ease-out;
@@ -21,22 +18,32 @@ form {
 textarea, button {
 	font: var(--font-running);
 	padding: .5em;
-	filter: hue-rotate(180deg);
-	background: var(--background-colour);
-	color: var(--foreground-colour);
 	width: 100%;
 	box-sizing: border-box;
 	border: none;
 	font-size: .5em;
+	transition: filter .3s;
+}
+button {
+	background: var(--background-colour);
+	color: var(--foreground-colour);
+	border: 1px solid var(--foreground-colour);
 	margin-bottom: var(--margin-unit);
 }
 textarea {
+	background: var(--foreground-colour);
+	color: var(--foreground-colour-opposite);
 	min-height: 5em;
 	resize: vertical;
-	transition: filter .3s;
 }
-textarea[disabled] {
-	filter: hue-rotate(0deg);
+::placeholder {
+  color: var(--background-colour);
+}
+form[disabled] textarea {
+	filter: brightness(.62);
+}
+form[disabled] button {
+	filter: grayscale(100%);
 }
 		</style>
 	</head>
@@ -48,11 +55,11 @@ textarea[disabled] {
 			<div>
 				<form>
 					<p>
-						<a href="https://github.com/omrilotan/doowat/issues/new/choose" class="link" rel="noreferrer noopener" target="_blank">Suggest an activity on Github</a> - become a contributor 🤩.
+						If you have a Github account - <a href="https://github.com/omrilotan/doowat/issues/new/choose" class="link" rel="noreferrer noopener" target="_blank">that's a great way to contribute</a>.
 					</p>
-					<p>Alternatively, send a suggestion using this testbox. 🧐 Activities should require no preparations.</p>
+					<p>Otherwise - send a suggestion here.</p>
 					<textarea placeholder="Think of activity suggestions for doowat together"></textarea>
-					<button>Submit</button>
+					<button>Send</button>
 					<p>
 						<a href="/en/dictionary" class="link">Review existing activities</a>
 					</p>
@@ -61,40 +68,57 @@ textarea[disabled] {
 			<a name="draw" href="/en/" class="play font-face">do</a>
 			<a class="about" href="/en/about/"><img src="/zany.svg"></a>
 		</main>
+		<template>
+			<header>Thanks</header>
+			<p>
+				<a href="https://github.com/omrilotan/doowat" class="link" rel="noreferrer noopener" target="_blank">Follow this project's progress</a>
+			</p>
+		</template>
 		<script src="/scripts.js"></script>
 		<script>
-const patch = [
-	'T9Y79PHFF',
-	'BR8C1U9FH',
-	'xcLq7eXtb9ndt6ai34JRQ8K8'
-];
+(function() {
+	const patch = [
+		'https://hooks.slack.com',
+		'services',
+		'T9Y79PHFF',
+		'BR8C1U9FH',
+		'xcLq7eXtb9ndt6ai34JRQ8K8'
+	];
 
-document.forms[0].addEventListener(
-	'submit',
-	function sendForm(event) {
-		event.preventDefault();
-		const [{ value }] = event.target;
-		if (!value) { return; }
-		send(value).then(thanks);
+	const [ form ] = document.forms;
+
+	form.addEventListener(
+		'submit',
+		function sendForm(event) {
+			event.preventDefault();
+			const { target } = event;
+			if (target.hasAttribute('disabled')) {
+				return;
+			}
+
+			const [ textarea ] = target;
+			const { value } = textarea;
+			if (!value) { return textarea.focus(); }
+			[target, textarea].forEach(e => e.setAttribute('disabled', 'disabled'));
+			send(value).then(thanks).catch(
+				(error) => [target, textarea].forEach(e => e.removeAttribute('disabled'))
+			);
+		}
+	);
+
+	const send = text => fetch(patch.join('/'), {
+		method: 'POST',
+		body: JSON.stringify({ text })
+	});
+
+	function thanks() {
+		const div = document.querySelector('div');
+		div.style.height = div.offsetHeight + 'px';
+		setTimeout(() => { div.style.height = '0px'; }, 200);
+		const header = document.querySelector('header');
+		header.parentNode.replaceChild(document.querySelector('template').content, header)
 	}
-);
-
-const send = text => fetch('https://hooks.slack.com/services/' + patch.join('/'), {
-	method: 'POST',
-	body: JSON.stringify({ text })
-});
-
-function thanks() {
-	const div = document.querySelector('div');
-	div.style.height = div.offsetHeight + 'px';
-	setTimeout(() => { div.style.height = '0px'; }, 200);
-	const header = document.querySelector('header')
-	while (header.firstChild) {
-		header.removeChild(header.firstChild);
-	}
-
-	header.appendChild(document.createTextNode('Thanks'));
-}
+})();
 		</script>
 	</body>
 </html>
