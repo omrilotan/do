@@ -30,6 +30,7 @@
     "mocha": "^6.2.2",
     "paraphrase": "^1.7.3",
     "rimraf": "^3.0.0",
-    "rollup": "^1.27.6"
+    "rollup": "^1.27.6",
+    "stringerprint": "0.0.0"
   }
 }
