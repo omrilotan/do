@@ -1,0 +1,42 @@
+repository:
+  name: doowat
+  description: 😜 On the go activities for you and your child that require no preparations
+  homepage: https://doowat.net
+  topics: pwa, progressive-web-app, activities, on-the-go, parenting
+  private: false
+  has_issues: true
+  has_projects: false
+  has_wiki: false
+  has_downloads: false
+  default_branch: master
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: false
+labels:
+  - name: activity
+    color: 5E349E
+    description: A fun activity
+  - name: bug
+    color: D73A4A
+    description: Something isn't working correctly
+  - name: documentation
+    color: 0075CA
+    description: Improvements or additions to documentation
+  - name: duplicate
+    color: CFD3D7
+    description: This issue or pull request already exists
+  - name: feature request
+    color: 0E8A16
+    description: New feature or request a missing ability
+  - name: good first issue
+    color: 7057FF
+    description: Good for newcomers
+  - name: help wanted
+    color: 008672
+    description: Any help is welcome
+  - name: question
+    color: D876E3
+    description: Further information is requested
+  - name: wontfix
+    color: FFFFFF
+    description: This will not be worked on
