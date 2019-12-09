@@ -6,11 +6,14 @@
 	const cacheKey = `cache-key-${version}`;
 
 	const CACHED_FILES = [
-		'/index.html',
-		'/en/about/index.html',
+		'/',
+		'/en/about/',
+		'/en/suggest/',
+		'/en/dictionary/',
 		'/scripts.js',
 		'/styles.css',
 		'/favicon.ico',
+		'/share.svg',
 		'/zany.svg'
 	];
 
