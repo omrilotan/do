@@ -1,6 +1,4 @@
 (function () {
-	'use strict';
-
 	var random = items => items[Math.floor(Math.random() * items.length)];
 
 	function randomDo(list) {
@@ -36,7 +34,8 @@
 		setTimeout(() => dialog.classList.remove('show'), 20000);
 	}
 
-	const rand = () => Math.random().toString('36').substr(5);
+	var randomString = () => Math.random().toString('36').substr(5);
+
 	let updated = false;
 
 	async function registerServiceWorker() {
@@ -75,7 +74,7 @@
 
 		return metaCache
 			? metaCache.getAttribute('content')
-			: rand()
+			: randomString()
 		;
 	}
 
