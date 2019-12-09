@@ -1,6 +1,6 @@
 import toast from '../toast/index.js';
+import randomString from '../random-string/index.js';
 
-const rand = () => Math.random().toString('36').substr(5);
 let updated = false;
 
 export default async function registerServiceWorker() {
@@ -39,6 +39,6 @@ function cacheKey() {
 
 	return metaCache
 		? metaCache.getAttribute('content')
-		: rand()
+		: randomString()
 	;
 }
