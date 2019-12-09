@@ -7,7 +7,6 @@
 	--selection-background: #fff;
 	--selection-colour: #000;
 	--font-running: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
-	--radius-unit: .5em;
 }
 @media screen and (min-aspect-ratio: 13/9) {
 	/* orientation:landscape */
