@@ -7,7 +7,20 @@
 	--selection-background: #fff;
 	--selection-colour: #000;
 	--font-running: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
-	--margin-unit: 5vw;
+}
+@media screen and (min-aspect-ratio: 13/9) {
+	/* orientation:landscape */
+	:root {
+		--font-size: 10vh;
+		--margin-unit: 5vh;
+	}
+}
+@media screen and (max-aspect-ratio: 13/9) {
+	/* orientation:portrait */
+	:root {
+		--font-size: 10vw;
+		--margin-unit: 5vw;
+	}
 }
 ::selection {
 	background: var(--selection-background);
@@ -44,19 +57,10 @@ html {
 body {
 	min-height: 100%;
 	font: var(--font-running);
+	font-size: var(--font-size);
 	color: var(--foreground-colour);
 	background: var(--background-colour);
 	display: grid;
-}
-@media(orientation:landscape) {
-	body {
-		font-size: 10vh;
-	}
-}
-@media(orientation:portrait) {
-	body {
-		font-size: 10vw;
-	}
 }
 main, article {
 	display: flex;

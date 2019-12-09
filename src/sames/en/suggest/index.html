@@ -6,7 +6,12 @@
 		<meta name="googlebot" content="noindex">
 		<meta name="description" content="{{ name }} - Suggest an activity">
 		<style>
+header {
+	width: 100%;
+	text-align: center;
+}
 div {
+	width: 100%;
 	overflow: hidden;
 	transition: height 1s ease-out;
 }
@@ -29,12 +34,14 @@ button {
 	color: var(--foreground-colour);
 	border: 1px solid var(--foreground-colour);
 	margin-bottom: var(--margin-unit);
+	border-radius: 0 0 .5em .5em;
 }
 textarea {
 	background: var(--foreground-colour);
 	color: var(--foreground-colour-opposite);
 	min-height: 5em;
 	resize: vertical;
+	border-radius: .5em .5em 0 0;
 }
 ::placeholder {
   color: var(--background-colour);
@@ -51,14 +58,13 @@ form[disabled] button {
 		<main>
 			<header>
 				Make a suggestion
+				<p>
+					<a href="https://github.com/omrilotan/doowat/issues/new/choose" class="link" rel="noreferrer noopener" target="_blank">Contribute directly</a> or suggest here:
+				</p>
 			</header>
 			<div>
 				<form>
-					<p>
-						If you have a Github account - <a href="https://github.com/omrilotan/doowat/issues/new/choose" class="link" rel="noreferrer noopener" target="_blank">that's a great way to contribute</a>.
-					</p>
-					<p>Otherwise - send a suggestion here.</p>
-					<textarea placeholder="Think of activity suggestions for doowat together"></textarea>
+					<textarea placeholder="Think of activity suggestions together"></textarea>
 					<button>Send</button>
 					<p>
 						<a href="/en/dictionary" class="link">Review existing activities</a>
@@ -69,10 +75,12 @@ form[disabled] button {
 			<a class="about" href="/en/about/"><img src="/zany.svg"></a>
 		</main>
 		<template>
-			<header>Thanks</header>
-			<p>
-				<a href="https://github.com/omrilotan/doowat" class="link" rel="noreferrer noopener" target="_blank">Follow this project's progress</a>
-			</p>
+			<header>
+				Thanks
+				<p>
+					<a href="https://github.com/omrilotan/doowat" class="link" rel="noreferrer noopener" target="_blank">Follow this project's progress</a>
+				</p>
+			</header>
 		</template>
 		<script src="/scripts.js"></script>
 		<script>
