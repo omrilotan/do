@@ -4,30 +4,38 @@
 	if (!version) { return; }
 
 	const cacheKey = `cache-key-${version}`;
+	const _root = location.hostname.includes('doowat.net')
+		? 'https://doowat.net/'
+		: '/'
+	;
+	const base = str => _root + str;
 
 	const CACHED_FILES = [
-		'/',
-		'/en/about/',
-		'/en/suggest/',
-		'/en/dictionary/',
-		'/scripts.js',
-		'/styles.css',
-		'/favicon.ico',
-		'/share.svg',
-		'/zany.svg'
-	];
+		'',
+		'en/about/',
+		'en/suggest/',
+		'en/dictionary/',
+		'offline/',
+		'scripts.js',
+		'styles.css',
+		'favicon.ico',
+		'share.svg',
+		'zany.svg'
+	].map(
+		url => base(url)
+	);
 
 	self.addEventListener(
 		'install',
 		event => event.waitUntil(
 			caches.open(cacheKey).then(
 				cache => {
-					fetch('/en/list.json').then(
+					fetch(base('en/list.json')).then(
 						response => response.ok && response.json()
 					).then(
 						list => {
 							const files = list.map(
-								id => `/en/${id}/`
+								id => base(`en/${id}/`)
 							).concat(
 								CACHED_FILES
 							);
@@ -84,7 +92,7 @@
 							return response;
 						} else {
 							if (!navigator.onLine && isPage(request.url)) {
-								return fetch(new Request('/offline/'));
+								return fetch(new Request(base('offline/')));
 							}
 
 							return fetch(request).then(
