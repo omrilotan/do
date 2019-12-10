@@ -17,8 +17,8 @@
 		'en/dictionary/',
 		'offline/',
 		'scripts.js',
-		'/scripts/index.js',
-		'/scripts/suggest.js',
+		'scripts/index.js',
+		'scripts/suggest.js',
 		'styles.css',
 		'styles/dictionary.css',
 		'styles/suggest.css',
@@ -44,10 +44,10 @@
 								CACHED_FILES
 							);
 
-							cache.addAll(files);
+							cache.addAll(files).catch(error => err(error, files.join(', ')));
 						}
 					).catch(
-						console.error
+						error => console.error(error, base('en/list.json'))
 					);
 				}
 			)
@@ -73,7 +73,9 @@
 			const { request } = event;
 
 			if (request.method.toUpperCase() !== 'GET') {
-				event.respondWith(fetch(request));
+				event.respondWith(
+					fetch(request).catch(error => err(error, request.url))
+				);
 				return;
 			}
 
@@ -90,13 +92,15 @@
 											cache => cache.put(request, response.clone())
 										);
 									}
-								);
+								).catch(error => err(error, request.url));
 							}
 
 							return response;
 						} else {
 							if (!navigator.onLine && isPage(request.url)) {
-								return fetch(new Request(base('offline/')));
+								return fetch(
+									new Request(base('offline/'))
+								).catch(error => err(error, 'offline/'));
 							}
 
 							return fetch(request).then(
@@ -109,7 +113,7 @@
 									);
 									return response;
 								}
-							);
+							).catch(error => err(error, request.url));
 						}
 					}
 				)
@@ -121,5 +125,10 @@
 		const ext = url.replace(/\?.*/, '').split('.').pop();
 
 		return ext === 'html' || !/^\w*$/.test(ext);
+	}
+
+	function err(error, message) {
+		error.message = [error.message, message].join(' ');
+		setTimeout(() => { throw error; });
 	}
 })();
