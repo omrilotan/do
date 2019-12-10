@@ -1,0 +1,10 @@
+.cards a {
+	display: block;
+	font-size: .7em;
+	margin-bottom: var(--margin-unit);
+	padding: .5em .75em .75em;
+	border: 1px solid var(--foreground-colour);
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: .5em;
+}
