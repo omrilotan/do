@@ -64,6 +64,7 @@ body {
 }
 main, article {
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	padding: var(--margin-unit);
@@ -71,12 +72,6 @@ main, article {
 header {
 	font-size: 1em;
 	margin-bottom: var(--margin-unit);
-}
-main {
-	justify-content: center;
-}
-article {
-	justify-content: space-around;
 }
 h1 {
 	width: 90%;
