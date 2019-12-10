@@ -4,19 +4,11 @@
 		{{ meta }}
 		<meta name="robots" content="noindex">
 		<meta name="googlebot" content="noindex">
-		<style>
-img { width: 50vw; }
-@media(orientation:landscape) { img { width: 50vh; } }
-		</style>
 	</head>
 	<body>
 		<main>
-			<img src="../zany.svg">
+			<img src="/zany.svg">
 		</main>
-		<script>
-			const random = items => items[Math.floor(Math.random() * items.length)];
-			const keys = {{ keys }};
-			window.location.href=`/en/${random(keys)}/`;
-		</script>
+		<script src="/scripts/index.js"></script>
 	</body>
 </html>

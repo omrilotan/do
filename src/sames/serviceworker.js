@@ -17,7 +17,11 @@
 		'en/dictionary/',
 		'offline/',
 		'scripts.js',
+		'/scripts/index.js',
+		'/scripts/suggest.js',
 		'styles.css',
+		'styles/dictionary.css',
+		'styles/suggest.css',
 		'favicon.ico',
 		'share.svg',
 		'zany.svg'
