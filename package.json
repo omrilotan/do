@@ -28,9 +28,9 @@
     "eslint-plugin-log": "^1.2.3",
     "mime-types": "^2.1.25",
     "mocha": "^6.2.2",
-    "paraphrase": "^1.7.3",
+    "paraphrase": "^1.8.0",
     "rimraf": "^3.0.0",
-    "rollup": "^1.27.6",
+    "rollup": "^1.27.13",
     "stringerprint": "0.0.0"
   }
 }
