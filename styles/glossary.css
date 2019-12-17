@@ -1,3 +1,6 @@
+.cards {
+	width: 100%;
+}
 .cards a {
 	display: block;
 	font-size: .7em;
@@ -35,6 +38,6 @@ input[type="search"]:focus {
   top: 0;
   border: var(--margin-unit) var(--background-colour) solid;
   border-radius: 3px;
-  width: 90vw;
+  width: calc(100vw - var(--margin-unit) - var(--margin-unit));
   box-shadow: 0 1px .5em rgba(0, 0, 0, .3);
 }
