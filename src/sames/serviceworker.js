@@ -19,6 +19,7 @@
 		'scripts.js',
 		'scripts/index.js',
 		'scripts/suggest.js',
+		'scripts/glossary.js',
 		'styles.css',
 		'styles/glossary.css',
 		'styles/suggest.css',
