@@ -32,6 +32,7 @@
 
 			search.addEventListener('keyup', searchChange);
 			search.addEventListener('change', searchChange);
+			search.addEventListener('search', searchChange);
 
 			document.body.appendChild(search);
 		}
