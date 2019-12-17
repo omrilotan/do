@@ -16,6 +16,8 @@
 			);
 
 			function searchChange({ target: { value } }) {
+				const pattern = new RegExp(value, 'i');
+
 				[].forEach.call(
 					cards,
 					function resizeCard(card) {
@@ -26,6 +28,7 @@
 							? card.getAttribute('h') + 'px'
 							: '0px'
 						;
+						card.innerHTML = card.innerText.replace(pattern, match => `<mark>${match}</mark>`);
 					}
 				);
 			}
