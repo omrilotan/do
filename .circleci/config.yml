@@ -2,6 +2,13 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/slim-base
+      - image: circleci/python
     steps:
-      - run: echo "No automation on this branch"
+      - run:
+          name: CloufFlare - Purge everything
+          command: |
+            curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CF_ZONE}/purge_cache" \
+             -H "X-Auth-Email: ${CF_EMAIL}" \
+             -H "X-Auth-Key: ${CF_API_KEY}" \
+             -H "Content-Type: application/json" \
+             --data '{"purge_everything":true}'
