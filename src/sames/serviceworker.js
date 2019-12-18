@@ -135,8 +135,8 @@
 		'activate',
 		event => event.waitUntil(
 			clearCache()
-			.then(() => clients.claim())
-			.then(() => self.skipWaiting())
+				.then(() => clients.claim())
+				.then(() => self.skipWaiting())
 		)
 	);
 
