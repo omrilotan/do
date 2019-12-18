@@ -8,14 +8,15 @@
 	--selection-colour: #000;
 	--font-running: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
 }
-@media screen and (min-aspect-ratio: 13/9) {
+
+@media screen and (min-aspect-ratio: 13/9), (min-device-aspect-ratio: 13/9) {
 	/* orientation:landscape */
 	:root {
 		--font-size: 10vh;
 		--margin-unit: 5vh;
 	}
 }
-@media screen and (max-aspect-ratio: 13/9) {
+@media screen and (max-aspect-ratio: 13/9), (max-device-aspect-ratio: 13/9) {
 	/* orientation:portrait */
 	:root {
 		--font-size: 10vw;
