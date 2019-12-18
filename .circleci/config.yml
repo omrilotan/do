@@ -55,18 +55,7 @@ jobs:
               git add .
               git commit -m "$(curl -s whatthecommit.com/index.txt)"
               git push origin gh-pages --force-with-lease
-            else
-              circleci step halt
             fi
-            cd -
-      - run:
-          name: CloufFlare - Purge everything
-          command: |
-            curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CF_ZONE}/purge_cache" \
-             -H "X-Auth-Email: ${CF_EMAIL}" \
-             -H "X-Auth-Key: ${CF_API_KEY}" \
-             -H "Content-Type: application/json" \
-             --data '{"purge_everything":true}'
 workflows:
   version: 2.1
   integration:
