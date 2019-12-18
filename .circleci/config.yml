@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
@@ -12,3 +12,13 @@ jobs:
              -H "X-Auth-Key: ${CF_API_KEY}" \
              -H "Content-Type: application/json" \
              --data '{"purge_everything":true}'
+workflows:
+  version: 2
+  release:
+    jobs:
+      - build:
+          context: globalenv
+          filters:
+            branches:
+              only:
+                - gh-pages
