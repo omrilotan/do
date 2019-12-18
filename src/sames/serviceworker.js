@@ -46,7 +46,9 @@
 								CACHED_FILES
 							);
 
-							cache.addAll(files).catch(error => err(error, files.join(', ')));
+							cache.addAll(files).catch(
+								error => err(error, files.join(', '))
+							);
 						}
 					).catch(
 						error => console.error(error, base('en/list.json'))
