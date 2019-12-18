@@ -3,7 +3,8 @@
 
 	if (!version) { return; }
 
-	const cacheKey = `cache-key-${version}`;
+	const CACHE_KEY_PREFIX = 'dw-cache-key';
+	const cacheKey = [CACHE_KEY_PREFIX, version].join('-');
 	const _root = location.hostname.includes('doowat.net')
 		? 'https://doowat.net/'
 		: '/'
@@ -75,7 +76,9 @@
 
 			if (request.method.toUpperCase() !== 'GET') {
 				event.respondWith(
-					fetch(request).catch(error => err(error, request.url))
+					fetch(request).catch(
+						error => err(error, request.url)
+					)
 				);
 				return;
 			}
@@ -93,7 +96,9 @@
 											cache => cache.put(request, response.clone())
 										);
 									}
-								).catch(error => err(error, request.url));
+								).catch(
+									error => err(error, request.url)
+								);
 							}
 
 							return response;
@@ -101,7 +106,9 @@
 							if (!navigator.onLine && isPage(request.url)) {
 								return fetch(
 									new Request(base('offline/'))
-								).catch(error => err(error, 'offline/'));
+								).catch(
+									error => err(error, 'offline/')
+								);
 							}
 
 							return fetch(request).then(
@@ -114,7 +121,9 @@
 									);
 									return response;
 								}
-							).catch(error => err(error, request.url));
+							).catch(
+								error => err(error, request.url)
+							);
 						}
 					}
 				)
@@ -122,10 +131,31 @@
 		}
 	);
 
+	self.addEventListener(
+		'activate',
+		event => event.waitUntil(
+			clearCache()
+				.then(() => clients.claim())
+				.then(() => self.skipWaiting())
+		)
+	);
+
 	function isPage(url) {
 		const ext = url.replace(/\?.*/, '').split('.').pop();
 
 		return ext === 'html' || !/^\w*$/.test(ext);
+	}
+
+	async function clearCache() {
+		const keys = await caches.keys();
+
+		keys.filter(
+			key => key.startsWith(CACHE_KEY_PREFIX)
+		).filter(
+			key => key !== cacheKey
+		).forEach(
+			key => caches.delete(key)
+		);
 	}
 
 	function err(error, message) {
