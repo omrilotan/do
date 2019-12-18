@@ -33,6 +33,8 @@ input[type="search"] {
   text-indent: .5em;
 	transition: all .3s;
 }
+input[type="search"]::-webkit-search-cancel-button { display: none; }
+input[type="search"]:focus::-webkit-search-cancel-button { display: block; }
 input[type="search"]:focus {
   right: 0;
   top: 0;
