@@ -38,6 +38,6 @@
 		div.style.height = div.offsetHeight + 'px';
 		setTimeout(() => { div.style.height = '0px'; }, 200);
 		const header = document.querySelector('header');
-		header.parentNode.replaceChild(document.querySelector('template').content, header);
+		header.parentNode.replaceChild(document.querySelector('template[name="thanks"]').content, header);
 	}
 })();
