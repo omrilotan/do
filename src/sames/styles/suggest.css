@@ -12,7 +12,7 @@ form {
 	display: flex;
 	flex-direction: column;
 }
-textarea, button {
+form textarea, form button {
 	font: var(--font-running);
 	padding: .5em;
 	width: 100%;
@@ -21,14 +21,14 @@ textarea, button {
 	font-size: .5em;
 	transition: filter .3s;
 }
-button {
+form button {
 	background: var(--background-colour);
 	color: var(--foreground-colour);
 	border: 1px solid var(--foreground-colour);
 	margin-bottom: var(--margin-unit);
 	border-radius: 0 0 .5em .5em;
 }
-textarea {
+form textarea {
 	background: var(--foreground-colour);
 	color: var(--foreground-colour-opposite);
 	min-height: 5em;
