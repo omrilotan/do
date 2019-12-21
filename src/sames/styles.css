@@ -138,18 +138,21 @@ mark, .play {
 	border: 0;
 	background: none;
 }
-
 .hamburger i,
 .hamburger i:before,
 .hamburger i:after {
 	display: block;
-	background: var(--foreground-colour-opposite);
+	background: var(--foreground-colour);
 	border: 0;
 	width: 2em;
 	height: 3px;
 	border-radius: 1px;
-
-	transition: transform .275s cubic-bezier(.68,-.55,.265,1.55);
+	transition: transform .275s cubic-bezier(.68,-.55,.265,1.55), background .14s linear;
+}
+.navopen .hamburger i,
+.navopen .hamburger i:before,
+.navopen .hamburger i:after {
+	background: var(--background-colour);
 }
 .hamburger i:before,
 .hamburger i:after {
@@ -171,7 +174,7 @@ nav {
 	left: 0;
 	color: var(--background-colour);
 	background: var(--foreground-colour);
-	padding: 2em .5em;
+	padding: 2em .5em .5em;
 	box-sizing: border-box;
 	overflow: auto;
 }
