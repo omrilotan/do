@@ -1,4 +1,5 @@
 let link;
+let deferred;
 
 export default function beforeinstall(container) {
 	window.addEventListener(
