@@ -70,7 +70,7 @@ main, article {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	padding: 2em var(--margin-unit);
+	padding: 2em var(--margin-unit) var(--margin-unit);
 }
 header {
 	font-size: 1em;
