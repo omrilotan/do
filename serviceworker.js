@@ -1,12 +1,18 @@
 (function() {
-	const version = new URL(location).searchParams.get('ck');
-
-	if (!version) { return; }
+	let version;
+	let cacheKey;
 
 	const CACHE_KEY_PREFIX = 'dw-cache-key';
-	const cacheKey = [CACHE_KEY_PREFIX, version].join('-');
-	const _root = location.origin + '/' || '/';
-	const base = str => _root + str;
+	updateCacheKey(new URL(location).searchParams.get('ck'));
+
+	const _root = location.origin || '';
+	const base = str => _root + '/' + str;
+
+	function updateCacheKey(value = '1') {
+		version = value;
+		cacheKey = [CACHE_KEY_PREFIX, version].join('-');
+		clearOldCache();
+	}
 
 	const CACHED_FILES = [
 		'',
@@ -26,6 +32,13 @@
 		'zany.svg'
 	].map(
 		url => base(url)
+	);
+
+	const actions = { updateCacheKey };
+
+	self.addEventListener(
+		'message',
+		({ data: { action, value } = {} } = {}) => actions[action] && actions[action](value)
 	);
 
 	self.addEventListener(
@@ -54,6 +67,16 @@
 			)
 		)
 	);
+
+	async function clearOldCache() {
+		const keys = await caches.keys();
+
+		keys.filter(
+			key => key !== cacheKey
+		).forEach(
+			key => caches.delete(key)
+		);
+	}
 
 	self.addEventListener(
 		'activate',
@@ -133,7 +156,7 @@
 	self.addEventListener(
 		'activate',
 		event => event.waitUntil(
-			clearCache()
+			clearOldCache()
 				.then(() => clients.claim())
 				.then(() => self.skipWaiting())
 		)
@@ -143,18 +166,6 @@
 		const ext = url.replace(/\?.*/, '').split('.').pop();
 
 		return ext === 'html' || !/^\w*$/.test(ext);
-	}
-
-	async function clearCache() {
-		const keys = await caches.keys();
-
-		keys.filter(
-			key => key.startsWith(CACHE_KEY_PREFIX)
-		).filter(
-			key => key !== cacheKey
-		).forEach(
-			key => caches.delete(key)
-		);
 	}
 
 	function err(error, message) {
