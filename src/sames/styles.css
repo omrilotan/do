@@ -72,6 +72,12 @@ main, article {
 	flex-direction: column;
 	padding: 2em var(--margin-unit) var(--margin-unit);
 }
+main {
+	padding: var(--margin-unit);
+}
+article {
+	padding: 2em var(--margin-unit) var(--margin-unit);
+}
 header {
 	font-size: 1em;
 	margin-bottom: var(--margin-unit);
@@ -174,7 +180,7 @@ nav {
 	left: 0;
 	color: var(--background-colour);
 	background: var(--foreground-colour);
-	padding: 2em .5em .5em;
+	padding: 2em 0 .5em;
 	box-sizing: border-box;
 	overflow: auto;
 }
@@ -184,7 +190,8 @@ nav {
 nav a {
 	color: inherit;
 	display: block;
-	margin: 0 0 .5em;
+	padding: .25em var(--margin-unit);
+	font-size: .75em;
 }
 
 .center {

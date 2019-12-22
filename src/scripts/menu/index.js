@@ -1,5 +1,6 @@
-import share from '../share/index.js';
 import beforeinstall from '../beforeinstall/index.js';
+import share from '../share/index.js';
+import slider from '../slider/index.js';
 
 export default function() {
 	const template =  document.querySelector('template[name="nav"]');
@@ -36,4 +37,6 @@ export default function() {
 			document.body.classList.remove('navopen');
 		}
 	);
+
+	slider();
 }
