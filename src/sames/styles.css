@@ -14,6 +14,7 @@
 	:root {
 		--font-size: 10vh;
 		--margin-unit: 5vh;
+		--margin-unit-half: 2.5vh;
 	}
 }
 @media screen and (max-aspect-ratio: 13/9), (max-device-aspect-ratio: 13/9) {
@@ -21,6 +22,7 @@
 	:root {
 		--font-size: 10vw;
 		--margin-unit: 5vw;
+		--margin-unit-half: 2.5vw;
 	}
 }
 ::selection {
@@ -68,7 +70,13 @@ main, article {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	padding: 2em var(--margin-unit) var(--margin-unit);
+}
+main {
 	padding: var(--margin-unit);
+}
+article {
+	padding: 2em var(--margin-unit) var(--margin-unit);
 }
 header {
 	font-size: 1em;
@@ -120,19 +128,72 @@ mark, .play {
 	transform: translate(.05em, .1em);
 	box-shadow: inset .1em .2em rgba(0, 0, 0, .3);
 }
-.about, .share {
+
+.hamburger {
 	position: fixed;
-	bottom: var(--margin-unit);
-	height: 1em;
-	line-height: 1em;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	padding: var(--margin-unit);
+	box-sizing: content-box;
+	width: 2em;
+  height: 2em;
+  display: flex;
+  flex-direction: column;
+	justify-content: start;
+	border: 0;
+	background: none;
 }
-.about {
-	right: var(--margin-unit);
+.hamburger i,
+.hamburger i:before,
+.hamburger i:after {
+	display: block;
+	background: var(--foreground-colour);
+	border: 0;
+	width: 2em;
+	height: 3px;
+	border-radius: 1px;
+	transition: transform .275s cubic-bezier(.68,-.55,.265,1.55), background .14s linear;
 }
-.share {
-	left: var(--margin-unit);
-	cursor: pointer;
+.navopen .hamburger i,
+.navopen .hamburger i:before,
+.navopen .hamburger i:after {
+	background: var(--background-colour);
 }
+.hamburger i:before,
+.hamburger i:after {
+	content: ' ';
+}
+.hamburger i:before { transform: translate(0, 7px) }
+.hamburger i:after  { transform: translate(0, 11px) }
+
+.navopen .hamburger i:before { transform: translate(0, 0) }
+.navopen .hamburger i { transform: rotate(45deg) translate(.5em, .5em) }
+.navopen .hamburger i:after  { transform: rotate(90deg) translate(-3px, 0) }
+
+nav {
+	transition: transform .14s ease-out;
+	transform: translate(-100%, 0);
+	height: 100%;
+	position: fixed;
+	z-index: 0;
+	left: 0;
+	color: var(--background-colour);
+	background: var(--foreground-colour);
+	padding: 2em 0 .5em;
+	box-sizing: border-box;
+	overflow: auto;
+}
+.navopen nav {
+	transform: translate(0, 0);
+}
+nav a {
+	color: inherit;
+	display: block;
+	padding: .25em var(--margin-unit);
+	font-size: .75em;
+}
+
 .center {
 	text-align: center;
 }

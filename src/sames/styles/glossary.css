@@ -20,8 +20,9 @@
 }
 input[type="search"] {
   position: fixed;
-  right: var(--margin-unit);
-  top: var(--margin-unit);
+  z-index: 20;
+  right: var(--margin-unit-half);
+  top: var(--margin-unit-half);
   border: 0 var(--background-colour) solid;
   border-radius: 1em;
   box-sizing: content-box;

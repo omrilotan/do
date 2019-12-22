@@ -19,19 +19,25 @@ export default async function registerServiceWorker() {
 window.addEventListener('beforeunload', function() { updated = true; });
 
 function listenToUpdates(registration) {
-	registration.onupdatefound = function updatefound() {
-		if (updated) { return; }
-		updated = true;
+	registration.addEventListener(
+		'updatefound',
+		function updatefound() {
+			if (updated) { return; }
+			updated = true;
 
-		window.registration = registration;
-		const { installing } = registration;
+			window.registration = registration;
+			const { installing } = registration;
 
-		installing.onstatechange = function statechanged() {
-			installing.state === 'installed'
-				&& navigator.serviceWorker.controller
-				&& toast();
-		};
-	};
+			newSW.addEventListener(
+				'statechange'
+				function statechanged() {
+					installing.state === 'installed'
+						&& navigator.serviceWorker.controller
+						&& toast();
+				}
+			);
+		}
+	);
 }
 
 function cacheKey() {
