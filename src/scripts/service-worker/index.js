@@ -25,11 +25,10 @@ function listenToUpdates(registration) {
 			if (updated) { return; }
 			updated = true;
 
-			window.registration = registration;
 			const { installing } = registration;
 
-			newSW.addEventListener(
-				'statechange'
+			installing.addEventListener(
+				'statechange',
 				function statechanged() {
 					installing.state === 'installed'
 						&& navigator.serviceWorker.controller
