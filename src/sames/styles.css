@@ -166,11 +166,9 @@ mark, .play {
 }
 .hamburger i:before { transform: translate(0, 7px) }
 .hamburger i:after  { transform: translate(0, 11px) }
-
 .navopen .hamburger i:before { transform: translate(0, 0) }
 .navopen .hamburger i { transform: rotate(45deg) translate(.5em, .5em) }
 .navopen .hamburger i:after  { transform: rotate(90deg) translate(-3px, 0) }
-
 nav {
 	transition: transform .14s ease-out;
 	transform: translate(-100%, 0);
