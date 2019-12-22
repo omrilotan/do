@@ -3,56 +3,45 @@ export default function slider() {
 	 * Threshold to recognise touch from edge
 	 * @type {number}
 	 */
-	const threshold = window.outerWidth / 6;
+	const EDGE_THRESHOLD = window.outerWidth / 3;
 
-	document.body.addEventListener(
-		'touchstart',
-		function touchstart(event) {
-			const { touches: [ touch ] } = event;
-			new Slider(touch);
-		}
-	);
+	/**
+	 * Threshold to recognise a drag action
+	 * @type {number}
+	 */
+	const DRAG_THRESHOLD = window.outerWidth / 6;
 
-	document.body.addEventListener(
-		'touchend',
-		function touchstart() {
-			Slider.kill();
-		}
-	);
+	/**
+	 * Active drag
+	 * @type {Object}
+	 */
+	let active = null;
 
-	function touchmove({ touches: [ touch ] }) {
-		Slider.check(touch);
+	document.body.addEventListener('touchstart', assign);
+	document.body.addEventListener('touchend', kill);
+
+	function assign({ touches: [ { pageX } ] }) {
+			kill();
+			if (pageX > EDGE_THRESHOLD) { return; }
+
+			active = {
+				startX: pageX,
+				timer: setTimeout(kill, 5000),
+			};
+			document.body.addEventListener('touchmove', check);
 	}
 
-	class Slider {
-		static check({ pageX }) {
-			if (!Slider.active) { return; }
-			if (pageX - Slider.active.startX > 100) {
-				document.body.classList.add('navopen');
-				Slider.kill();
-			}
-		}
-		static kill() {
-			if (!Slider.active) { return; }
-			clearTimeout(Slider.active.timer);
-			delete Slider.active;
-			document.body.removeEventListener('touchmove', touchmove);
-		}
+	function kill() {
+		if (!active) { return; }
+		clearTimeout(active.timer);
+		active = null;
+		document.body.removeEventListener('touchmove', check);
+	}
 
-		constructor({ pageX }) {
-			if (pageX > threshold) {
-				return;
-			}
-
-			this.startX = pageX;
-			this.save();
-			this.timer = setTimeout(Slider.kill, 5000);
-		}
-
-		save() {
-			Slider.active = this;
-			document.body.removeEventListener('touchmove', touchmove);
-			document.body.addEventListener('touchmove', touchmove);
-		}
+	function check({ touches: [ { pageX } ] }) {
+		if (!active) { return; }
+		if (pageX - active.startX < DRAG_THRESHOLD) { return; }
+		document.body.classList.add('navopen');
+		kill();
 	}
 }
