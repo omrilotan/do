@@ -5,7 +5,7 @@
 
 	const CACHE_KEY_PREFIX = 'dw-cache-key';
 	const cacheKey = [CACHE_KEY_PREFIX, version].join('-');
-	const _root = location.origin || '/';
+	const _root = location.origin + '/' || '/';
 	const base = str => _root + str;
 
 	const CACHED_FILES = [
