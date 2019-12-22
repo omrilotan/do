@@ -21,14 +21,14 @@ export default function slider() {
 	document.body.addEventListener('touchend', kill);
 
 	function assign({ touches: [ { pageX } ] }) {
-			kill();
-			if (pageX > EDGE_THRESHOLD) { return; }
+		kill();
+		if (pageX > EDGE_THRESHOLD) { return; }
 
-			active = {
-				startX: pageX,
-				timer: setTimeout(kill, 5000),
-			};
-			document.body.addEventListener('touchmove', check);
+		active = {
+			startX: pageX,
+			timer: setTimeout(kill, 5000)
+		};
+		document.body.addEventListener('touchmove', check);
 	}
 
 	function kill() {
