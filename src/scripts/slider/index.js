@@ -44,4 +44,40 @@ export default function slider() {
 		document.body.classList.add('navopen');
 		kill();
 	}
+
+	window.addEventListener(
+		'load',
+		registerCloseNav,
+		{ once: true }
+	);
+
+	function registerCloseNav() {
+		const nav = document.querySelector('nav');
+		if (!nav) { return; }
+
+		let active = null;
+
+		function assign({ touches: [ { pageX } ] }) {
+			kill();
+			active = {
+				startX: pageX,
+				timer: setTimeout(kill, 5000)
+			};
+			nav.addEventListener('touchmove', check);
+		}
+		function kill() {
+			if (!active) { return; }
+			clearTimeout(active.timer);
+			active = null;
+			nav.removeEventListener('touchmove', check);
+		}
+		function check({ touches: [ { pageX } ] }) {
+			if (!active) { return; }
+			if (active.startX - pageX < DRAG_THRESHOLD) { return; }
+			document.body.classList.remove('navopen');
+			kill();
+		}
+		nav.addEventListener('touchstart', assign);
+		nav.addEventListener('touchend', kill);
+	}
 }

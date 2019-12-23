@@ -178,7 +178,7 @@ nav {
 	left: 0;
 	color: var(--background-colour);
 	background: var(--foreground-colour);
-	padding: 2em 0 .5em;
+	padding: 1.5em 0 .5em;
 	box-sizing: border-box;
 	overflow: auto;
 }
@@ -191,7 +191,6 @@ nav a {
 	padding: .25em var(--margin-unit);
 	font-size: .75em;
 }
-
 .center {
 	text-align: center;
 }
