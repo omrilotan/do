@@ -52,24 +52,24 @@ export default function slider() {
 	);
 
 	function registerCloseNav() {
-		const nav = document.querySelector('nav');
-		if (!nav) { return; }
+		if (!document.querySelector('nav')) { return; }
 
 		let active = null;
 
 		function assign({ touches: [ { pageX } ] }) {
 			kill();
+			if (!document.body.classList.contains('navopen')) { return; }
 			active = {
 				startX: pageX,
 				timer: setTimeout(kill, 5000)
 			};
-			nav.addEventListener('touchmove', check);
+			document.body.addEventListener('touchmove', check);
 		}
 		function kill() {
 			if (!active) { return; }
 			clearTimeout(active.timer);
 			active = null;
-			nav.removeEventListener('touchmove', check);
+			document.body.removeEventListener('touchmove', check);
 		}
 		function check({ touches: [ { pageX } ] }) {
 			if (!active) { return; }
@@ -77,7 +77,7 @@ export default function slider() {
 			document.body.classList.remove('navopen');
 			kill();
 		}
-		nav.addEventListener('touchstart', assign);
-		nav.addEventListener('touchend', kill);
+		document.body.addEventListener('touchstart', assign);
+		document.body.addEventListener('touchend', kill);
 	}
 }
