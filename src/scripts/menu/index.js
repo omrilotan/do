@@ -2,12 +2,11 @@ import beforeinstall from '../beforeinstall/index.js';
 import share from '../share/index.js';
 import slider from '../slider/index.js';
 
-export default function() {
+export default function menu() {
 	const template =  document.querySelector('template[name="nav"]');
-	const nav = template.content.querySelector('nav');
-
 	if (!template) { return; }
 
+	const nav = template.content.querySelector('nav');
 	share(nav);
 	beforeinstall(nav);
 
