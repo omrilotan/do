@@ -7,7 +7,12 @@ export default async function registerServiceWorker() {
 	const supported = navigator.onLine && 'serviceWorker' in navigator;
 	if (!supported) { return; }
 
-	const registration = await navigator.serviceWorker.register('/serviceworker.js?ck=v-1');
+	const registration = await navigator.serviceWorker.register(
+		'/serviceworker.js?ck=v-1',
+		{
+			updateViaCache: 'none'
+		}
+	);
 
 	if (window.location.pathname === '/') {
 		window.matchMedia('(display-mode:standalone)').metches
