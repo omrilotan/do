@@ -14,11 +14,8 @@ export default async function registerServiceWorker() {
 		}
 	);
 
-	if (window.location.pathname === '/') {
-		window.matchMedia('(display-mode:standalone)').metches
-			&& listenToUpdates(registration);
-		registration.update();
-	}
+	window.matchMedia('(display-mode:standalone)').matches && listenToUpdates(registration);
+	registration.update();
 
 	await navigator.serviceWorker.ready;
 	setTimeout(
