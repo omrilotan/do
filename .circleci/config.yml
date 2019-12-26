@@ -50,6 +50,7 @@ jobs:
           name: Check for changes and commit
           command: |
             cd docs
+            git add . --intent-to-add
             if [ "$(git diff --quiet && echo 0 || echo $?)" -gt 0 ]; then
               git diff --exit-code && circleci step halt
               git add .
