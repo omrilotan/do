@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /en/glossary/
+Disallow: /en/suggest/
+
+Sitemap: https://doowat.net/sitemap.xml
