@@ -95,14 +95,6 @@ a {
 	color: var(--foreground-colour);
 	text-decoration: none;
 }
-a[href^="http"]:after {
-	content: "⇱";
-	transform: scaleX(-1);
-	display: inline-block;
-	margin: 0 0 0 .25em;
-	font-size: .75em;
-	vertical-align: top;
-}
 strong {
 	font-weight: 500;
 }
@@ -198,6 +190,14 @@ nav a {
 	display: block;
 	padding: .25em var(--margin-unit);
 	font-size: .75em;
+}
+nav a[href^="http"]:after {
+	content: "⇱";
+	transform: scaleX(-1);
+	display: inline-block;
+	margin: 0 0 0 .25em;
+	font-size: .75em;
+	vertical-align: top;
 }
 .center {
 	text-align: center;
