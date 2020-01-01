@@ -29,18 +29,6 @@
 	background: var(--selection-background);
 	color: var(--selection-colour);
 }
-@font-face {
-  font-family: 'Fredoka One';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Fredoka One'), local('FredokaOne-Regular'), url(https://fonts.gstatic.com/s/fredokaone/v7/k3kUo8kEI-tA1RRcTZGmTlHGCaen8wf-.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-.font-face {
-	font-family: 'Fredoka One', cursive;
-  animation: fade-in 1s linear;
-}
 @keyframes fade-in {
   0% { opacity: 0; }
   80% { opacity: 0; }
@@ -82,8 +70,11 @@ header {
 	font-size: 1em;
 	margin-bottom: var(--margin-unit);
 }
+.site-title {
+	width: 80vw
+}
 h1 {
-	width: 90%;
+	width: 90vw;
 	font-size: 2.1em;
 	text-align: center;
 }
@@ -98,31 +89,28 @@ a {
 strong {
 	font-weight: 500;
 }
-img[src="/zany.svg"],
-img[src="/share.svg"] {
-	width: 1em;
-	height: 1em;
-}
 .link {
 	display: contents;
 	text-decoration: underline;
 }
-mark, .play {
-	color: var(--foreground-colour);
+mark {
 	background: var(--background-colour);
+	color: var(--foreground-colour);
 	filter: hue-rotate(180deg);
 }
 .play {
-	display: inline-block;
+	display: block;
 	position: relative;
 	text-align: center;
 	border-radius: 50%;
 	width: 4em;
-	line-height: 4em;
+	height: 4em;
 	margin: 1em;
 	transition: box-shadow .3s, transform .3s;
 	transform: translate(0, 0);
+	filter: hue-rotate(180deg);
 	box-shadow: inset -.1em -.2em rgba(0, 0, 0, .3);
+	background: url(/images/do.svg) var(--background-colour) center/1em no-repeat;
 }
 .play:focus, .play:active {
 	transform: translate(.05em, .1em);

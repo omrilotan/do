@@ -27,9 +27,7 @@
 		'styles.css',
 		'styles/glossary.css',
 		'styles/suggest.css',
-		'favicon.ico',
-		'share.svg',
-		'zany.svg'
+		'favicon.ico'
 	].map(
 		url => base(url)
 	);
