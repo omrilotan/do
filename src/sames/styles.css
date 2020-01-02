@@ -71,7 +71,8 @@ header {
 	margin-bottom: var(--margin-unit);
 }
 .site-title {
-	width: 80vw
+	width: 80vw;
+	max-width: 4em;
 }
 h1 {
 	width: 90vw;
