@@ -54,7 +54,7 @@
 
 		await navigator.serviceWorker.ready;
 		setTimeout(
-			() => navigator.serviceWorker.controller.postMessage({action: 'updateCacheKey', value: cacheKey()}),
+			() => navigator.serviceWorker.controller && navigator.serviceWorker.controller.postMessage({action: 'updateCacheKey', value: cacheKey()}),
 			1000
 		);
 	}
