@@ -12,6 +12,12 @@ jobs:
              -H "X-Auth-Key: ${CF_API_KEY}" \
              -H "Content-Type: application/json" \
              --data '{"purge_everything":true}'
+      - run:
+          name: Notify comminity of a release
+          command: |
+            curl -X POST ${NOTIFICATION_WEBHOOK} \
+              -H 'Content-type: application/json' \
+              --data "{\"text\":\"Released version\"}"
 workflows:
   version: 2
   release:
