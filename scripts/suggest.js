@@ -1,10 +1,10 @@
 (function() {
 	const patch = [
-		'https://hooks.slack.com',
-		'services',
-		'T9Y79PHFF',
-		'BR8C1U9FH',
-		'xcLq7eXtb9ndt6ai34JRQ8K8'
+		'https://discordapp.com/api',
+		'webhooks',
+		'662732577182056458',
+		'tEx0sR7n_6Dtk3V2fXd4gcR8Mn4E82pPB4XXBRJ3RLP-I-ezYxXWaLrV88M4Kv0vCFay',
+		'slack'
 	];
 
 	const [ form ] = document.forms;

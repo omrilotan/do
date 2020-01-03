@@ -7,6 +7,7 @@
 	--selection-background: #fff;
 	--selection-colour: #000;
 	--font-running: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
+	--silde-panel: transform .14s ease-out;
 }
 
 @media screen and (min-aspect-ratio: 13/9), (min-device-aspect-ratio: 13/9) {
@@ -52,6 +53,9 @@ body {
 	color: var(--foreground-colour);
 	background: var(--background-colour);
 	display: grid;
+}
+button, textarea {
+	font: var(--font-running);
 }
 main, article {
 	display: flex;
@@ -125,6 +129,7 @@ mark {
 	z-index: 10;
 	padding: var(--margin-unit);
 	box-sizing: content-box;
+	font-size: 13px;
 	width: 2em;
   height: 2em;
   display: flex;
@@ -159,7 +164,7 @@ mark {
 .navopen .hamburger i { transform: rotate(45deg) translate(.5em, .5em) }
 .navopen .hamburger i:after  { transform: rotate(90deg) translate(-3px, 0) }
 nav {
-	transition: transform .14s ease-out;
+	transition: var(--silde-panel);
 	transform: translate(-100%, 0);
 	height: 100%;
 	position: fixed;
@@ -204,33 +209,45 @@ nav a[href^="http"]:after {
 }
 dialog {
 	position: fixed;
-	bottom: var(--margin-unit);
-	left: var(--margin-unit);
-	width: 90vw;
-	background: rgba(0, 0, 0, .9);
+	bottom: 0;
+	left: 0;
+	width: 100vw;
 	border: 0;
-	border-radius: 5px;
-	padding: 1em;
 	box-sizing: border-box;
-	color: white;
-	font-size: .5em;
+	color: var(--background-colour);
+	background: var(--foreground-colour);
   text-align: center;
-	transition: transform .5s ease-out;
-	transform: translate(0, 200%);
+	transition: var(--silde-panel);
+	transform: translate(0, 100%);
 }
 dialog.show {
 	transform: translate(0, 0);
 }
+dialog h3 {
+	padding: var(--margin-unit) var(--margin-unit) 0;
+	font-size: .75em;
+}
+dialog .close {
+	float: right;
+	display: block;
+	font-size: 1em;
+	width: 1em;
+	color: var(--background-colour);
+	background: transparent;
+}
 dialog menu {
-	margin-top: 1em;
 	display: flex;
   justify-content: space-between;
+  padding: var(--margin-unit);
 }
 dialog button {
-	color: white;
-	padding: .5em 1em .75em;
-	font-size: .7em;
 	border: 0;
-	border-radius: 5px;
+}
+dialog menu button {
 	background: var(--background-colour);
+	color: var(--foreground-colour);
+	padding: .6em 1em .75em;
+	border-radius: 5px;
+	flex-grow: 1;
+	font-size: .5em;
 }

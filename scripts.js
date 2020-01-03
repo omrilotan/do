@@ -12,21 +12,24 @@
 
 	function toast() {
 		const dialog = document.createElement('dialog');
-		dialog.appendChild(document.createTextNode('New update available!'));
+
+		const message = document.createElement('h3');
+		message.appendChild(document.createTextNode('New update available!'));
 
 		const menu = document.createElement('menu');
-
 		const update = document.createElement('button');
 		update.appendChild(document.createTextNode('update'));
 		update.onclick = () => dialog.close() || window.location.reload();
-
-		const close = document.createElement('button');
-		close.appendChild(document.createTextNode('close'));
-		close.onclick = () => dialog.close();
-
-		dialog.appendChild(menu);
 		menu.appendChild(update);
-		menu.appendChild(close);
+
+		const ignore = document.createElement('button');
+		ignore.className = 'close';
+		ignore.appendChild(document.createTextNode('\u00D7'));
+		ignore.onclick = () => dialog.close();
+
+		dialog.appendChild(ignore);
+		dialog.appendChild(message);
+		dialog.appendChild(menu);
 		document.body.appendChild(dialog);
 
 		dialog.showModal();
