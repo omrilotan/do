@@ -13,7 +13,6 @@ form {
 	flex-direction: column;
 }
 form textarea, form button {
-	font: var(--font-running);
 	padding: .5em;
 	width: 100%;
 	box-sizing: border-box;
