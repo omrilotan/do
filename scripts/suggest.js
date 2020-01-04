@@ -41,3 +41,31 @@
 		header.parentNode.replaceChild(document.querySelector('template[name="thanks"]').content, header);
 	}
 })();
+
+(function() {
+	function init() {
+		const textarea = document.querySelector('textarea');
+		let timer;
+
+		function resize() {
+			textarea.style.height = 'auto';
+			textarea.style.height = textarea.scrollHeight + 'px';
+		}
+
+		function debounced() {
+			clearTimeout(timer);
+			timer = setTimeout(resize, 0);
+		}
+
+		[
+			'change',
+			'cut',
+			'paste',
+			'drop',
+			'keydown'
+		].forEach(
+			event => textarea.addEventListener(event, debounced, false)
+		);
+	}
+	window.addEventListener('load', init);
+})();

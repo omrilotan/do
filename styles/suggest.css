@@ -17,7 +17,7 @@ form textarea, form button {
 	width: 100%;
 	box-sizing: border-box;
 	border: none;
-	font-size: .5em;
+	font-size: .75em;
 	transition: filter .3s;
 }
 form button {
