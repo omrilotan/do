@@ -3,7 +3,6 @@ window.addEventListener(
 	function prepareGlossary() {
 		const search = document.createElement('input');
 		search.setAttribute('type', 'search');
-		search.setAttribute('placeholder', '🔍');
 
 		const cards = document.querySelectorAll('.cards a');
 		[].forEach.call(
