@@ -199,12 +199,15 @@ nav a[href^="http"]:after {
 .standalone-only {
 	display: none;
 }
-@media(display-mode:standalone) {
+@media(display-mode: standalone) {
 	.web-only {
 		display: none;
 	}
 	.standalone-only {
 		display: initial;
+	}
+	.standalone-only.block {
+		display: block;
 	}
 }
 dialog {
