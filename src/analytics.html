@@ -5,9 +5,10 @@
 		return tag && tag.content;
 	}
 	window.dataLayer = ['js', new Date(), 'config', 'UA-3634907-11'];
-	function googletagmanagerLoaded() {
-		window.ga('set', 'page-type', meta('page-type'));
+	window.ga = function() {
+		window.ga.q.push(arguments);
 	}
+	window.ga.q = ['set', 'page-type', meta('page-type')];
 	function sentryLoaded() {
 		window.Sentry.init({ dsn: 'https://44f2844d01464e838fcd730fd5946863@sentry.io/1851265' });
 		window.Sentry.configureScope(function(scope) {
@@ -15,5 +16,5 @@
 		});
 	}
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3634907-11" onload="googletagmanagerLoaded()"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3634907-11"></script>
 <script async crossorigin="anonymous" src="https://browser.sentry-cdn.com/5.10.1/bundle.min.js" onload="sentryLoaded()"></script>
