@@ -1,4 +1,5 @@
 import beforeinstall from '../beforeinstall/index.js';
+import dataLayerPush from '../dataLayerPush/index.js';
 import share from '../share/index.js';
 import slider from '../slider/index.js';
 
@@ -17,6 +18,7 @@ export default function menu() {
 			event.preventDefault();
 			event.stopPropagation();
 			document.body.classList.toggle('navopen');
+			dataLayerPush({ event: 'click', target: 'hamburger' });
 		}
 	);
 

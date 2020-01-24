@@ -1,3 +1,5 @@
+import dataLayerPush from '../dataLayerPush/index.js';
+
 export default function slider() {
 	/**
 	 * Threshold to recognise touch from edge
@@ -42,6 +44,7 @@ export default function slider() {
 		if (!active) { return; }
 		if (pageX - active.startX < DRAG_THRESHOLD) { return; }
 		document.body.classList.add('navopen');
+		dataLayerPush({ event: 'swipe', target: 'menu', action: 'open' });
 		kill();
 	}
 
@@ -75,6 +78,7 @@ export default function slider() {
 			if (!active) { return; }
 			if (active.startX - pageX < DRAG_THRESHOLD) { return; }
 			document.body.classList.remove('navopen');
+			dataLayerPush({ event: 'swipe', target: 'menu', action: 'close' });
 			kill();
 		}
 		document.body.addEventListener('touchstart', assign);

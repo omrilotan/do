@@ -1,3 +1,5 @@
+import dataLayerPush from '../dataLayerPush/index.js';
+
 let link;
 let deferred;
 
@@ -26,6 +28,8 @@ export default function beforeinstall(container) {
 							deferred = null;
 						}
 					);
+
+					dataLayerPush({ event: 'click', target: 'install' });
 				}
 			);
 			container.insertBefore(link, container.firstElementChild);

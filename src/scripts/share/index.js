@@ -1,3 +1,5 @@
+import dataLayerPush from '../dataLayerPush/index.js';
+
 export default function share(container) {
 	if (navigator.share && navigator.onLine) {
 		const link = document.createElement('a');
@@ -6,6 +8,7 @@ export default function share(container) {
 			'click',
 			function sharePage(event) {
 				event.preventDefault();
+				dataLayerPush({ event: 'click', target: 'share' });
 				navigator.share({
 					title: document.title,
 					text: document.querySelector('meta[name="description"]').content,
