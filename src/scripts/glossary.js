@@ -32,7 +32,7 @@ window.addEventListener(
 				}
 			);
 
-			dataLayerPush({search: 'glossary'});
+			dataLayerPush({ event: 'search', target: 'glossary' });
 		}
 
 		search.addEventListener('keyup', searchChange);

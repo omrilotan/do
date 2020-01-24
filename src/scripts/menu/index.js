@@ -18,7 +18,7 @@ export default function menu() {
 			event.preventDefault();
 			event.stopPropagation();
 			document.body.classList.toggle('navopen');
-			dataLayerPush({click: 'hamburger'});
+			dataLayerPush({ event: 'click', target: 'hamburger' });
 		}
 	);
 

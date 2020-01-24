@@ -29,7 +29,7 @@ export default function beforeinstall(container) {
 						}
 					);
 
-					dataLayerPush({click: 'install'});
+					dataLayerPush({ event: 'click', target: 'install' });
 				}
 			);
 			container.insertBefore(link, container.firstElementChild);

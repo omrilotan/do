@@ -8,7 +8,7 @@ export default function share(container) {
 			'click',
 			function sharePage(event) {
 				event.preventDefault();
-				dataLayerPush({click: 'share'});
+				dataLayerPush({ event: 'click', target: 'share' });
 				navigator.share({
 					title: document.title,
 					text: document.querySelector('meta[name="description"]').content,

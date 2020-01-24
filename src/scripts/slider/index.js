@@ -44,7 +44,7 @@ export default function slider() {
 		if (!active) { return; }
 		if (pageX - active.startX < DRAG_THRESHOLD) { return; }
 		document.body.classList.add('navopen');
-		dataLayerPush({swipe: 'menu-open'});
+		dataLayerPush({ event: 'swipe', target: 'menu', action: 'open' });
 		kill();
 	}
 
@@ -78,7 +78,7 @@ export default function slider() {
 			if (!active) { return; }
 			if (active.startX - pageX < DRAG_THRESHOLD) { return; }
 			document.body.classList.remove('navopen');
-			dataLayerPush({swipe: 'menu-close'});
+			dataLayerPush({ event: 'swipe', target: 'menu', action: 'close' });
 			kill();
 		}
 		document.body.addEventListener('touchstart', assign);
