@@ -106,6 +106,10 @@
 		);
 	}
 
+	function dataLayerPush(...args) {
+		window.dataLayer && window.dataLayer.push(...args);
+	}
+
 	let link$1;
 	let deferred;
 
@@ -134,6 +138,8 @@
 								deferred = null;
 							}
 						);
+
+						dataLayerPush({ event: 'click', target: 'install' });
 					}
 				);
 				container.insertBefore(link$1, container.firstElementChild);
@@ -149,6 +155,7 @@
 				'click',
 				function sharePage(event) {
 					event.preventDefault();
+					dataLayerPush({ event: 'click', target: 'share' });
 					navigator.share({
 						title: document.title,
 						text: document.querySelector('meta[name="description"]').content,
@@ -205,6 +212,7 @@
 			if (!active) { return; }
 			if (pageX - active.startX < DRAG_THRESHOLD) { return; }
 			document.body.classList.add('navopen');
+			dataLayerPush({ event: 'swipe', target: 'menu', action: 'open' });
 			kill();
 		}
 
@@ -238,6 +246,7 @@
 				if (!active) { return; }
 				if (active.startX - pageX < DRAG_THRESHOLD) { return; }
 				document.body.classList.remove('navopen');
+				dataLayerPush({ event: 'swipe', target: 'menu', action: 'close' });
 				kill();
 			}
 			document.body.addEventListener('touchstart', assign);
@@ -260,6 +269,7 @@
 				event.preventDefault();
 				event.stopPropagation();
 				document.body.classList.toggle('navopen');
+				dataLayerPush({ event: 'click', target: 'hamburger' });
 			}
 		);
 

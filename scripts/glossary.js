@@ -1,4 +1,8 @@
 (function () {
+	function dataLayerPush(...args) {
+		window.dataLayer && window.dataLayer.push(...args);
+	}
+
 	window.addEventListener(
 		'load',
 		function prepareGlossary() {
@@ -30,6 +34,8 @@
 						card.innerHTML = card.innerText.replace(pattern, match => `<mark>${match}</mark>`);
 					}
 				);
+
+				dataLayerPush({ event: 'search', target: 'glossary' });
 			}
 
 			search.addEventListener('keyup', searchChange);
