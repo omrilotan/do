@@ -1,6 +1,7 @@
 const { readFileSync } = require('fs');
 const { join } = require('path');
 const SpellChecker = require('simple-spellchecker');
+
 let dictionary;
 
 const activities = readFileSync(
@@ -15,7 +16,7 @@ const setupDictionary = () => new Promise(
 			return;
 		}
 
-		SpellChecker.getDictionary("en-GB", function(error, received) {
+		SpellChecker.getDictionary('en-GB', function(error, received) {
 			if (error) {
 				reject(error);
 				return;
@@ -32,7 +33,7 @@ const skipWords = [
 	'Pat-a-Cake',
 	'selfies',
 	'Wikipedia',
-	'yes/no',
+	'yes/no'
 ];
 
 describe('activities', () => {
