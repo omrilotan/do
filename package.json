@@ -32,6 +32,7 @@
     "paraphrase": "^1.8.0",
     "rimraf": "^3.0.0",
     "rollup": "^1.27.13",
+    "simple-spellchecker": "^1.0.0",
     "stringerprint": "0.0.0"
   }
 }
