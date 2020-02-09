@@ -147,25 +147,53 @@
 		);
 	}
 
-	function share(container) {
-		if (navigator.share && navigator.onLine) {
-			const link = document.createElement('a');
-			link.setAttribute('href', '#!');
-			link.addEventListener(
-				'click',
-				function sharePage(event) {
-					event.preventDefault();
-					dataLayerPush({ event: 'click', target: 'share' });
-					navigator.share({
-						title: document.title,
-						text: document.querySelector('meta[name="description"]').content,
-						url: document.location.href
-					}).catch(console.error);
-				}
-			);
-			link.appendChild(document.createTextNode('Share'));
-			container.insertBefore(link, container.firstElementChild);
-		}
+	/**
+	 * Get the content attribute value of a meta tag by name
+	 * @param {*} name 
+	 * 
+	 * @example
+	 * meta('page-type') // 'activity'
+	 */
+	function meta(name) {
+		const tag = document.querySelector(`meta[name="${name}"]`);
+		if (!tag) { return null; }
+
+		return tag.content;
+	}
+
+	const valid = () => navigator.share && navigator.onLine;
+
+	function insertShareLink(container) {
+		if (!valid()) { return; }
+
+		const link = document.createElement('a');
+		link.setAttribute('href', '#!');
+		link.addEventListener('click', sharePage);
+		link.appendChild(document.createTextNode('Share'));
+		container.insertBefore(link, container.firstElementChild);
+	}
+
+	function addShareButton(container) {
+		if (!valid()) { return; }
+
+		const link = document.createElement('button');
+		link.className = 'share';
+		link.addEventListener('click', sharePage);
+		container.appendChild(link);
+	}
+
+	function sharePage(event) {
+		if (event) { event.preventDefault(); }
+
+		dataLayerPush({ event: 'click', target: 'share' });
+		navigator.share({
+			title: document.title,
+			text: meta('description'),
+			url: document.location.href
+		}).catch(error => {
+			error.flow = 'Use browser share API';
+			throw error;
+		});
 	}
 
 	function slider() {
@@ -259,7 +287,7 @@
 		if (!template) { return; }
 
 		const nav = template.content.querySelector('nav');
-		share(nav);
+		insertShareLink(nav);
 		beforeinstall(nav);
 
 		const hamburger = template.content.querySelector('.hamburger');
@@ -307,9 +335,12 @@
 			randomDo
 		).then(
 			link
-		).catch(
-			console.error
-		)
+		).then(
+			() => meta('page-type') === 'activity' && addShareButton(document.body)
+		).catch(error => {
+			error.flow = 'Fetch a random do';
+			throw error;
+		})
 	;
 
 	next();
