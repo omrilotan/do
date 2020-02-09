@@ -18,6 +18,7 @@
 		--margin-unit-half: 2.5vh;
 	}
 }
+
 @media screen and (max-aspect-ratio: 13/9), (max-device-aspect-ratio: 13/9) {
 	/* orientation:portrait */
 	:root {
@@ -144,20 +145,24 @@ mark {
 	box-shadow: inset .1em .2em rgba(0, 0, 0, .3);
 }
 
-.hamburger {
+.hamburger, .share {
 	position: fixed;
-	top: 0;
-	left: 0;
+	font-size: 13px;
+	width: 2em;
+	height: 2em;
 	z-index: 10;
 	padding: var(--margin-unit);
 	box-sizing: content-box;
-	font-size: 13px;
-	width: 2em;
-  height: 2em;
-  display: flex;
-  flex-direction: column;
-	justify-content: start;
+	display: flex;
 	border: 0;
+}
+
+.hamburger {
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
 	background: none;
 }
 .hamburger i,
@@ -185,6 +190,14 @@ mark {
 .navopen .hamburger i:before { transform: translate(0, 0) }
 .navopen .hamburger i { transform: rotate(45deg) translate(.5em, .5em) }
 .navopen .hamburger i:after  { transform: rotate(90deg) translate(-3px, 0) }
+
+.share {
+	right: 0;
+	bottom: 0;
+	background: url(/icons/share.svg) center no-repeat;
+	background-size: 33%;
+}
+
 nav {
 	transition: var(--silde-panel);
 	transform: translate(-100%, 0);
