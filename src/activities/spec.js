@@ -2,6 +2,8 @@ const { readFileSync } = require('fs');
 const { join } = require('path');
 const SpellChecker = require('simple-spellchecker');
 
+const MAX_LENGTH = 150;
+
 let dictionary;
 
 const activities = readFileSync(
@@ -40,7 +42,7 @@ describe('activities', () => {
 	before(setupDictionary);
 	it('should be shorter than 80 characters', () => {
 		activities.forEach(activity => {
-			expect(activity, activity).to.have.lengthOf.at.most(130);
+			expect(activity, activity).to.have.lengthOf.at.most(MAX_LENGTH);
 		});
 	});
 	it('should end with a punctuation mark', () => {
