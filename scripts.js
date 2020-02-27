@@ -178,6 +178,7 @@
 
 		const link = document.createElement('button');
 		link.className = 'share';
+		link.setAttribute('aria-label', 'Share this page');
 		link.addEventListener('click', sharePage);
 		container.appendChild(link);
 	}
