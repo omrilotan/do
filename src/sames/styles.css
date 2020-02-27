@@ -211,7 +211,7 @@ nav {
 	box-sizing: border-box;
 	overflow: auto;
 }
-.navopen nav {
+.navopen nav, nav:focus-within {
 	transform: translate(0, 0);
 }
 nav a {
@@ -219,6 +219,11 @@ nav a {
 	display: block;
 	padding: .25em var(--margin-unit);
 	font-size: .75em;
+	transition: var(--silde-panel);
+}
+nav a:focus {
+	filter: hue-rotate(180deg);
+	transform: translateX(.25em)
 }
 nav a[href^="http"]:after {
 	content: " ";
