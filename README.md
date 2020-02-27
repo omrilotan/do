@@ -4,5 +4,5 @@
 On the go activities for you and your child that require no preparations. Draw a [random activity](https://doowat.net/en/) 🤪. Save and share your favourites. [Suggest your own 🤩](https://github.com/omrilotan/doowat/issues/new/choose).
 
 <p align="center">
-  <a href="https://doowat.net/en/"><img src="https://user-images.githubusercontent.com/516342/70142712-8cbe0d80-16a2-11ea-8b8a-a7bacd279944.png" width=360></a>
+  <a href="https://doowat.net/en/"><img src="https://user-images.githubusercontent.com/516342/75481509-d4a3b680-59ab-11ea-8262-a76554aff322.png" width="360"></a>
 </p>
