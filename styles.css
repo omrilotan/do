@@ -121,6 +121,9 @@ strong {
 .link {
 	text-decoration: underline;
 }
+.link:focus {
+	text-shadow: 0 0 3px var(--foreground-colour);
+}
 mark {
 	background: var(--background-colour);
 	color: var(--foreground-colour);
