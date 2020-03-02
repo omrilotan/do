@@ -24,6 +24,10 @@ window.addEventListener(
 					const match = !value || card.innerText.toLowerCase().includes(value.toLowerCase());
 
 					card.classList.toggle('hidden', !match);
+					match
+						? card.removeAttribute('tabindex')
+						: card.setAttribute('tabindex', '-1')
+					;
 					card.style.height = match
 						? card.getAttribute('h') + 'px'
 						: '0px'
@@ -39,6 +43,6 @@ window.addEventListener(
 		search.addEventListener('change', searchChange);
 		search.addEventListener('search', searchChange);
 
-		document.body.appendChild(search);
+		document.body.insertBefore(search, document.body.firstElementChild);
 	}
 );
