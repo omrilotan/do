@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /en/glossary/
 Disallow: /en/suggest/
+Disallow: /offline/
+Disallow: /splash/
 
 Sitemap: https://doowat.net/sitemap.xml
