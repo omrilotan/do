@@ -17,7 +17,7 @@ const next = () => fetch('/en/list.json')
 	).then(
 		() => meta('page-type') === 'activity' && addShareButton(document.body)
 	).catch(error => {
-		error.flow = 'Fetch a random do';
+		error.message = 'Fetch a random do: ' + error.message;
 		throw error;
 	})
 ;
