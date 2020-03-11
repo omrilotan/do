@@ -106,6 +106,18 @@
 		);
 	}
 
+	/**
+	 * @param {string} query Media query
+	 * @returns {boolean} The media query was matches successfully
+	 */
+	function media(query) {
+		try {
+			return window.matchMedia(query).matches === true;
+		} catch (error) {
+			return false;
+		}
+	}
+
 	function dataLayerPush(...args) {
 		window.dataLayer && window.dataLayer.push(...args);
 	}
@@ -322,13 +334,6 @@
 		slider();
 	}
 
-	const colours = '#0063b1,#0078d7,#0099bc,#00b294,#00cc6a,#018574,#038387,#107c10,#10893e,#2d7d9a,#39cccc,#4363d8,#469990,#498205,#567c73,#6b69d6,#744da9,#800000,#85144b,#881798,#911eb4,#9a0089,#b10dc9,#bf0077,#c239b3,#c30052,#ca5010,#d13438,#da3b01,#e3008c,#e74856,#e81123,#ea005e,#ef6950,#f012be,#f58231,#f7630c,#ff4136,#ff4343,#ff8c00'.split(',');
-
-	document.documentElement.style.setProperty(
-		'--background-colour',
-		random(colours)
-	);
-
 	const next = () => fetch('/en/list.json')
 		.then(
 			res => res.json()
@@ -344,8 +349,20 @@
 		})
 	;
 
-	next();
-	registerServiceWorker();
-	menu();
+	(function start() {
+		if (media('print')) {
+			return;
+		}
+
+		const colours = '#0063b1,#0078d7,#0099bc,#00b294,#00cc6a,#018574,#038387,#107c10,#10893e,#2d7d9a,#39cccc,#4363d8,#469990,#498205,#567c73,#6b69d6,#744da9,#800000,#85144b,#881798,#911eb4,#9a0089,#b10dc9,#bf0077,#c239b3,#c30052,#ca5010,#d13438,#da3b01,#e3008c,#e74856,#e81123,#ea005e,#ef6950,#f012be,#f58231,#f7630c,#ff4136,#ff4343,#ff8c00'.split(',');
+
+		document.documentElement.style.setProperty(
+			'--background-colour',
+			random(colours)
+		);
+		next();
+		registerServiceWorker();
+		menu();
+	})();
 
 }());

@@ -3,7 +3,19 @@
 		window.dataLayer && window.dataLayer.push(...args);
 	}
 
-	window.addEventListener(
+	/**
+	 * @param {string} query Media query
+	 * @returns {boolean} The media query was matches successfully
+	 */
+	function media(query) {
+		try {
+			return window.matchMedia(query).matches === true;
+		} catch (error) {
+			return false;
+		}
+	}
+
+	media('print') || window.addEventListener(
 		'load',
 		function prepareGlossary() {
 			const search = document.createElement('input');
