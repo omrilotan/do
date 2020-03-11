@@ -1,3 +1,13 @@
+:root {
+	--transition-suggest-height: height 1s ease-out;
+	--transition-suggest-form-elements: filter .3s;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+	:root {
+		--transition-suggest-height: none;
+		--transition-suggest-form-elements: none;
+	}
+}
 header {
 	width: 100%;
 	text-align: center;
@@ -5,7 +15,7 @@ header {
 div {
 	width: 100%;
 	overflow: hidden;
-	transition: height 1s ease-out;
+	transition: var(--transition-suggest-height);
 }
 form {
 	width: 100%;
@@ -18,7 +28,7 @@ form textarea, form button {
 	box-sizing: border-box;
 	border: none;
 	font-size: .75em;
-	transition: filter .3s;
+	transition: var(--transition-suggest-form-elements);
 }
 form button {
 	background: var(--background-colour);

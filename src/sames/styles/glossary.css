@@ -1,3 +1,11 @@
+:root {
+	--transition-glossary-generic: all .3s;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+	:root {
+		--transition-glossary-generic: none;
+	}
+}
 .cards {
 	width: 100%;
 }
@@ -11,7 +19,7 @@
 	box-sizing: border-box;
 	border-radius: .5em;
 	overflow: hidden;
-	transition: all .3s;
+	transition: var(--transition-glossary-generic);
 }
 .cards a:focus {
 	background: var(--background-colour);
@@ -37,7 +45,7 @@ input[type="search"] {
 	line-height: 2em;
 	width: 2em;
 	text-indent: .5em;
-	transition: all .3s;
+	transition: var(--transition-glossary-generic);
 }
 input[type="search"]::-webkit-search-cancel-button {
 	display: none;

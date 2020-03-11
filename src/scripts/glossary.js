@@ -1,6 +1,7 @@
 import dataLayerPush from './dataLayerPush/index.js';
+import media from './media/index.js';
 
-window.addEventListener(
+media('print') || window.addEventListener(
 	'load',
 	function prepareGlossary() {
 		const search = document.createElement('input');
