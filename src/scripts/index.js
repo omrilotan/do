@@ -2,16 +2,10 @@ import random from './random/index.js';
 import randomDo from './random-do/index.js';
 import serviceWorker from './service-worker/index.js';
 import link from './link/index.js';
+import media from './media/index.js';
 import menu from './menu/index.js';
 import meta from './meta/index.js';
 import { addShareButton } from './share/index.js';
-
-const colours = '{{ hexlist }}'.split(',');
-
-document.documentElement.style.setProperty(
-	'--background-colour',
-	random(colours)
-);
 
 const next = () => fetch('/en/list.json')
 	.then(
@@ -28,6 +22,18 @@ const next = () => fetch('/en/list.json')
 	})
 ;
 
-next();
-serviceWorker();
-menu();
+(function start() {
+	if (media('print')) {
+		return;
+	}
+
+	const colours = '{{ hexlist }}'.split(',');
+
+	document.documentElement.style.setProperty(
+		'--background-colour',
+		random(colours)
+	);
+	next();
+	serviceWorker();
+	menu();
+})();

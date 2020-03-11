@@ -7,7 +7,9 @@
 	--selection-background: #fff;
 	--selection-colour: #000;
 	--font-running: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
-	--silde-panel: transform .14s ease-out;
+	--transition-play-button: box-shadow .3s, transform .3s;
+	--transition-silde-panel: transform .14s ease-out;
+	--transition-hamburger: transform .275s cubic-bezier(.68,-.55,.265,1.55), background .14s linear;
 }
 
 @media screen and (min-aspect-ratio: 13/9), (min-device-aspect-ratio: 13/9) {
@@ -18,7 +20,6 @@
 		--margin-unit-half: 2.5vh;
 	}
 }
-
 @media screen and (max-aspect-ratio: 13/9), (max-device-aspect-ratio: 13/9) {
 	/* orientation:portrait */
 	:root {
@@ -41,6 +42,38 @@
 		--font-size: 2.5vw;
 		--margin-unit: 1.25vw;
 		--margin-unit-half: .625vw;
+	}
+}
+@media screen and (prefers-reduced-motion: reduce) {
+	:root {
+		--transition-play-button: none;
+		--transition-silde-panel: none;
+		--transition-hamburger: none;
+	}
+}
+@media print {
+	:root {
+		--foreground-colour: #000;
+		--font-size: 12pt;
+	}
+	.play {
+		display: none !important;
+	}
+	.site-title {
+		filter: invert(1);
+	}
+	.cards a {
+		overflow: auto !important;
+		height: auto !important;
+		font-size: 1em !important;
+		padding: 0 !important;
+		margin-bottom: .5em !important;
+		border: none !important;
+	}
+	.cards a:before {
+		display: inline-block;
+		content: '•';
+		margin-right: .25em;
 	}
 }
 ::selection {
@@ -137,7 +170,7 @@ mark {
 	width: 4em;
 	height: 4em;
 	margin: 1em;
-	transition: box-shadow .3s, transform .3s;
+	transition: var(--transition-play-button);
 	transform: translate(0, 0);
 	filter: hue-rotate(180deg);
 	box-shadow: inset -.1em -.2em rgba(0, 0, 0, .3);
@@ -177,7 +210,7 @@ mark {
 	width: 2em;
 	height: 3px;
 	border-radius: 1px;
-	transition: transform .275s cubic-bezier(.68,-.55,.265,1.55), background .14s linear;
+	transition: var(--transition-hamburger);
 }
 .navopen .hamburger i,
 .navopen .hamburger i:before,
@@ -202,7 +235,7 @@ mark {
 }
 
 nav {
-	transition: var(--silde-panel);
+	transition: var(--transition-silde-panel);
 	transform: translate(-100%, 0);
 	height: 100%;
 	position: fixed;
@@ -222,7 +255,7 @@ nav a {
 	display: block;
 	padding: .25em var(--margin-unit);
 	font-size: .75em;
-	transition: var(--silde-panel);
+	transition: var(--transition-silde-panel);
 }
 nav a:focus {
 	filter: hue-rotate(180deg);
@@ -269,7 +302,7 @@ dialog {
 	color: var(--background-colour);
 	background: var(--foreground-colour);
   text-align: center;
-	transition: var(--silde-panel);
+	transition: var(--transition-silde-panel);
 	transform: translate(0, 100%);
 }
 dialog.show {
