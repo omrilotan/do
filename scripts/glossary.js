@@ -51,7 +51,7 @@
 					}
 				);
 
-				dataLayerPush({ event: 'search', target: 'glossary' });
+				dataLayerPush({ event: 'search-glossary' });
 			}
 
 			search.addEventListener('keyup', searchChange);

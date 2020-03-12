@@ -151,7 +151,7 @@
 							}
 						);
 
-						dataLayerPush({ event: 'click', target: 'install' });
+						dataLayerPush({ event: 'click-install' });
 					}
 				);
 				container.insertBefore(link$1, container.firstElementChild);
@@ -198,7 +198,7 @@
 	function sharePage(event) {
 		if (event) { event.preventDefault(); }
 
-		dataLayerPush({ event: 'click', target: 'share' });
+		dataLayerPush({ event: 'click-share' });
 		navigator.share({
 			title: document.title,
 			text: meta('description'),
@@ -206,7 +206,7 @@
 		}).catch(error => {
 			if (error.name === 'AbortError') {
 
-				// Ignore it. It's fine
+				dataLayerPush({ event: 'abort-share' });
 				return;
 			}
 			error.message = 'Use browser share API: ' + error.message;
@@ -258,7 +258,7 @@
 			if (!active) { return; }
 			if (pageX - active.startX < DRAG_THRESHOLD) { return; }
 			document.body.classList.add('navopen');
-			dataLayerPush({ event: 'swipe', target: 'menu', action: 'open' });
+			dataLayerPush({ event: 'swipe-menu-open' });
 			kill();
 		}
 
@@ -292,7 +292,7 @@
 				if (!active) { return; }
 				if (active.startX - pageX < DRAG_THRESHOLD) { return; }
 				document.body.classList.remove('navopen');
-				dataLayerPush({ event: 'swipe', target: 'menu', action: 'close' });
+				dataLayerPush({ event: 'swipe-menu-close' });
 				kill();
 			}
 			document.body.addEventListener('touchstart', assign);
@@ -315,7 +315,7 @@
 				event.preventDefault();
 				event.stopPropagation();
 				document.body.classList.toggle('navopen');
-				dataLayerPush({ event: 'click', target: 'hamburger' });
+				dataLayerPush({ event: 'click-hamburger' });
 			}
 		);
 
