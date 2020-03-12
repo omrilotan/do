@@ -26,7 +26,7 @@ export function addShareButton(container) {
 function sharePage(event) {
 	if (event) { event.preventDefault(); }
 
-	dataLayerPush({ event: 'click', target: 'share' });
+	dataLayerPush({ event: 'click-share' });
 	navigator.share({
 		title: document.title,
 		text: meta('description'),
@@ -34,7 +34,7 @@ function sharePage(event) {
 	}).catch(error => {
 		if (error.name === 'AbortError') {
 
-			// Ignore it. It's fine
+			dataLayerPush({ event: 'abort-share' });
 			return;
 		}
 		error.message = 'Use browser share API: ' + error.message;
