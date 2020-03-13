@@ -1,0 +1,20 @@
+name: Publish
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: CloufFlare - Purge everything
+      if: github.ref == 'refs/heads/master'
+      env:
+        CF_ZONE: ${{ secrets.CF_ZONE }}
+        CF_EMAIL: ${{ secrets.CF_EMAIL }}
+        CF_KEY: ${{ secrets.CF_KEY }}
+      run: |
+        curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CF_ZONE}/purge_cache" \
+         -H "X-Auth-Email: ${CF_EMAIL}" \
+         -H "X-Auth-Key: ${CF_KEY}" \
+         -H "Content-Type: application/json" \
+         --data '{"purge_everything":true}'
