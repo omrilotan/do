@@ -23,15 +23,15 @@
     "@omrilotan/eslint-config": "^1.1.0",
     "async-execute": "^1.1.0",
     "chai": "^4.2.0",
-    "clear-module": "^4.0.0",
+    "clear-module": "^4.1.1",
     "eslint": "^6.7.0",
     "eslint-plugin-log": "^1.2.3",
     "glob": "^7.1.6",
     "mime-types": "^2.1.25",
-    "mocha": "^6.2.2",
+    "mocha": "^7.1.0",
     "paraphrase": "^1.8.0",
     "rimraf": "^3.0.0",
-    "rollup": "^1.27.13",
+    "rollup": "^2.0.6",
     "simple-spellchecker": "^1.0.0",
     "stringerprint": "0.0.0"
   }
