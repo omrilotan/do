@@ -61,13 +61,11 @@ workflows:
   version: 2.1
   integration:
     jobs:
-      - tests:
-          context: globalenv
+      - tests
       - release:
-          context: globalenv
           requires:
             - tests
           filters:
             branches:
               only:
-                - master
+                - build

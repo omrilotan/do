@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omrilotan/doowat.git"
+    "url": "git+https://github.com/doowat/doowat.github.io.git"
   },
   "homepage": "https://doowat.net",
   "scripts": {
