@@ -1,0 +1,66 @@
+name: Publish
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ '12' ]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: npm i
+    - name: Check syntax
+      run: npm run lint -- --fix --plugin log
+    - name: Sort
+      run: npm run sort
+    - name: commit auto fixes
+      env:
+        USERNAME: ${{ github.actor }}
+        TOKEN: ${{ github.token }}
+        REPO: ${{ github.repository }}
+      run: |
+        if [ "$(git diff --quiet && echo 0 || echo $?)" -gt 0 ]; then
+          git config --global user.email "${USERNAME}@users.noreply.github.com" --replace-all
+          git config --global user.name "$USERNAME" --replace-all
+          git commit -am "😎 Autofix"
+          git remote set-url origin https://$USERNAME:$TOKEN@github.com/$REPO.git
+          git push -u origin ${BRANCH}
+          exit 1
+        fi
+    - name: Test
+      run: npm t
+    - name: Clone docs and clean everything
+      if: github.ref == 'refs/heads/build'
+      env:
+        USERNAME: ${{ github.actor }}
+        TOKEN: ${{ github.token }}
+        REPO: ${{ github.repository }}
+      run: |
+        git clone -b master --single-branch https://$USERNAME:$TOKEN@github.com/$REPO.git docs
+        cd docs
+        ls -a | grep -v .git | egrep -vU "\.$" | xargs rm -rf
+        cd -
+    - name: Build
+      if: github.ref == 'refs/heads/build'
+      run: npm run build
+    - name: Check for changes and commit
+      if: github.ref == 'refs/heads/build'
+      env:
+        USERNAME: ${{ github.actor }}
+        TOKEN: ${{ github.token }}
+        REPO: ${{ github.repository }}
+      run: |
+        cd docs
+        git config --global user.email "${USERNAME}@users.noreply.github.com" --replace-all
+        git config --global user.name "$USERNAME" --replace-all
+        git add . --intent-to-add
+        if [ "$(git diff --quiet && echo 0 || echo $?)" -gt 0 ]; then
+          git diff --exit-code && exit 0
+          git add .
+          git commit -m "$(curl -s whatthecommit.com/index.txt)"
+          git remote set-url origin https://$USERNAME:$TOKEN@github.com/$REPO.git
+          git push origin master --force-with-lease
+        fi
