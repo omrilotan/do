@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Clone docs and clean everything
           command: |
-            git clone -b gh-pages --single-branch $CIRCLE_REPOSITORY_URL docs
+            git clone -b master --single-branch $CIRCLE_REPOSITORY_URL docs
             cd docs
             ls -a | grep -v .git | grep -v .circleci | egrep -vU "\.$" | xargs rm -rf
             cd -
@@ -55,7 +55,7 @@ jobs:
               git diff --exit-code && circleci step halt
               git add .
               git commit -m "$(curl -s whatthecommit.com/index.txt)"
-              git push origin gh-pages --force-with-lease
+              git push origin master --force-with-lease
             fi
 workflows:
   version: 2.1
