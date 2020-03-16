@@ -5,9 +5,15 @@ import link from './link/index.js';
 import media from './media/index.js';
 import menu from './menu/index.js';
 import meta from './meta/index.js';
+import * as stored from './stored/index.js';
 import { addShareButton } from './share/index.js';
 
-const next = () => fetch('/en/list.json')
+/**
+ * @type {string[]} Existing lists
+ */
+const LISTS = ['all', 'indoors', 'outdoors'];
+
+const next = location => fetch(`/${location}.json`)
 	.then(
 		res => res.json()
 	).then(
@@ -33,7 +39,10 @@ const next = () => fetch('/en/list.json')
 		'--background-colour',
 		random(colours)
 	);
-	next();
+
+	const list = stored.get();
+
+	next(LISTS.includes(list) ? list : 'all');
 	serviceWorker();
 	menu();
 })();

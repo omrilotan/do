@@ -16,9 +16,9 @@
 
 	const CACHED_FILES = [
 		'',
-		'en/about/',
-		'en/suggest/',
-		'en/glossary/',
+		'about/',
+		'suggest/',
+		'glossary/',
 		'offline/',
 		'scripts.js',
 		'scripts/index.js',
@@ -44,12 +44,12 @@
 		event => event.waitUntil(
 			caches.open(cacheKey).then(
 				cache => {
-					fetch(base('en/list.json')).then(
+					fetch(base('all.json')).then(
 						response => response.ok && response.json()
 					).then(
 						list => {
 							const files = list.map(
-								id => base(`en/${id}/`)
+								id => base(`${id}/`)
 							).concat(
 								CACHED_FILES
 							);
@@ -59,7 +59,7 @@
 							);
 						}
 					).catch(
-						error => console.error(error, base('en/list.json'))
+						error => console.error(error, base('all.json'))
 					);
 				}
 			)

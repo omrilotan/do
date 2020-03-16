@@ -4,6 +4,6 @@
 	}
 
 	const random = items => items[Math.floor(Math.random() * items.length)];
-	const keys = JSON.parse('{{ keys }}');
-	window.location.href=`/en/${random(keys)}/`;
+	const keys = JSON.parse('{{ all }}');
+	window.location.href=`/${random(keys)}/`;
 })();

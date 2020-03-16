@@ -1,7 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /en/glossary/
-Disallow: /en/suggest/
+Disallow: /suggest/
 Disallow: /offline/
 Disallow: /splash/
 

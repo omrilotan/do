@@ -2,7 +2,7 @@
   "name": "doowat",
   "version": "0.0.0",
   "private": true,
-  "description": "fun activities with your kids",
+  "description": "entertaining time fillers with kids",
   "author": "omrilotan",
   "license": "MIT",
   "repository": {
@@ -15,7 +15,7 @@
     "clean": "rimraf docs",
     "lint": "eslint '**/*.js'",
     "prestart": "npm run clean",
-    "sort": "./scripts/sort/index.js ./src/activities/en.txt",
+    "sort": "./scripts/sort/index.js ./src/activities/anywhere.txt ./src/activities/indoors.txt ./src/activities/outdoors.txt",
     "start": "node lib/watch",
     "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'"
   },

@@ -5,6 +5,6 @@ export default function randomDo(list) {
 
 	return document.location.href.includes(key)
 		? randomDo(list)
-		: `/en/${key}/`
+		: `/${key}/`
 	;
 }

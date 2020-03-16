@@ -4,7 +4,7 @@ const { join } = require('path');
 const readLines = require('../../lib/readLines');
 const writeFile = require('../../lib/writeFile');
 
-const [ , , file] = process.argv;
+const [ , , ...files] = process.argv;
 
 async function sortFile (filename) {
 	const filepath = join(process.cwd(), filename);
@@ -35,4 +35,4 @@ function sort (a, b) {
  */
 const dedup = list => Array.from(new Set(list));
 
-sortFile(file);
+files.forEach(file => sortFile(file));
