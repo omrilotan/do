@@ -11,7 +11,7 @@ Please try and use one of the [issue templates](https://github.com/doowat/doowat
 ## Contribute an activity, Contribute code, Open a pull request
 
 ### Add an Activity
-Activities are stored in a [plain text file](https://github.com/doowat/doowat.github.io/blob/master/src/activities/en.txt) - one activity per line. Adding an activity is as simple as adding a line.
+Activities are stored in a [plain text file](https://github.com/doowat/doowat.github.io/blob/master/src/activities/) - one activity per line. Adding an activity is as simple as adding a line.
 
 Activities are targeted at moments outside the house - when you don't necessarily have any toys or materials on you. The activities require no preparations and can be accomplished in a short time.
 

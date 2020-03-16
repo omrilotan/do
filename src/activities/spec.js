@@ -6,9 +6,15 @@ const MAX_LENGTH = 150;
 
 let dictionary;
 
-const activities = readFileSync(
-	join(__dirname, 'en.txt')
-).toString().split('\n').map(i => i.trim()).filter(Boolean);
+const activities = [
+	'anywhere.txt',
+	'indoors.txt',
+	'outdoors.txt'
+].map(
+	filename => readFileSync(
+		join(__dirname, filename)
+	).toString().split('\n').map(i => i.trim()).filter(Boolean)
+).flat();
 
 
 const setupDictionary = () => new Promise(
@@ -38,7 +44,7 @@ const skipWords = [
 	'yes/no'
 ];
 
-describe('activities', () => {
+describe(`${activities.length} activities`, () => {
 	before(setupDictionary);
 	it('should be shorter than 80 characters', () => {
 		activities.forEach(activity => {

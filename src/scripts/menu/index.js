@@ -1,6 +1,7 @@
 import beforeinstall from '../beforeinstall/index.js';
 import dataLayerPush from '../dataLayerPush/index.js';
 import { insertShareLink } from '../share/index.js';
+import { location } from '../location/index.js';
 import slider from '../slider/index.js';
 
 export default function menu() {
@@ -9,6 +10,7 @@ export default function menu() {
 
 	const nav = template.content.querySelector('nav');
 	insertShareLink(nav);
+	location(nav);
 	beforeinstall(nav);
 
 	const hamburger = template.content.querySelector('.hamburger');

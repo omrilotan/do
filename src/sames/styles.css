@@ -6,6 +6,7 @@
 	--background-colour-transparent: rgba(255, 255, 255, 0);
 	--selection-background: #fff;
 	--selection-colour: #000;
+	--highlight-color: #ffeaa7;
 	--font-running: 100 200%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
 	--transition-play-button: box-shadow .3s, transform .3s;
 	--transition-silde-panel: transform .14s ease-out;
@@ -250,12 +251,22 @@ nav {
 .navopen nav, nav:focus-within {
 	transform: translate(0, 0);
 }
-nav a {
-	color: inherit;
+nav a, nav span {
 	display: block;
 	padding: .25em var(--margin-unit);
+}
+nav a {
+	color: inherit;
 	font-size: .75em;
 	transition: var(--transition-silde-panel);
+}
+nav a.selected {
+	background: var(--highlight-color);
+}
+nav span {
+	font-size: .5em;
+	border-bottom: 1px solid var(--background-colour);
+	filter: hue-rotate(180deg);
 }
 nav a:focus {
 	filter: hue-rotate(180deg);
