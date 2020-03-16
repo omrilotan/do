@@ -6,7 +6,7 @@
 
 		return document.location.href.includes(key)
 			? randomDo(list)
-			: `/en/${key}/`
+			: `/${key}/`
 		;
 	}
 
@@ -214,6 +214,55 @@
 		});
 	}
 
+	/**
+	 * @type {string}
+	 */
+	const STORAGE_KEY = 'activity-list';
+
+	/**
+	 * Mitigate local storage
+	 */
+	function get() {
+		try {
+			return window.localStorage.getItem(STORAGE_KEY);
+		} catch (error) {
+			return null;
+		}
+	}
+
+	/**
+	 * Mitigate local storage
+	 */
+	function remove() {
+		try {
+			window.localStorage.removeItem('activity-list');
+		} catch (error) {
+			// ignore
+		}
+	}
+
+	/**
+	 * Switch the behaviour of selected location (toggle)
+	 */
+	function location(nav) {
+		const selectedLocation = get();
+		if (!selectedLocation) {
+			return;
+		}
+
+		const anchor = nav.querySelector(`a[href="/${selectedLocation}/"]`);
+		if (!anchor) {
+			return;
+		}
+
+		anchor.addEventListener('click', function(event) {
+			event.preventDefault();
+			remove();
+			window.location.href = '/random';
+		});
+		anchor.classList.add('selected');
+	}
+
 	function slider() {
 		/**
 		 * Threshold to recognise touch from edge
@@ -306,6 +355,7 @@
 
 		const nav = template.content.querySelector('nav');
 		insertShareLink(nav);
+		location(nav);
 		beforeinstall(nav);
 
 		const hamburger = template.content.querySelector('.hamburger');
@@ -339,7 +389,12 @@
 		slider();
 	}
 
-	const next = () => fetch('/en/list.json')
+	/**
+	 * @type {string[]} Existing lists
+	 */
+	const LISTS = ['all', 'indoors', 'outdoors'];
+
+	const next = location => fetch(`/${location}.json`)
 		.then(
 			res => res.json()
 		).then(
@@ -365,7 +420,10 @@
 			'--background-colour',
 			random(colours)
 		);
-		next();
+
+		const list = get();
+
+		next(LISTS.includes(list) ? list : 'all');
 		registerServiceWorker();
 		menu();
 	})();

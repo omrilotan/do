@@ -1,0 +1,75 @@
+:root {
+	--transition-glossary-generic: all .3s;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+	:root {
+		--transition-glossary-generic: none;
+	}
+}
+.cards {
+	width: 100%;
+}
+.cards a {
+	display: block;
+	font-size: .7em;
+	margin-bottom: var(--margin-unit);
+	padding: .5em .75em .75em;
+	border: 1px solid var(--foreground-colour);
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: .5em;
+	overflow: hidden;
+	transition: var(--transition-glossary-generic);
+}
+.cards a:focus {
+	background: var(--background-colour);
+	filter: hue-rotate(180deg);
+}
+.cards a.hidden {
+	padding: 0 .75em;
+	margin-bottom: 0;
+	border: 0;
+}
+input[type="search"] {
+	position: fixed;
+	z-index: 20;
+	right: var(--margin-unit-half);
+	top: var(--margin-unit-half);
+	border: 0 var(--background-colour) solid;
+	border-radius: 1em;
+	box-sizing: content-box;
+	background: var(--foreground-colour) url(/icons/search.svg) center center no-repeat;
+	background-size: 50%;
+	font-size: .5em;
+	height: 2em;
+	line-height: 2em;
+	width: 2em;
+	text-indent: .5em;
+	transition: var(--transition-glossary-generic);
+}
+input[type="search"]::-webkit-search-cancel-button {
+	display: none;
+	-webkit-appearance: none;
+}
+input[type="search"]:focus::-webkit-search-cancel-button {
+	display: block;
+	cursor: pointer;
+	font-size: 2em;
+	height: 1em;
+	width: 1em;
+	background: url(/icons/cancel.svg) center center no-repeat;
+	background-size: 50%;
+}
+input[type="search"]:focus::-webkit-search-cancel-button:before {
+	content: '\u00D7';
+}
+input[type="search"]:active,
+input[type="search"]:focus {
+	background-image: none;
+	right: 0;
+	top: 0;
+	border: var(--margin-unit) var(--background-colour) solid;
+	border-radius: 3px;
+	width: calc(100vw - var(--margin-unit) - var(--margin-unit));
+	box-shadow: 0 1px .5em rgba(0, 0, 0, .3);
+}

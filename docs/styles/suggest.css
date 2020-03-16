@@ -1,0 +1,58 @@
+:root {
+	--transition-suggest-height: height 1s ease-out;
+	--transition-suggest-form-elements: filter .3s;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+	:root {
+		--transition-suggest-height: none;
+		--transition-suggest-form-elements: none;
+	}
+}
+header {
+	width: 100%;
+	text-align: center;
+}
+div {
+	width: 100%;
+	overflow: hidden;
+	transition: var(--transition-suggest-height);
+}
+form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+form textarea, form button {
+	padding: .5em;
+	width: 100%;
+	box-sizing: border-box;
+	border: none;
+	font-size: .75em;
+	transition: var(--transition-suggest-form-elements);
+}
+form button {
+	background: var(--background-colour);
+	color: var(--foreground-colour);
+	border: 1px solid var(--foreground-colour);
+	margin-bottom: var(--margin-unit);
+	border-radius: 0 0 .5em .5em;
+}
+form button:focus {
+	filter: hue-rotate(180deg);
+}
+form textarea {
+	background: var(--foreground-colour);
+	color: var(--foreground-colour-opposite);
+	min-height: 5em;
+	resize: vertical;
+	border-radius: .5em .5em 0 0;
+}
+::placeholder {
+  color: var(--background-colour);
+}
+form[disabled] textarea {
+	filter: brightness(.62);
+}
+form[disabled] button {
+	filter: grayscale(100%);
+}
