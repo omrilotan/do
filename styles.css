@@ -278,20 +278,6 @@ nav a:focus {
 	filter: hue-rotate(180deg);
 	transform: translateX(.25em)
 }
-nav a[href^="http"]:after {
-	content: " ";
-	background-color: var(--background-colour);
-	-webkit-mask-image: url(/icons/external-link.svg);
-	mask-image: url(/icons/external-link.svg);
-	-webkit-mask-size: contain;
-	mask-size: contain;
-	display: inline-block;
-	width: 1em;
-	height: 1em;
-	margin: 0 0 0 .25em;
-	font-size: .75em;
-	vertical-align: top;
-}
 .center {
 	text-align: center;
 }
