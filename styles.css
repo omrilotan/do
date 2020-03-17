@@ -57,6 +57,7 @@
 		--foreground-colour: #000;
 		--font-size: 12pt;
 	}
+	.clickthis,
 	.play {
 		display: none !important;
 	}
@@ -180,6 +181,11 @@ mark {
 .play:focus, .play:active {
 	transform: translate(.05em, .1em);
 	box-shadow: inset .1em .2em rgba(0, 0, 0, .3);
+}
+.clickthis {
+	width: 3em;
+	margin-bottom: -1em;
+	background-blend-mode: multiply;
 }
 
 .hamburger, .share {
