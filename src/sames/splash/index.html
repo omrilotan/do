@@ -2,12 +2,16 @@
 <html lang="en-GB">
 	<head>
 		{{ meta }}
+		<meta name="robots" content="noindex">
+		<meta name="googlebot" content="noindex">
 		<meta name="description" content="{{ name }} - {{ tagline }}">
+		<meta name="page-type" content="ignore">
 	</head>
 	<body>
 		<main style="text-align:center">
-			<h1 class="font-face">{{ name }}</h1>
+			<h1><img class="site-title" alt="doowat" src="/images/doowat.svg"></h1>
 			{{ tagline }}
+			{{ play-button }}
 		</main>
 		<script src="/scripts.js"></script>
 	</body>
