@@ -3,7 +3,7 @@
 	<head>
 		{{ meta }}
 		<meta name="description" content="{{ name }} - {{ size }} {{ tagline }}">
-		<link rel="stylesheet" href="/styles/glossary.css">
+		<link rel="stylesheet" href="/styles/glossary.css?ckv={{ cacheKeyVersion }}">
 		<meta name="page-type" content="glossary">
 	</head>
 	<body>
@@ -20,7 +20,7 @@
 			{{ play-button }}
 		</main>
 		{{ nav }}
-		<script src="/scripts.js"></script>
-		<script src="/scripts/glossary.js"></script>
+		<script src="/scripts.js?ckv={{ cacheKeyVersion }}"></script>
+		<script src="/scripts/glossary.js?ckv={{ cacheKeyVersion }}"></script>
 	</body>
 </html>

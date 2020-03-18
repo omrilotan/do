@@ -1,5 +1,12 @@
 import dataLayerPush from './dataLayerPush/index.js';
 import media from './media/index.js';
+import cardHeightSetup from './cardHeightSetup/index.js';
+
+/**
+ * Height memory attribute
+ * @type {string}
+ */
+const HEIGHT_MEM_ATTR = 'h';
 
 media('print') || window.addEventListener(
 	'load',
@@ -8,13 +15,8 @@ media('print') || window.addEventListener(
 		search.setAttribute('type', 'search');
 
 		const cards = document.querySelectorAll('.cards a');
-		[].forEach.call(
-			cards,
-			function setupCard(card) {
-				card.style.height = card.offsetHeight + 'px';
-				card.setAttribute('h', card.offsetHeight);
-			}
-		);
+
+		cardHeightSetup(cards, { attr: HEIGHT_MEM_ATTR });
 
 		function searchChange({ target: { value } }) {
 			const pattern = new RegExp(value, 'i');
@@ -30,7 +32,9 @@ media('print') || window.addEventListener(
 						: card.setAttribute('tabindex', '-1')
 					;
 					card.style.height = match
-						? card.getAttribute('h') + 'px'
+						? card.hasAttribute(HEIGHT_MEM_ATTR)
+							? card.getAttribute(HEIGHT_MEM_ATTR) + 'px'
+							: 'auto'
 						: '0px'
 					;
 					card.innerHTML = card.innerText.replace(pattern, match => `<mark>${match}</mark>`);

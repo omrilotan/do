@@ -10,7 +10,7 @@
 			<h1><img class="site-title" alt="doowat" src="/images/doowat.svg"></h1>
 			<header>{{ tagline }}</header>
 			<p>
-				Draw a <a name="draw" class="link" href="/random/?1">random activity</a> out of these {{ size }} "on the go" time fillers to liven up dead moments. <mark>No preparation required!</mark> Share your favourites. <a href="/suggest/" class="link">Suggest your own</a>.
+				Draw a <a name="draw" class="link" href="/random/?ckv={{ cacheKeyVersion }}">random activity</a> out of these {{ size }} "on the go" time fillers to liven up dead moments. <mark>No preparation required!</mark> Share your favourites. <a href="/suggest/" class="link">Suggest your own</a>.
 			</p>
 			{{ play-button }}
 			<p>
@@ -18,6 +18,6 @@
 			</p>
 		</main>
 		{{ nav }}
-		<script src="/scripts.js"></script>
+		<script src="/scripts.js?ckv={{ cacheKeyVersion }}"></script>
 	</body>
 </html>
