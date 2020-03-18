@@ -21,13 +21,14 @@ jobs:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ github.token }}
         REPO: ${{ github.repository }}
+        BRANCH: ${{ github.ref }}
       run: |
         if [ "$(git diff --quiet && echo 0 || echo $?)" -gt 0 ]; then
           git config --global user.email "${USERNAME}@users.noreply.github.com" --replace-all
           git config --global user.name "$USERNAME" --replace-all
           git commit -am "😎 Autofix"
           git remote set-url origin https://$USERNAME:$TOKEN@github.com/$REPO.git
-          git push -u origin ${BRANCH}
+          git push -u origin HEAD:${BRANCH}
           exit 1
         fi
     - name: Test

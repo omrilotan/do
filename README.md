@@ -4,5 +4,5 @@
 On the go activities to do with kids that require no preparations. Draw a [random activity](https://doowat.net/random/) 🤪. Save and share your favourites. [Suggest your own 🤩](https://github.com/doowat/doowat.github.io/issues/new/choose).
 
 <p align="center">
-  <a href="https://doowat.net/random/?1"><img src="https://user-images.githubusercontent.com/516342/75481509-d4a3b680-59ab-11ea-8262-a76554aff322.png" width="360"></a>
+  <a href="https://doowat.net/random/?ckv={{ cacheKeyVersion }}"><img src="https://user-images.githubusercontent.com/516342/75481509-d4a3b680-59ab-11ea-8262-a76554aff322.png" width="360"></a>
 </p>
