@@ -38,6 +38,7 @@ const setupDictionary = () => new Promise(
 const skipWords = [
 	'hand-clap',
 	'in-person',
+	'minifigures',
 	'Pat-a-Cake',
 	'selfies',
 	'Wikipedia',
