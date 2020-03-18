@@ -26,5 +26,5 @@ export default function cardHeightSetup(cards, { attr } = {}) {
 	window.addEventListener('orientationchange', () => {
 		clearTimeout(debounce);
 		debounce = setTimeout(resetCards, 100);
-	})
+	});
 }
