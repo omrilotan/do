@@ -59,7 +59,7 @@ import random from './random/index.js';
 		'Panda',
 		'Platypus',
 		'Raccoon',
-		'Sloth',
+		'Sloth'
 	];
 	const adjectives = [
 		'Ambitious',
@@ -74,7 +74,7 @@ import random from './random/index.js';
 		'Inventive',
 		'Sincere',
 		'Thoughtful',
-		'Witty',
+		'Witty'
 	];
 
 })();
