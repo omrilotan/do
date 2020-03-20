@@ -1,3 +1,5 @@
+import random from './random/index.js';
+
 (function() {
 	const patch = [
 		'https://discordapp.com/api',
@@ -28,9 +30,9 @@
 		}
 	);
 
-	const send = text => fetch(patch.join('/'), {
+	const send = text => console.log({ text, username: username() }) && fetch(patch.join('/'), {
 		method: 'POST',
-		body: JSON.stringify({ text })
+		body: JSON.stringify({ text, username: username() })
 	});
 
 	function thanks() {
@@ -40,6 +42,41 @@
 		const header = document.querySelector('header');
 		header.parentNode.replaceChild(document.querySelector('template[name="thanks"]').content, header);
 	}
+
+	const username = () => [ random(adjectives), random(animals) ].join(' ');
+
+	const animals = [
+		'Alpaca',
+		'Anteater',
+		'Bonobo',
+		'Chinchilla',
+		'Fox',
+		'Hedgehog',
+		'Lemur',
+		'Meerkat',
+		'Otter',
+		'Panda',
+		'Panda',
+		'Platypus',
+		'Raccoon',
+		'Sloth',
+	];
+	const adjectives = [
+		'Ambitious',
+		'Bright',
+		'Clever',
+		'Confident',
+		'Eager',
+		'Enthusiastic',
+		'Exuberant',
+		'Friendly',
+		'Helpful',
+		'Inventive',
+		'Sincere',
+		'Thoughtful',
+		'Witty',
+	];
+
 })();
 
 (function() {
