@@ -31,7 +31,7 @@
 			}
 		);
 
-		const send = text => console.log({ text, username: username() }) && fetch(patch.join('/'), {
+		const send = text => fetch(patch.join('/'), {
 			method: 'POST',
 			body: JSON.stringify({ text, username: username() })
 		});
