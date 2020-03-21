@@ -33,6 +33,7 @@
     "rimraf": "^3.0.0",
     "rollup": "^2.0.6",
     "simple-spellchecker": "^1.0.0",
-    "stringerprint": "0.0.0"
+    "stringerprint": "0.0.0",
+    "text-to-image": "^2.2.0"
   }
 }
