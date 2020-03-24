@@ -22,6 +22,7 @@
   "devDependencies": {
     "@omrilotan/eslint-config": "^1.1.0",
     "async-execute": "^1.1.0",
+    "canvas": "^2.6.1",
     "chai": "^4.2.0",
     "clear-module": "^4.1.1",
     "eslint": "^6.7.0",
@@ -33,7 +34,6 @@
     "rimraf": "^3.0.0",
     "rollup": "^2.0.6",
     "simple-spellchecker": "^1.0.0",
-    "stringerprint": "0.0.0",
-    "text-to-image": "^2.2.0"
+    "stringerprint": "0.0.0"
   }
 }
