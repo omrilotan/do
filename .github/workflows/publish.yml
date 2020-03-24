@@ -44,6 +44,17 @@ jobs:
         cd docs
         ls -a | grep -v .git | egrep -vU "\.$" | xargs rm -rf
         cd -
+    - name: Install fonts
+      if: github.ref == 'refs/heads/build'
+      run: |
+        sudo mkdir /usr/share/fonts/opentype
+        cd /usr/share/fonts
+        sudo mkdir googlefonts
+        cd googlefonts
+        curl https://fonts.google.com/download?family=Roboto --output Roboto.zip
+        sudo unzip -d . Roboto.zip
+        sudo chmod -R --reference=/usr/share/fonts/opentype /usr/share/fonts/googlefonts
+        sudo fc-cache -fv
     - name: Build
       if: github.ref == 'refs/heads/build'
       run: npm run build
