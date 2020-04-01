@@ -36,11 +36,13 @@ const setupDictionary = () => new Promise(
 );
 
 const skipWords = [
+	'GIF',
 	'hand-clap',
 	'in-person',
 	'minifigures',
 	'Pat-a-Cake',
 	'selfies',
+	'stop-motion',
 	'Wikipedia',
 	'yes/no'
 ];
