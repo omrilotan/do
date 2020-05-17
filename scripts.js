@@ -32,7 +32,10 @@
 		dialog.appendChild(menu);
 		document.body.appendChild(dialog);
 
-		dialog.showModal();
+		dialog.showModal
+			? dialog.showModal()
+			: dialog.setAttribute('open', 'open')
+		;
 		setTimeout(() => dialog.classList.add('show'));
 		setTimeout(() => dialog.classList.remove('show'), 20000);
 	}
