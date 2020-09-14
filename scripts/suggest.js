@@ -1,4 +1,5 @@
 (function () {
+
 	var random = items => items[Math.floor(Math.random() * items.length)];
 
 	(function() {
@@ -24,9 +25,9 @@
 				const [ textarea ] = target;
 				const { value } = textarea;
 				if (!value) { return textarea.focus(); }
-				[target, textarea].forEach(e => e.setAttribute('disabled', 'disabled'));
+				[ target, textarea ].forEach(e => e.setAttribute('disabled', 'disabled'));
 				send(value).then(thanks).catch(
-					() => [target, textarea].forEach(e => e.removeAttribute('disabled'))
+					() => [ target, textarea ].forEach(e => e.removeAttribute('disabled'))
 				);
 			}
 		);

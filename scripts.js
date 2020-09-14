@@ -1,4 +1,5 @@
 (function () {
+
 	var random = items => items[Math.floor(Math.random() * items.length)];
 
 	function randomDo(list) {
@@ -60,7 +61,7 @@
 
 		await navigator.serviceWorker.ready;
 		setTimeout(
-			() => navigator.serviceWorker.controller && navigator.serviceWorker.controller.postMessage({action: 'updateCacheKey', value: cacheKey()}),
+			() => navigator.serviceWorker.controller && navigator.serviceWorker.controller.postMessage({ action: 'updateCacheKey', value: cacheKey() }),
 			1000
 		);
 	}
@@ -353,7 +354,7 @@
 	}
 
 	function menu() {
-		const template =  document.querySelector('template[name="nav"]');
+		const template = document.querySelector('template[name="nav"]');
 		if (!template) { return; }
 
 		const nav = template.content.querySelector('nav');
@@ -395,7 +396,7 @@
 	/**
 	 * @type {string[]} Existing lists
 	 */
-	const LISTS = ['all', 'indoors', 'outdoors'];
+	const LISTS = [ 'all', 'indoors', 'outdoors' ];
 
 	const next = location => fetch(`/${location}.json`)
 		.then(
