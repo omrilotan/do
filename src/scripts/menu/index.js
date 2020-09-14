@@ -5,7 +5,7 @@ import { location } from '../location/index.js';
 import slider from '../slider/index.js';
 
 export default function menu() {
-	const template =  document.querySelector('template[name="nav"]');
+	const template = document.querySelector('template[name="nav"]');
 	if (!template) { return; }
 
 	const nav = template.content.querySelector('nav');

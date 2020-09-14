@@ -10,7 +10,7 @@
 
 	function updateCacheKey(value = '1') {
 		version = value;
-		cacheKey = [CACHE_KEY_PREFIX, version].join('-');
+		cacheKey = [ CACHE_KEY_PREFIX, version ].join('-');
 		clearOldCache();
 	}
 
@@ -167,7 +167,7 @@
 	}
 
 	function err(error, message) {
-		error.message = [error.message, message].join(' ');
+		error.message = [ error.message, message ].join(' ');
 		setTimeout(() => { throw error; });
 	}
 })();

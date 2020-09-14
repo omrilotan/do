@@ -4,7 +4,7 @@ const { join } = require('path');
 const readLines = require('../../lib/readLines');
 const writeFile = require('../../lib/writeFile');
 
-const [ , , ...files] = process.argv;
+const [ , , ...files ] = process.argv;
 
 async function sortFile (filename) {
 	const filepath = join(process.cwd(), filename);

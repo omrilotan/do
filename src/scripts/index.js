@@ -11,7 +11,7 @@ import { addShareButton } from './share/index.js';
 /**
  * @type {string[]} Existing lists
  */
-const LISTS = ['all', 'indoors', 'outdoors'];
+const LISTS = [ 'all', 'indoors', 'outdoors' ];
 
 const next = location => fetch(`/${location}.json`)
 	.then(
