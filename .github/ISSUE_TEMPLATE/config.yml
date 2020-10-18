@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Existing activities
-    url: https://github.com/doowat/doowat.github.io/blob/master/src/activities/
+    url: https://github.com/doowat/doowat.github.io/tree/build/src/activities
     about: Take a look at the list of all existing activities
   - name: How to contribute
-    url: https://github.com/doowat/doowat.github.io/blob/master/CONTRIBUTING.md
+    url: https://github.com/doowat/doowat.github.io/tree/build/CONTRIBUTING.md
     about: A really short explenation on contributing to this project
