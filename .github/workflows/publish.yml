@@ -40,7 +40,7 @@ jobs:
         TOKEN: ${{ github.token }}
         REPO: ${{ github.repository }}
       run: |
-        git clone -b master --single-branch https://$USERNAME:$TOKEN@github.com/$REPO.git docs
+        git clone -b main --single-branch https://$USERNAME:$TOKEN@github.com/$REPO.git docs
         cd docs
         ls -a | grep -v .git | egrep -vU "\.$" | xargs rm -rf
         cd -
@@ -74,5 +74,5 @@ jobs:
           git add .
           git commit -m "$(curl -s whatthecommit.com/index.txt)"
           git remote set-url origin https://$USERNAME:$TOKEN@github.com/$REPO.git
-          git push origin master --force-with-lease
+          git push origin main --force-with-lease
         fi
