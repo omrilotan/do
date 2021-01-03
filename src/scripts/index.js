@@ -33,7 +33,10 @@ const next = location => fetch(`/${location}.json`)
 		return;
 	}
 
-	const colours = '{{ hexlist }}'.split(',');
+	const colours = media('(prefers-color-scheme: dark)')
+		? '{{ paletteDark }}'.split(',')
+		: '{{ paletteBright }}'.split(',')
+	;
 
 	document.documentElement.style.setProperty(
 		'--background-colour',

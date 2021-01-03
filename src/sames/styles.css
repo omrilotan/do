@@ -45,11 +45,29 @@
 		--margin-unit-half: .625vw;
 	}
 }
-@media screen and (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
 	:root {
 		--transition-play-button: none;
 		--transition-silde-panel: none;
 		--transition-hamburger: none;
+	}
+}
+@media (prefers-color-scheme: dark) {
+	.clickthis {
+		filter: invert(1);
+	}
+}
+@media (prefers-contrast: more) {
+	:root {
+		--font-running: normal 200%/1.4 sans-serif;
+	}
+	html {
+		filter: contrast(3);
+	}
+}
+@media (prefers-reduced-data: reduce) {
+	.clickthis {
+		display: none;
 	}
 }
 @media print {
