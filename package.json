@@ -20,20 +20,20 @@
     "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'"
   },
   "devDependencies": {
-    "@omrilotan/eslint-config": "^1.1.0",
+    "@omrilotan/eslint-config": "^1.3.0",
     "async-execute": "^1.2.0",
     "canvas": "^2.6.1",
     "chai": "^4.2.0",
     "clear-module": "^4.1.1",
-    "eslint": "^7.0.0",
-    "eslint-plugin-log": "^1.2.3",
+    "eslint": "^7.17.0",
+    "eslint-plugin-log": "^1.2.7",
     "glob": "^7.1.6",
-    "mime-types": "^2.1.27",
-    "mocha": "^7.1.2",
+    "mime-types": "^2.1.28",
+    "mocha": "^8.2.1",
     "paraphrase": "^1.8.0",
     "rimraf": "^3.0.0",
-    "rollup": "^2.10.0",
-    "simple-spellchecker": "^1.0.0",
-    "stringerprint": "0.0.0"
+    "rollup": "^2.35.1",
+    "simple-spellchecker": "^1.0.1",
+    "stringerprint": "^1.0.1"
   }
 }
