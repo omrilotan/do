@@ -149,7 +149,7 @@
 						deferred.userChoice.then(
 							function result({ outcome }) {
 								if (outcome === 'accepted') {
-									link$1.parentNode.removeChild(link$1);
+									link$1.parentNode && link$1.parentNode.removeChild(link$1);
 								}
 								deferred = null;
 							}
