@@ -23,7 +23,7 @@ export default function beforeinstall(container) {
 					deferred.userChoice.then(
 						function result({ outcome }) {
 							if (outcome === 'accepted') {
-								link.parentNode.removeChild(link);
+								link.parentNode && link.parentNode.removeChild(link);
 							}
 							deferred = null;
 						}
