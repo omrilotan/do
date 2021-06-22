@@ -98,7 +98,7 @@
 		;
 	}
 
-	function link(href) {
+	function link$1(href) {
 		const prerender = document.createElement('link');
 		prerender.setAttribute('rel', 'prerender');
 		prerender.setAttribute('href', href);
@@ -126,7 +126,7 @@
 		window.dataLayer && window.dataLayer.push(...args);
 	}
 
-	let link$1;
+	let link;
 	let deferred;
 
 	function beforeinstall(container) {
@@ -136,12 +136,12 @@
 				event.preventDefault();
 
 				deferred = event;
-				if (link$1) { return; }
+				if (link) { return; }
 
-				link$1 = document.createElement('a');
-				link$1.setAttribute('href', '#!');
-				link$1.appendChild(document.createTextNode('Get the App'));
-				link$1.addEventListener(
+				link = document.createElement('a');
+				link.setAttribute('href', '#!');
+				link.appendChild(document.createTextNode('Get the App'));
+				link.addEventListener(
 					'click',
 					function triggerbeforeinstall(event) {
 						event.preventDefault();
@@ -149,7 +149,7 @@
 						deferred.userChoice.then(
 							function result({ outcome }) {
 								if (outcome === 'accepted') {
-									link$1.parentNode && link$1.parentNode.removeChild(link$1);
+									link.parentNode && link.parentNode.removeChild(link);
 								}
 								deferred = null;
 							}
@@ -158,7 +158,7 @@
 						dataLayerPush({ event: 'click-install' });
 					}
 				);
-				container.insertBefore(link$1, container.firstElementChild);
+				container.insertBefore(link, container.firstElementChild);
 			}
 		);
 	}
@@ -404,7 +404,7 @@
 		).then(
 			randomDo
 		).then(
-			link
+			link$1
 		).then(
 			() => meta('page-type') === 'activity' && addShareButton(document.body)
 		).catch(error => {
