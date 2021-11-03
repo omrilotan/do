@@ -109,4 +109,4 @@
 		window.addEventListener('load', init);
 	})();
 
-}());
+})();
