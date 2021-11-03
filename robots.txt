@@ -4,4 +4,4 @@ Disallow: /suggest/
 Disallow: /offline/
 Disallow: /splash/
 
-Sitemap: https://doowat.net/sitemap.xml
+Sitemap: https://do.omrilotan.com/sitemap.xml
