@@ -39,8 +39,8 @@ import random from './random/index.js';
 		const div = document.querySelector('div');
 		div.style.height = div.offsetHeight + 'px';
 		setTimeout(() => { div.style.height = '0px'; }, 200);
-		const header = document.querySelector('header');
-		header.parentNode.replaceChild(document.querySelector('template[name="thanks"]').content, header);
+		const h1 = document.querySelector('h1');
+		h1.parentNode.replaceChild(document.querySelector('template[name="thanks"]').content, h1);
 	}
 
 	const username = () => [ random(adjectives), random(animals) ].join(' ');

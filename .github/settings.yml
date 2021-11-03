@@ -1,7 +1,7 @@
 repository:
-  name: doowat
+  name: do
   description: 😜 On the go activities for you and your child that require no preparations
-  homepage: https://doowat.net
+  homepage: https://do.omrilotan.com
   topics: pwa, progressive-web-app, activities, on-the-go, parenting
   private: false
   has_issues: true

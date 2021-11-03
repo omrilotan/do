@@ -1,5 +1,5 @@
 rm -rf docs
-git clone -b main --single-branch git@github.com:doowat/doowat.github.io.git docs
+git clone -b main --single-branch git@github.com:omrilotan/do.git docs
 cd docs
 ls -a | grep -v .git | egrep -vU "\.$" | xargs rm -rf
 cd ../

@@ -8,10 +8,6 @@
 		--transition-suggest-form-elements: none;
 	}
 }
-header {
-	width: 100%;
-	text-align: center;
-}
 div {
 	width: 100%;
 	overflow: hidden;

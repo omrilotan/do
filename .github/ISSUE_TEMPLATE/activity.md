@@ -6,6 +6,6 @@ labels: activity, good first issue
 assignees: omrilotan
 ---
 
-I've been doing this with my kid and we've had lots of fun 🤪! Why don't you add it to doowat 🤩?
+I've been doing this with my kid and we've had lots of fun 🤪! Why don't you add it to גם 🤩?
 
 > I try to add activities that are short, easy, entertaining, and require little to no preparation.

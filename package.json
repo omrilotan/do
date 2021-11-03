@@ -1,5 +1,5 @@
 {
-  "name": "doowat",
+  "name": "do",
   "version": "0.0.0",
   "private": true,
   "description": "entertaining time fillers with kids",
@@ -7,9 +7,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doowat/doowat.github.io.git"
+    "url": "git+https://github.com/omrilotan/do.git"
   },
-  "homepage": "https://doowat.net",
+  "homepage": "https://do.omrilotan.com",
   "scripts": {
     "build": "node lib/build",
     "clean": "rimraf docs",

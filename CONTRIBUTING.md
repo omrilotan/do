@@ -1,4 +1,4 @@
-# Yay! Contribute to doowat 🎉
+# Yay! Contribute to do 🎉
 
 First off, thank you for taking the time to contribute! I appreciate it 🤩
 
@@ -6,12 +6,12 @@ First off, thank you for taking the time to contribute! I appreciate it 🤩
 
 Anything you want to say is welcome - as long as you are considerate of other people and express yourself with dignity.
 
-Please try and use one of the [issue templates](https://github.com/doowat/doowat.github.io/issues/new/choose) - Issues help me keep track of tasks, allow an open discussion, and allow me to provide updates.
+Please try and use one of the [issue templates](https://github.com/omrilotan/do/issues/new/choose) - Issues help me keep track of tasks, allow an open discussion, and allow me to provide updates.
 
 ## Contribute an activity, Contribute code, Open a pull request
 
 ### Add an Activity
-Activities are stored in a [plain text file](https://github.com/doowat/doowat.github.io/blob/main/src/activities/) - one activity per line. Adding an activity is as simple as adding a line.
+Activities are stored in a [plain text file](https://github.com/omrilotan/do/blob/main/src/activities/) - one activity per line. Adding an activity is as simple as adding a line.
 
 Activities are targeted at moments outside the house - when you don't necessarily have any toys or materials on you. The activities require no preparations and can be accomplished in a short time.
 
