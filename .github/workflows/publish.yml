@@ -34,18 +34,18 @@ jobs:
     - name: Test
       run: npm t
     - name: Clone docs and clean everything
-      if: github.ref == 'refs/heads/build'
+      if: github.ref == 'refs/heads/main'
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ github.token }}
         REPO: ${{ github.repository }}
       run: |
-        git clone -b main --single-branch https://$USERNAME:$TOKEN@github.com/$REPO.git docs
+        git clone -b site --single-branch https://$USERNAME:$TOKEN@github.com/$REPO.git docs
         cd docs
         ls -a | grep -v .git | egrep -vU "\.$" | xargs rm -rf
         cd -
     - name: Install fonts
-      if: github.ref == 'refs/heads/build'
+      if: github.ref == 'refs/heads/main'
       run: |
         sudo mkdir /usr/share/fonts/opentype
         cd /usr/share/fonts
@@ -56,10 +56,10 @@ jobs:
         sudo chmod -R --reference=/usr/share/fonts/opentype /usr/share/fonts/googlefonts
         sudo fc-cache -fv
     - name: Build
-      if: github.ref == 'refs/heads/build'
+      if: github.ref == 'refs/heads/main'
       run: npm run build
     - name: Check for changes and commit
-      if: github.ref == 'refs/heads/build'
+      if: github.ref == 'refs/heads/main'
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ github.token }}
@@ -74,5 +74,5 @@ jobs:
           git add .
           git commit -m "$(curl -s whatthecommit.com/index.txt)"
           git remote set-url origin https://$USERNAME:$TOKEN@github.com/$REPO.git
-          git push origin main --force-with-lease
+          git push origin site --force-with-lease
         fi

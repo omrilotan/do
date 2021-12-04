@@ -1,5 +1,5 @@
 rm -rf docs
-git clone -b main --single-branch git@github.com:omrilotan/do.git docs
+git clone -b site --single-branch git@github.com:omrilotan/do.git docs
 cd docs
 ls -a | grep -v .git | egrep -vU "\.$" | xargs rm -rf
 cd ../
@@ -8,4 +8,4 @@ cd docs
 # git checkout previews/*
 git add .
 git commit -m "$(curl -s whatthecommit.com/index.txt)"
-git push origin main
+git push origin site

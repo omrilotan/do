@@ -26,6 +26,7 @@
     "chai": "^4.2.0",
     "clear-module": "^4.1.1",
     "eslint": "^7.17.0",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-log": "^1.2.7",
     "glob": "^7.1.6",
     "mime-types": "^2.1.28",
