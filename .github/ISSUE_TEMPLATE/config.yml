@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Existing activities
-    url: https://github.com/omrilotan/do/tree/build/src/activities
+    url: https://github.com/omrilotan/do/tree/main/src/activities
     about: Take a look at the list of all existing activities
   - name: How to contribute
-    url: https://github.com/omrilotan/do/tree/build/CONTRIBUTING.md
-    about: A really short explenation on contributing to this project
+    url: https://github.com/omrilotan/do/blob/main/CONTRIBUTING.md
+    about: A really short explanation on contributing to this project

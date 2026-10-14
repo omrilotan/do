@@ -1,21 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-GB">
 	<head>
 		{{ meta }}
-		<meta name="description" content="{{ name }} - {{ tagline }}">
-		<meta name="page-type" content="homepage">
+		<meta name="description" content="{{ name }} - {{ tagline }}" />
+		<meta name="page-type" content="homepage" />
 	</head>
 	<body>
 		<article class="web-only">
 			<h1>do something fun</h1>
 			<p>{{ tagline }}</p>
-			<img class="clickthis" style="width: 3em; height: 3em;" loading="lazy" src="/images/clickthis.png">
+			<img
+				class="clickthis"
+				style="width: 3em; height: 3em"
+				alt=""
+				src="/images/clickthis.png"
+			/>
 			{{ play-button }}
 			<p class="center"><a href="/about/" class="link">What is this?</a></p>
 		</article>
-		<article class="standalone-only flex">
-			{{ play-button }}
-		</article>
+		<article class="standalone-only flex">{{ play-button }}</article>
 		{{ nav }}
 		<script src="/scripts.js?ckv={{ cacheKeyVersion }}"></script>
 		<script src="/scripts/index.js?ckv={{ cacheKeyVersion }}"></script>

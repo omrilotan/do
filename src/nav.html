@@ -1,14 +1,23 @@
-		<template name="nav">
-			<button class="hamburger" name="navigation" aria-label="Toggle Navigation" tabindex="-1"><i></i></button>
-			<nav>
-				<a href="/about/">What is this?</a>
-				<a name="draw" href="/random/?ckv={{ cacheKeyVersion }}">Random Activity</a>
-				<a href="/suggest/">Make a Suggestion</a>
-				<a href="/glossary/">Glossary</a>
-				<span>Switch location</span>
-				<a href="/outdoors/">Outdoors</a>
-				<a href="/indoors/">Indoors</a>
-				<span>Community</span>
-				<a href="https://github.com/omrilotan/do" rel="noreferrer noopener" target="_blank">Source Code</a>
-			</nav>
-		</template>
+<template id="nav">
+	<button
+		class="hamburger"
+		aria-label="Toggle navigation"
+		aria-expanded="false"
+		aria-controls="navigation"
+	>
+		<i></i>
+	</button>
+	<nav id="navigation">
+		<a href="/about/">What is this?</a>
+		<a data-draw href="/random/?ckv={{ cacheKeyVersion }}">Random Activity</a>
+		<a href="/suggest/">Make a Suggestion</a>
+		<a href="/glossary/">Glossary</a>
+		<span>Switch location</span>
+		<a href="/outdoors/">Outdoors</a>
+		<a href="/indoors/">Indoors</a>
+		<span>Community</span>
+		<a href="https://github.com/omrilotan/do" rel="noopener" target="_blank"
+			>Source Code</a
+		>
+	</nav>
+</template>

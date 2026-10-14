@@ -1,7 +1,8 @@
-import { get, remove } from '../stored/index.js';
+import { get, remove } from "../stored/index.js";
 
 /**
- * Switch the behaviour of selected location (toggle)
+ * Mark the selected location in the menu. Clicking it again clears the selection.
+ * @param {HTMLElement} nav
  */
 export function location(nav) {
 	const selectedLocation = get();
@@ -14,10 +15,11 @@ export function location(nav) {
 		return;
 	}
 
-	anchor.addEventListener('click', function(event) {
+	anchor.addEventListener("click", (event) => {
 		event.preventDefault();
 		remove();
-		window.location.href = '/random';
+		window.location.href = "/random/";
 	});
-	anchor.classList.add('selected');
+	anchor.classList.add("selected");
+	anchor.setAttribute("aria-current", "true");
 }

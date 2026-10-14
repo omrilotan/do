@@ -1,26 +1,27 @@
 /**
  * @type {string}
  */
-const STORAGE_KEY = 'activity-list';
+const STORAGE_KEY = "activity-list";
 
 /**
- * Mitigate local storage
+ * Read the selected activity list. Storage may be unavailable (private mode, blocked cookies).
+ * @returns {string | null}
  */
 export function get() {
 	try {
 		return window.localStorage.getItem(STORAGE_KEY);
-	} catch (error) {
+	} catch {
 		return null;
 	}
 }
 
 /**
- * Mitigate local storage
+ * Forget the selected activity list
  */
 export function remove() {
 	try {
-		window.localStorage.removeItem('activity-list');
-	} catch (error) {
+		window.localStorage.removeItem(STORAGE_KEY);
+	} catch {
 		// ignore
 	}
 }

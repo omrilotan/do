@@ -1,16 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-GB">
 	<head>
 		{{ meta }}
-		<meta name="description" content="{{ thing }}">
-		<link rel="prerender" href="/about/">
-		<meta name="page-type" content="activity">
+		<meta name="description" content="{{ thing }}" />
+		<meta name="page-type" content="activity" />
 	</head>
 	<body>
-		<article>
-			{{ thing }}
-			{{ play-button }}
-		</article>
+		<article>{{ thing }} {{ play-button }}</article>
 		{{ nav }}
 		<script src="/scripts.js?ckv={{ cacheKeyVersion }}"></script>
 	</body>

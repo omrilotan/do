@@ -1,38 +1,40 @@
-import dataLayerPush from '../dataLayerPush/index.js';
+import dataLayerPush from "../dataLayerPush/index.js";
 
-let link;
-let deferred;
-
+/**
+ * Add a "Get the App" link to the container when the browser offers to install the app
+ * @param {HTMLElement} container
+ */
 export default function beforeinstall(container) {
-	window.addEventListener(
-		'beforeinstallprompt',
-		function beforeinstallprompt(event) {
-			event.preventDefault();
+	let link;
+	let deferred;
 
-			deferred = event;
-			if (link) { return; }
+	window.addEventListener("beforeinstallprompt", (event) => {
+		event.preventDefault();
 
-			link = document.createElement('a');
-			link.setAttribute('href', '#!');
-			link.appendChild(document.createTextNode('Get the App'));
-			link.addEventListener(
-				'click',
-				function triggerbeforeinstall(event) {
-					event.preventDefault();
-					deferred.prompt();
-					deferred.userChoice.then(
-						function result({ outcome }) {
-							if (outcome === 'accepted') {
-								link.parentNode && link.parentNode.removeChild(link);
-							}
-							deferred = null;
-						}
-					);
-
-					dataLayerPush({ event: 'click-install' });
-				}
-			);
-			container.insertBefore(link, container.firstElementChild);
+		deferred = event;
+		if (link) {
+			return;
 		}
-	);
+
+		link = document.createElement("a");
+		link.href = "#!";
+		link.textContent = "Get the App";
+		link.addEventListener("click", async (event) => {
+			event.preventDefault();
+			dataLayerPush({ event: "click-install" });
+
+			if (!deferred) {
+				return;
+			}
+			deferred.prompt();
+			const { outcome } = await deferred.userChoice;
+			if (outcome === "accepted") {
+				link.remove();
+			}
+			deferred = null;
+		});
+		container.prepend(link);
+	});
+
+	window.addEventListener("appinstalled", () => link?.remove());
 }

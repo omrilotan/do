@@ -1,21 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-GB">
 	<head>
 		{{ meta }}
-		<meta name="description" content="{{ name }} - {{ size }} {{ tagline }}">
-		<link rel="stylesheet" href="/styles/glossary.css?ckv={{ cacheKeyVersion }}">
-		<meta name="page-type" content="glossary">
+		<meta name="description" content="{{ name }} - {{ size }} {{ tagline }}" />
+		<link
+			rel="stylesheet"
+			href="/styles/glossary.css?ckv={{ cacheKeyVersion }}"
+		/>
+		<meta name="page-type" content="glossary" />
 	</head>
 	<body>
 		<main>
-			<h1>
-				{{ size }} Activities
-			</h1>
-			<div class="cards">
-				{{ cards }}
-			</div>
+			<h1>{{ size }} Activities</h1>
+			<div class="cards">{{ cards }}</div>
 			<p>
-				<a href="/suggest" class="link">Suggest an activity</a>
+				<a href="/suggest/" class="link">Suggest an activity</a>
 			</p>
 			{{ play-button }}
 		</main>

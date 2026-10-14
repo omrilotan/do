@@ -1,45 +1,59 @@
-import beforeinstall from '../beforeinstall/index.js';
-import dataLayerPush from '../dataLayerPush/index.js';
-import { insertShareLink } from '../share/index.js';
-import { location } from '../location/index.js';
-import slider from '../slider/index.js';
+import beforeinstall from "../beforeinstall/index.js";
+import dataLayerPush from "../dataLayerPush/index.js";
+import { insertShareLink } from "../share/index.js";
+import { location } from "../location/index.js";
+import slider from "../slider/index.js";
 
+/**
+ * Build the navigation menu from its template
+ */
 export default function menu() {
-	const template = document.querySelector('template[name="nav"]');
-	if (!template) { return; }
+	const template = document.getElementById("nav");
+	if (!template) {
+		return;
+	}
 
-	const nav = template.content.querySelector('nav');
+	const { content } = template;
+	const nav = content.querySelector("nav");
+	const hamburger = content.querySelector(".hamburger");
 	insertShareLink(nav);
 	location(nav);
 	beforeinstall(nav);
 
-	const hamburger = template.content.querySelector('.hamburger');
-	hamburger.addEventListener(
-		'click',
-		function toggleMenu(event) {
-			event.preventDefault();
-			event.stopPropagation();
-			document.body.classList.toggle('navopen');
-			dataLayerPush({ event: 'click-hamburger' });
-		}
-	);
+	/**
+	 * @param {boolean} open
+	 */
+	function toggle(open) {
+		document.body.classList.toggle("navopen", open);
+		hamburger.setAttribute("aria-expanded", String(open));
+	}
 
-	document.body.appendChild(template.content);
-	document.body.addEventListener(
-		'click',
-		function hideMenu(event) {
-			let { target } = event;
-			if (target === hamburger) { return; }
-			while (target) {
-				if (target === nav) { return; }
-				target = target.parentElement;
-			}
-			if (document.body.classList.contains('navopen')) {
-				event.preventDefault();
-			}
-			document.body.classList.remove('navopen');
-		}
-	);
+	hamburger.addEventListener("click", (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+		toggle(!document.body.classList.contains("navopen"));
+		dataLayerPush({ event: "click-hamburger" });
+	});
 
-	slider();
+	document.body.append(content);
+
+	document.body.addEventListener("click", (event) => {
+		if (
+			!document.body.classList.contains("navopen") ||
+			nav.contains(event.target)
+		) {
+			return;
+		}
+		event.preventDefault();
+		toggle(false);
+	});
+
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "Escape" && document.body.classList.contains("navopen")) {
+			toggle(false);
+			hamburger.focus();
+		}
+	});
+
+	slider(toggle);
 }

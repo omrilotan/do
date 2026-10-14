@@ -1,38 +1,26 @@
 #!/usr/bin/env node
 
-const { join } = require('path');
-const readLines = require('../../lib/readLines');
-const writeFile = require('../../lib/writeFile');
+import { resolve } from "node:path";
+import caseInsensitive from "../../lib/caseInsensitive/index.js";
+import readLines from "../../lib/readLines/index.js";
+import writeFile from "../../lib/writeFile/index.js";
 
-const [ , , ...files ] = process.argv;
+const files = process.argv.slice(2);
 
-async function sortFile (filename) {
-	const filepath = join(process.cwd(), filename);
+/**
+ * Sort a file's lines case insensitively and remove duplicates
+ * @param {string} filename
+ */
+async function sortFile(filename) {
+	const filepath = resolve(filename);
 	console.log(`Sorting ${filepath}`);
 
 	const lines = await readLines(filepath);
 
-	await writeFile(filepath, dedup(lines).sort(sort).join('\n') + '\n');
+	await writeFile(
+		filepath,
+		[...new Set(lines)].sort(caseInsensitive).join("\n") + "\n",
+	);
 }
 
-/**
- * Case insensitive Sort
- * @param  {String} a
- * @param  {String} b
- * @return {Number}
- */
-function sort (a, b) {
-	a = a.toLowerCase();
-	b = b.toLowerCase();
-
-	return a > b ? 1 : b > a ? -1 : 0;
-}
-
-/**
- * Create array without the duplicates
- * @param  {Array} list
- * @return {Array}
- */
-const dedup = list => Array.from(new Set(list));
-
-files.forEach(file => sortFile(file));
+await Promise.all(files.map(sortFile));

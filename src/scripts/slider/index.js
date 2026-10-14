@@ -1,87 +1,71 @@
-import dataLayerPush from '../dataLayerPush/index.js';
+import dataLayerPush from "../dataLayerPush/index.js";
 
-export default function slider() {
+/**
+ * Give up on a swipe that takes longer than this
+ * @type {number}
+ */
+const SWIPE_TIMEOUT = 5000;
+
+/**
+ * Open the menu by swiping right from the left edge, close it by swiping left
+ * @param {(open: boolean) => void} toggle
+ */
+export default function slider(toggle) {
 	/**
 	 * Threshold to recognise touch from edge
 	 * @type {number}
 	 */
-	const EDGE_THRESHOLD = window.outerWidth / 3;
+	const EDGE_THRESHOLD = window.innerWidth / 3;
 
 	/**
 	 * Threshold to recognise a drag action
 	 * @type {number}
 	 */
-	const DRAG_THRESHOLD = window.outerWidth / 6;
+	const DRAG_THRESHOLD = window.innerWidth / 6;
 
 	/**
-	 * Active drag
-	 * @type {Object}
+	 * Active swipe
+	 * @type {{ startX: number, open: boolean, timer: number } | null}
 	 */
 	let active = null;
 
-	document.body.addEventListener('touchstart', assign);
-	document.body.addEventListener('touchend', kill);
+	function start({ touches: [{ pageX }] }) {
+		end();
+		const open = document.body.classList.contains("navopen");
+		if (!open && pageX > EDGE_THRESHOLD) {
+			return;
+		}
 
-	function assign({ touches: [ { pageX } ] }) {
-		kill();
-		if (pageX > EDGE_THRESHOLD) { return; }
-
-		active = {
-			startX: pageX,
-			timer: setTimeout(kill, 5000)
-		};
-		document.body.addEventListener('touchmove', check);
+		active = { startX: pageX, open, timer: setTimeout(end, SWIPE_TIMEOUT) };
+		document.body.addEventListener("touchmove", move, { passive: true });
 	}
 
-	function kill() {
-		if (!active) { return; }
+	function end() {
+		if (!active) {
+			return;
+		}
 		clearTimeout(active.timer);
 		active = null;
-		document.body.removeEventListener('touchmove', check);
+		document.body.removeEventListener("touchmove", move);
 	}
 
-	function check({ touches: [ { pageX } ] }) {
-		if (!active) { return; }
-		if (pageX - active.startX < DRAG_THRESHOLD) { return; }
-		document.body.classList.add('navopen');
-		dataLayerPush({ event: 'swipe-menu-open' });
-		kill();
+	function move({ touches: [{ pageX }] }) {
+		if (!active) {
+			return;
+		}
+		const distance = active.open
+			? active.startX - pageX
+			: pageX - active.startX;
+		if (distance < DRAG_THRESHOLD) {
+			return;
+		}
+		toggle(!active.open);
+		dataLayerPush({
+			event: active.open ? "swipe-menu-close" : "swipe-menu-open",
+		});
+		end();
 	}
 
-	window.addEventListener(
-		'load',
-		registerCloseNav,
-		{ once: true }
-	);
-
-	function registerCloseNav() {
-		if (!document.querySelector('nav')) { return; }
-
-		let active = null;
-
-		function assign({ touches: [ { pageX } ] }) {
-			kill();
-			if (!document.body.classList.contains('navopen')) { return; }
-			active = {
-				startX: pageX,
-				timer: setTimeout(kill, 5000)
-			};
-			document.body.addEventListener('touchmove', check);
-		}
-		function kill() {
-			if (!active) { return; }
-			clearTimeout(active.timer);
-			active = null;
-			document.body.removeEventListener('touchmove', check);
-		}
-		function check({ touches: [ { pageX } ] }) {
-			if (!active) { return; }
-			if (active.startX - pageX < DRAG_THRESHOLD) { return; }
-			document.body.classList.remove('navopen');
-			dataLayerPush({ event: 'swipe-menu-close' });
-			kill();
-		}
-		document.body.addEventListener('touchstart', assign);
-		document.body.addEventListener('touchend', kill);
-	}
+	document.body.addEventListener("touchstart", start, { passive: true });
+	document.body.addEventListener("touchend", end, { passive: true });
 }

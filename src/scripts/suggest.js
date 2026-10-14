@@ -1,108 +1,57 @@
-import random from './random/index.js';
+/**
+ * Where suggestions go: a new GitHub issue
+ * @type {string}
+ */
+const NEW_ISSUE = "https://github.com/omrilotan/do/issues/new";
 
-(function() {
-	const patch = [
-		'https://discordapp.com/api',
-		'webhooks',
-		'662732577182056458',
-		'tEx0sR7n_6Dtk3V2fXd4gcR8Mn4E82pPB4XXBRJ3RLP-I-ezYxXWaLrV88M4Kv0vCFay',
-		'slack'
-	];
+/**
+ * Longest suggestion that comfortably fits in a URL
+ * @type {number}
+ */
+const MAX_LENGTH = 2000;
 
-	const [ form ] = document.forms;
+const [form] = document.forms;
+const textarea = form.querySelector("textarea");
+textarea.maxLength = MAX_LENGTH;
 
-	form.addEventListener(
-		'submit',
-		function sendForm(event) {
-			event.preventDefault();
-			const { target } = event;
-			if (target.hasAttribute('disabled')) {
-				return;
-			}
+form.addEventListener("submit", (event) => {
+	event.preventDefault();
 
-			const [ textarea ] = target;
-			const { value } = textarea;
-			if (!value) { return textarea.focus(); }
-			[ target, textarea ].forEach(e => e.setAttribute('disabled', 'disabled'));
-			send(value).then(thanks).catch(
-				() => [ target, textarea ].forEach(e => e.removeAttribute('disabled'))
-			);
-		}
+	const value = textarea.value.trim();
+	if (!value) {
+		textarea.focus();
+		return;
+	}
+
+	const url = new URL(NEW_ISSUE);
+	url.searchParams.set("labels", "activity");
+	url.searchParams.set(
+		"title",
+		`Activity suggestion: ${value.split("\n")[0].slice(0, 80)}`,
 	);
+	url.searchParams.set("body", value);
 
-	const send = text => fetch(patch.join('/'), {
-		method: 'POST',
-		body: JSON.stringify({ text, username: username() })
+	window.open(url, "_blank", "noopener");
+	thanks();
+});
+
+function thanks() {
+	const container = form.parentElement;
+	container.style.height = `${container.offsetHeight}px`;
+	requestAnimationFrame(() => {
+		container.style.height = "0px";
 	});
+	const heading = document.querySelector("h1");
+	heading.replaceWith(
+		document.getElementById("thanks").content.cloneNode(true),
+	);
+}
 
-	function thanks() {
-		const div = document.querySelector('div');
-		div.style.height = div.offsetHeight + 'px';
-		setTimeout(() => { div.style.height = '0px'; }, 200);
-		const h1 = document.querySelector('h1');
-		h1.parentNode.replaceChild(document.querySelector('template[name="thanks"]').content, h1);
-	}
-
-	const username = () => [ random(adjectives), random(animals) ].join(' ');
-
-	const animals = [
-		'Alpaca',
-		'Anteater',
-		'Bonobo',
-		'Chinchilla',
-		'Fox',
-		'Hedgehog',
-		'Lemur',
-		'Meerkat',
-		'Otter',
-		'Panda',
-		'Panda',
-		'Platypus',
-		'Raccoon',
-		'Sloth'
-	];
-	const adjectives = [
-		'Ambitious',
-		'Bright',
-		'Clever',
-		'Confident',
-		'Eager',
-		'Enthusiastic',
-		'Exuberant',
-		'Friendly',
-		'Helpful',
-		'Inventive',
-		'Sincere',
-		'Thoughtful',
-		'Witty'
-	];
-
-})();
-
-(function() {
-	function init() {
-		const textarea = document.querySelector('textarea');
-		let timer;
-
-		function resize() {
-			textarea.style.height = 'auto';
-			textarea.style.height = textarea.scrollHeight + 'px';
-		}
-
-		function debounced() {
-			clearTimeout(timer);
-			timer = setTimeout(resize, 0);
-		}
-
-		[
-			'change',
-			'cut',
-			'paste',
-			'drop',
-			'keydown'
-		].forEach(
-			event => textarea.addEventListener(event, debounced, false)
-		);
-	}
-	window.addEventListener('load', init);
-})();
+// Grow the text area with its content, where CSS field-sizing is not supported
+if (!CSS.supports("field-sizing", "content")) {
+	const resize = () => {
+		textarea.style.height = "auto";
+		textarea.style.height = `${textarea.scrollHeight}px`;
+	};
+	textarea.addEventListener("input", resize);
+}

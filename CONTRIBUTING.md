@@ -11,9 +11,13 @@ Please try and use one of the [issue templates](https://github.com/omrilotan/do/
 ## Contribute an activity, Contribute code, Open a pull request
 
 ### Add an Activity
-Activities are stored in a [plain text file](https://github.com/omrilotan/do/blob/main/src/activities/) - one activity per line. Adding an activity is as simple as adding a line.
+
+Activities are stored in [plain text files](https://github.com/omrilotan/do/tree/main/src/activities) - one activity per line. Adding an activity is as simple as adding a line to `anywhere.txt`, `indoors.txt` or `outdoors.txt`.
+
+Run `npm test` to check that each activity is at most 150 characters, ends with a punctuation mark and is spelled correctly (British English).
 
 Activities are targeted at moments outside the house - when you don't necessarily have any toys or materials on you. The activities require no preparations and can be accomplished in a short time.
 
 ### Suggest Code Addition or Change
+
 I try to keep it simple, but I really have no special style guides or rules. If it works, if it makes sense, if it benefits the project - I'm happy to include any contribution. Fork me!

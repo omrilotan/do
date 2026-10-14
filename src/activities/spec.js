@@ -1,81 +1,69 @@
-const { readFileSync } = require('fs');
-const { join } = require('path');
-const SpellChecker = require('simple-spellchecker');
+import { describe, it } from "node:test";
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import dictionary from "dictionary-en-gb";
+import nspell from "nspell";
 
 const MAX_LENGTH = 150;
 
-let dictionary;
+const SKIP_WORDS = new Set(["minifigures"]);
 
-const activities = [
-	'anywhere.txt',
-	'indoors.txt',
-	'outdoors.txt'
-].map(
-	filename => readFileSync(
-		join(__dirname, filename)
-	).toString().split('\n').map(i => i.trim()).filter(Boolean)
-).flat();
+const activities = (
+	await Promise.all(
+		["anywhere.txt", "indoors.txt", "outdoors.txt"].map((filename) =>
+			readFile(new URL(filename, import.meta.url), "utf8"),
+		),
+	)
+)
+	.flatMap((content) => content.split("\n"))
+	.map((line) => line.trim())
+	.filter(Boolean);
 
-
-const setupDictionary = () => new Promise(
-	(resolve, reject) => {
-		if (dictionary) {
-			resolve();
-			return;
-		}
-
-		SpellChecker.getDictionary('en-GB', function(error, received) {
-			if (error) {
-				reject(error);
-				return;
-			}
-			dictionary = received;
-			resolve();
-		});
-	}
-);
-
-const skipWords = [
-	'GIF',
-	'hand-clap',
-	'in-person',
-	'minifigures',
-	'Pat-a-Cake',
-	'selfies',
-	'stop-motion',
-	'Wikipedia',
-	'yes/no'
-];
+// Compound words ("hand-clap", "yes/no") are checked part by part
+const words = (activity) =>
+	activity
+		.split(/[\s/-]+/)
+		.map((word) => word.replace(/^\W*|\W*$/g, ""))
+		.filter(Boolean);
 
 describe(`${activities.length} activities`, () => {
-	before(setupDictionary);
-	it('should be shorter than 80 characters', () => {
-		activities.forEach(activity => {
-			expect(activity, activity).to.have.lengthOf.at.most(MAX_LENGTH);
-		});
-	});
-	it('should end with a punctuation mark', () => {
-		activities.forEach(activity => {
-			expect(activity, activity).to.match(/[.?!]$/);
-		});
-	});
-	it('should be spelled correctly', () => {
-		activities.forEach(activity => {
-			words(activity).forEach(word => {
-				if (word == Number(word)) { return; }
-				if (skipWords.includes(word)) { return; }
+	const spell = nspell(dictionary);
 
-				if (!dictionary.spellCheck(word)) {
-					const suggestions = dictionary.getSuggestions(word);
+	it(`should be at most ${MAX_LENGTH} characters`, () => {
+		for (const activity of activities) {
+			assert.ok(activity.length <= MAX_LENGTH, activity);
+		}
+	});
 
-					assert.fail([
-						`${activity} contains the misspelled word: "${word}".`,
-						suggestions.length ? `Consider the following suggestions ${suggestions.join(', ')}.` : ''
-					].filter(Boolean).join(' '));
+	it("should end with a punctuation mark", () => {
+		for (const activity of activities) {
+			assert.match(activity, /[.?!]$/);
+		}
+	});
+
+	it("should be unique", () => {
+		assert.equal(new Set(activities).size, activities.length);
+	});
+
+	it("should be spelled correctly", () => {
+		for (const activity of activities) {
+			for (const word of words(activity)) {
+				if (!Number.isNaN(Number(word)) || SKIP_WORDS.has(word)) {
+					continue;
 				}
-			});
-		});
+				if (!spell.correct(word)) {
+					const suggestions = spell.suggest(word);
+					assert.fail(
+						[
+							`${activity} contains the misspelled word: "${word}".`,
+							suggestions.length &&
+								`Consider the following suggestions ${suggestions.join(", ")}.`,
+						]
+							.filter(Boolean)
+							.join(" "),
+					);
+				}
+			}
+		}
 	});
 });
-
-const words = activity => activity.split(' ').map(i => i.replace(/^\W*|\W*$/g, '')).filter(Boolean);

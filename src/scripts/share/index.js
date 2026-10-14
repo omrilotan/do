@@ -1,43 +1,56 @@
-import dataLayerPush from '../dataLayerPush/index.js';
-import meta from '../meta/index.js';
+import dataLayerPush from "../dataLayerPush/index.js";
+import meta from "../meta/index.js";
 
-const valid = () => navigator.share && navigator.onLine;
+const valid = () => typeof navigator.share === "function" && navigator.onLine;
 
+/**
+ * Add a "Share" link to the start of the container
+ * @param {HTMLElement} container
+ */
 export function insertShareLink(container) {
-	if (!valid()) { return; }
+	if (!valid()) {
+		return;
+	}
 
-	const link = document.createElement('a');
-	link.setAttribute('href', '#!');
-	link.addEventListener('click', sharePage);
-	link.appendChild(document.createTextNode('Share'));
-	container.insertBefore(link, container.firstElementChild);
+	const link = document.createElement("a");
+	link.href = "#!";
+	link.textContent = "Share";
+	link.addEventListener("click", sharePage);
+	container.prepend(link);
 }
 
+/**
+ * Add a floating share button to the container
+ * @param {HTMLElement} container
+ */
 export function addShareButton(container) {
-	if (!valid()) { return; }
+	if (!valid()) {
+		return;
+	}
 
-	const link = document.createElement('button');
-	link.className = 'share';
-	link.setAttribute('aria-label', 'Share this page');
-	link.addEventListener('click', sharePage);
-	container.appendChild(link);
+	const button = document.createElement("button");
+	button.className = "share";
+	button.setAttribute("aria-label", "Share this page");
+	button.addEventListener("click", sharePage);
+	container.append(button);
 }
 
-function sharePage(event) {
-	if (event) { event.preventDefault(); }
+async function sharePage(event) {
+	event?.preventDefault();
 
-	dataLayerPush({ event: 'click-share' });
-	navigator.share({
-		title: document.title,
-		text: meta('description'),
-		url: document.location.href
-	}).catch(error => {
-		if (error.name === 'AbortError') {
-
-			dataLayerPush({ event: 'abort-share' });
+	dataLayerPush({ event: "click-share" });
+	try {
+		await navigator.share({
+			title: document.title,
+			text: meta("description"),
+			url: document.location.href,
+		});
+	} catch (error) {
+		if (error.name === "AbortError") {
+			dataLayerPush({ event: "abort-share" });
 			return;
 		}
-		error.message = 'Use browser share API: ' + error.message;
+		error.message = `Use browser share API: ${error.message}`;
 		throw error;
-	});
+	}
 }

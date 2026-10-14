@@ -1,57 +1,45 @@
-import toast from '../toast/index.js';
-import randomString from '../random-string/index.js';
+import toast from "../toast/index.js";
+import media from "../media/index.js";
 
-let updated = false;
-
+/**
+ * Register the service worker. In the installed app, offer a reload when a new version arrives.
+ */
 export default async function registerServiceWorker() {
-	const supported = navigator.onLine && 'serviceWorker' in navigator;
-	if (!supported) { return; }
+	if (!("serviceWorker" in navigator)) {
+		return;
+	}
 
 	const registration = await navigator.serviceWorker.register(
-		'/serviceworker.js?ck=v-1',
+		"/serviceworker.js",
 		{
-			updateViaCache: 'none'
-		}
+			updateViaCache: "none",
+		},
 	);
 
-	window.matchMedia('(display-mode:standalone)').matches && listenToUpdates(registration);
-	registration.update();
-
-	await navigator.serviceWorker.ready;
-	setTimeout(
-		() => navigator.serviceWorker.controller && navigator.serviceWorker.controller.postMessage({ action: 'updateCacheKey', value: cacheKey() }),
-		1000
-	);
+	if (media("(display-mode: standalone)")) {
+		listenToUpdates(registration);
+	}
 }
 
-window.addEventListener('beforeunload', function() { updated = true; });
-
+/**
+ * @param {ServiceWorkerRegistration} registration
+ */
 function listenToUpdates(registration) {
-	registration.addEventListener(
-		'updatefound',
-		function updatefound() {
-			if (updated) { return; }
-			updated = true;
+	let notified = false;
 
-			const { installing } = registration;
+	registration.addEventListener("updatefound", () => {
+		const { installing } = registration;
 
-			installing.addEventListener(
-				'statechange',
-				function statechanged() {
-					installing.state === 'installed'
-						&& navigator.serviceWorker.controller
-						&& toast();
-				}
-			);
-		}
-	);
-}
-
-function cacheKey() {
-	const metaCache = document.querySelector('meta[name="cache-key-version"]');
-
-	return metaCache
-		? metaCache.getAttribute('content')
-		: randomString()
-	;
+		installing?.addEventListener("statechange", () => {
+			if (
+				notified ||
+				installing.state !== "installed" ||
+				!navigator.serviceWorker.controller
+			) {
+				return;
+			}
+			notified = true;
+			toast();
+		});
+	});
 }

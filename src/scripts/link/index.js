@@ -1,11 +1,21 @@
+/**
+ * Point every "draw" link at the given page and ask the browser to load it ahead of time
+ * @param {string} href
+ */
 export default function link(href) {
-	const prerender = document.createElement('link');
-	prerender.setAttribute('rel', 'prerender');
-	prerender.setAttribute('href', href);
-	prerender.setAttribute('as', 'fetch');
-	document.querySelector('head').appendChild(prerender);
+	if (HTMLScriptElement.supports?.("speculationrules")) {
+		const rules = document.createElement("script");
+		rules.type = "speculationrules";
+		rules.textContent = JSON.stringify({ prerender: [{ urls: [href] }] });
+		document.head.append(rules);
+	} else {
+		const prefetch = document.createElement("link");
+		prefetch.rel = "prefetch";
+		prefetch.href = href;
+		document.head.append(prefetch);
+	}
 
-	document.querySelectorAll('[name="draw"]').forEach(
-		draw => draw.setAttribute('href', href)
-	);
+	for (const draw of document.querySelectorAll("[data-draw]")) {
+		draw.setAttribute("href", href);
+	}
 }

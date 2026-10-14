@@ -1,173 +1,101 @@
-(function() {
-	let version;
-	let cacheKey;
+// Bump src/cache-key-version.txt to drop every cached file on the next visit
+const CACHE_KEY = "do-cache-v{{ cacheKeyVersion }}";
+const OFFLINE_PAGE = "/offline/";
 
-	const CACHE_KEY_PREFIX = 'dw-cache-key';
-	updateCacheKey(new URL(location).searchParams.get('ck'));
+const CACHED_FILES = [
+	"/",
+	"/about/",
+	"/suggest/",
+	"/glossary/",
+	OFFLINE_PAGE,
+	"/scripts.js",
+	"/scripts/index.js",
+	"/scripts/suggest.js",
+	"/scripts/glossary.js",
+	"/styles.css",
+	"/styles/glossary.css",
+	"/styles/suggest.css",
+	"/favicon.ico",
+	"/images/do.svg",
+];
 
-	const _root = location.origin || '';
-	const base = str => _root + '/' + str;
+/**
+ * Cache the app shell and every activity page, so the app works offline
+ */
+async function install() {
+	const cache = await caches.open(CACHE_KEY);
+	await cache.addAll(CACHED_FILES);
 
-	function updateCacheKey(value = '1') {
-		version = value;
-		cacheKey = [ CACHE_KEY_PREFIX, version ].join('-');
-		clearOldCache();
+	try {
+		const response = await fetch("/all.json");
+		const activities = await response.json();
+		await cache.addAll(activities.map((key) => `/${key}/`));
+	} catch (error) {
+		console.error("Cache activity pages:", error);
 	}
+}
 
-	const CACHED_FILES = [
-		'',
-		'about/',
-		'suggest/',
-		'glossary/',
-		'offline/',
-		'scripts.js',
-		'scripts/index.js',
-		'scripts/suggest.js',
-		'scripts/glossary.js',
-		'styles.css',
-		'styles/glossary.css',
-		'styles/suggest.css',
-		'favicon.ico'
-	].map(
-		url => base(url)
+/**
+ * Remove caches left behind by previous versions
+ */
+async function activate() {
+	const keys = await caches.keys();
+	await Promise.all(
+		keys.filter((key) => key !== CACHE_KEY).map((key) => caches.delete(key)),
 	);
+	await self.clients.claim();
+}
 
-	const actions = { updateCacheKey };
+/**
+ * Stale while revalidate: answer from cache, refresh the cache in the background.
+ * Fall back to the network, then to the offline page for navigations.
+ * @param {FetchEvent} event
+ * @returns {Promise<Response>}
+ */
+async function respond(event) {
+	const { request } = event;
+	const cache = await caches.open(CACHE_KEY);
+	const cached = await cache.match(request, { ignoreSearch: true });
 
-	self.addEventListener(
-		'message',
-		({ data: { action, value } = {} } = {}) => actions[action] && actions[action](value)
-	);
-
-	self.addEventListener(
-		'install',
-		event => event.waitUntil(
-			caches.open(cacheKey).then(
-				cache => {
-					fetch(base('all.json')).then(
-						response => response.ok && response.json()
-					).then(
-						list => {
-							const files = list.map(
-								id => base(`${id}/`)
-							).concat(
-								CACHED_FILES
-							);
-
-							cache.addAll(files).catch(
-								error => err(error, files.join(', '))
-							);
-						}
-					).catch(
-						error => console.error(error, base('all.json'))
-					);
-				}
-			)
-		)
-	);
-
-	async function clearOldCache() {
-		const keys = await caches.keys();
-
-		keys.filter(
-			key => key !== cacheKey
-		).forEach(
-			key => caches.delete(key)
-		);
-	}
-
-	self.addEventListener(
-		'activate',
-		event => event.waitUntil(
-			caches.keys().then(
-				keys => keys.filter(
-					key => key !== cacheKey
-				).forEach(
-					key => caches.delete(key)
-				)
-			)
-		)
-	);
-
-	self.addEventListener(
-		'fetch',
-		function(event) {
-			const { request } = event;
-
-			if (request.method.toUpperCase() !== 'GET') {
-				event.respondWith(
-					fetch(request).catch(
-						error => err(error, request.url)
-					)
-				);
-				return;
-			}
-
-			event.respondWith(
-				caches.match(request).then(
-					response => {
-						if (response) {
-							if (navigator.onLine) {
-
-								// Refresh (async)
-								fetch(request).then(
-									response => {
-										response.ok && caches.open(cacheKey).then(
-											cache => cache.put(request, response.clone())
-										);
-									}
-								).catch(
-									error => err(error, request.url)
-								);
-							}
-
-							return response;
-						} else {
-							if (!navigator.onLine && isPage(request.url)) {
-								return fetch(
-									new Request(base('offline/'))
-								).catch(
-									error => err(error, 'offline/')
-								);
-							}
-
-							return fetch(request).then(
-								function(response) {
-									const clone = response.clone();
-
-									// Refresh (async)
-									response.ok && caches.open(cacheKey).then(
-										cache => cache.put(request, clone)
-									);
-									return response;
-								}
-							).catch(
-								error => err(error, request.url)
-							);
-						}
-					}
-				)
-			);
+	const network = fetch(request).then((response) => {
+		if (response.ok) {
+			cache.put(request, response.clone());
 		}
-	);
+		return response;
+	});
 
-	self.addEventListener(
-		'activate',
-		event => event.waitUntil(
-			clearOldCache()
-				.then(() => clients.claim())
-				.then(() => self.skipWaiting())
-		)
-	);
-
-	function isPage(url) {
-		const ext = url.replace(/\?.*/, '').split('.').pop();
-
-		return ext === 'html' || !/^\w*$/.test(ext);
+	if (cached) {
+		event.waitUntil(network.catch(() => undefined));
+		return cached;
 	}
 
-	function err(error, message) {
-		error.message = [ error.message, message ].join(' ');
-		setTimeout(() => { throw error; });
+	try {
+		return await network;
+	} catch (error) {
+		if (request.mode === "navigate") {
+			const offline = await cache.match(OFFLINE_PAGE);
+			if (offline) {
+				return offline;
+			}
+		}
+		throw error;
 	}
-})();
+}
+
+self.addEventListener("install", (event) => {
+	self.skipWaiting();
+	event.waitUntil(install());
+});
+
+self.addEventListener("activate", (event) => event.waitUntil(activate()));
+
+self.addEventListener("fetch", (event) => {
+	const { request } = event;
+	if (
+		request.method !== "GET" ||
+		new URL(request.url).origin !== self.location.origin
+	) {
+		return;
+	}
+	event.respondWith(respond(event));
+});

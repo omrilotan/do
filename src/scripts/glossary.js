@@ -1,53 +1,63 @@
-import dataLayerPush from './dataLayerPush/index.js';
-import media from './media/index.js';
-import cardHeightSetup from './cardHeightSetup/index.js';
+import dataLayerPush from "./dataLayerPush/index.js";
+import media from "./media/index.js";
 
 /**
- * Height memory attribute
- * @type {string}
+ * Replace the card's content with its text, wrapping matches of the query in <mark>
+ * @param {HTMLElement} card
+ * @param {string} text Original card text
+ * @param {string} query Lower case search query
  */
-const HEIGHT_MEM_ATTR = 'h';
+function highlight(card, text, query) {
+	if (!query) {
+		card.textContent = text;
+		return;
+	}
 
-media('print') || window.addEventListener(
-	'load',
-	function prepareGlossary() {
-		const search = document.createElement('input');
-		search.setAttribute('type', 'search');
+	const nodes = [];
+	const lower = text.toLowerCase();
+	let index = 0;
+	let found = lower.indexOf(query);
 
-		const cards = document.querySelectorAll('.cards a');
+	while (found !== -1) {
+		nodes.push(text.slice(index, found));
+		const mark = document.createElement("mark");
+		mark.textContent = text.slice(found, found + query.length);
+		nodes.push(mark);
+		index = found + query.length;
+		found = lower.indexOf(query, index);
+	}
+	nodes.push(text.slice(index));
+	card.replaceChildren(...nodes);
+}
 
-		cardHeightSetup(cards, { attr: HEIGHT_MEM_ATTR });
+if (!media("print")) {
+	const cards = [...document.querySelectorAll(".cards a")].map((card) => ({
+		card,
+		text: card.textContent,
+	}));
 
-		function searchChange({ target: { value } }) {
-			const pattern = new RegExp(value, 'i');
+	const search = document.createElement("input");
+	search.type = "search";
+	search.setAttribute("aria-label", "Search activities");
+	search.placeholder = "Search";
 
-			[].forEach.call(
-				cards,
-				function resizeCard(card) {
-					const match = !value || card.innerText.toLowerCase().includes(value.toLowerCase());
+	let reported = false;
 
-					card.classList.toggle('hidden', !match);
-					match
-						? card.removeAttribute('tabindex')
-						: card.setAttribute('tabindex', '-1')
-					;
-					card.style.height = match
-						? card.hasAttribute(HEIGHT_MEM_ATTR)
-							? card.getAttribute(HEIGHT_MEM_ATTR) + 'px'
-							: 'auto'
-						: '0px'
-					;
-					card.innerHTML = card.innerText.replace(pattern, match => `<mark>${match}</mark>`);
-				}
-			);
+	search.addEventListener("input", () => {
+		const query = search.value.trim().toLowerCase();
 
-			dataLayerPush({ event: 'search-glossary' });
+		for (const { card, text } of cards) {
+			const match = !query || text.toLowerCase().includes(query);
+			card.classList.toggle("hidden", !match);
+			card.toggleAttribute("inert", !match);
+			highlight(card, text, match ? query : "");
 		}
 
-		search.addEventListener('keyup', searchChange);
-		search.addEventListener('change', searchChange);
-		search.addEventListener('search', searchChange);
+		if (!reported) {
+			reported = true;
+			dataLayerPush({ event: "search-glossary" });
+		}
+	});
 
-		document.body.insertBefore(search, document.body.firstElementChild);
-	}
-);
+	document.body.prepend(search);
+}

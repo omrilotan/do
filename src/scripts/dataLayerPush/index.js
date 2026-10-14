@@ -1,3 +1,7 @@
+/**
+ * Report an analytics event, when an analytics data layer is present
+ * @param {...object} args
+ */
 export default function dataLayerPush(...args) {
-	window.dataLayer && window.dataLayer.push(...args);
+	window.dataLayer?.push(...args);
 }

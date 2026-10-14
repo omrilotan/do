@@ -1,29 +1,34 @@
+/**
+ * Show an "update available" message with a reload button
+ */
 export default function toast() {
-	const dialog = document.createElement('dialog');
+	const dialog = document.createElement("dialog");
+	dialog.setAttribute("aria-labelledby", "toast-message");
 
-	const message = document.createElement('h3');
-	message.appendChild(document.createTextNode('New update available!'));
+	const close = document.createElement("button");
+	close.className = "close";
+	close.setAttribute("aria-label", "Dismiss");
+	close.textContent = "×";
+	close.addEventListener("click", () => dialog.close());
 
-	const menu = document.createElement('menu');
-	const update = document.createElement('button');
-	update.appendChild(document.createTextNode('update'));
-	update.onclick = () => dialog.close() || window.location.reload();
-	menu.appendChild(update);
+	const message = document.createElement("h3");
+	message.id = "toast-message";
+	message.textContent = "New update available!";
 
-	const ignore = document.createElement('button');
-	ignore.className = 'close';
-	ignore.appendChild(document.createTextNode('\u00D7'));
-	ignore.onclick = () => dialog.close();
+	const menu = document.createElement("menu");
+	const update = document.createElement("button");
+	update.textContent = "update";
+	update.addEventListener("click", () => {
+		dialog.close();
+		window.location.reload();
+	});
+	menu.append(update);
 
-	dialog.appendChild(ignore);
-	dialog.appendChild(message);
-	dialog.appendChild(menu);
-	document.body.appendChild(dialog);
+	dialog.append(close, message, menu);
+	dialog.addEventListener("close", () => dialog.remove());
+	document.body.append(dialog);
 
-	dialog.showModal
-		? dialog.showModal()
-		: dialog.setAttribute('open', 'open')
-	;
-	setTimeout(() => dialog.classList.add('show'));
-	setTimeout(() => dialog.classList.remove('show'), 20000);
+	dialog.show();
+	requestAnimationFrame(() => dialog.classList.add("show"));
+	setTimeout(() => dialog.classList.remove("show"), 20000);
 }
