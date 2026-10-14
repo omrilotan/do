@@ -1,6 +1,6 @@
 :root {
 	--transition-suggest-height: height 1s ease-out;
-	--transition-suggest-form-elements: filter .3s;
+	--transition-suggest-form-elements: filter 0.3s;
 }
 @media screen and (prefers-reduced-motion: reduce) {
 	:root {
@@ -18,12 +18,13 @@ form {
 	display: flex;
 	flex-direction: column;
 }
-form textarea, form button {
-	padding: .5em;
+form textarea,
+form button {
+	padding: 0.5em;
 	width: 100%;
 	box-sizing: border-box;
 	border: none;
-	font-size: .75em;
+	font-size: 0.75em;
 	transition: var(--transition-suggest-form-elements);
 }
 form button {
@@ -31,7 +32,7 @@ form button {
 	color: var(--foreground-colour);
 	border: 1px solid var(--foreground-colour);
 	margin-bottom: var(--margin-unit);
-	border-radius: 0 0 .5em .5em;
+	border-radius: 0 0 0.5em 0.5em;
 }
 form button:focus {
 	filter: hue-rotate(180deg);
@@ -40,15 +41,10 @@ form textarea {
 	background: var(--foreground-colour);
 	color: var(--foreground-colour-opposite);
 	min-height: 5em;
+	field-sizing: content;
 	resize: vertical;
-	border-radius: .5em .5em 0 0;
+	border-radius: 0.5em 0.5em 0 0;
 }
-::placeholder {
-  color: var(--background-colour);
-}
-form[disabled] textarea {
-	filter: brightness(.62);
-}
-form[disabled] button {
-	filter: grayscale(100%);
+form textarea::placeholder {
+	color: var(--background-colour);
 }

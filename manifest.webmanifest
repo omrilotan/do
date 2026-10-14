@@ -1,67 +1,76 @@
 {
+  "id": "/",
   "name": "do",
   "short_name": "do",
   "description": "entertaining time fillers with kids",
-  "categories": [
-    "creativity",
-    "lifestyle",
-    "parenting"
-  ],
+  "categories": ["creativity", "lifestyle", "parenting"],
   "background_color": "#FFFFFF",
-  "theme_color": "#000000",
+  "theme_color": "#ffffff",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "serviceworker": {
-    "src": "./serviceworker.js",
-    "scope": "/"
-  },
   "icons": [
     {
       "src": "/images/icon-36x36.png",
       "sizes": "36x36",
       "type": "image/png",
-      "density": "0.75"
-    }, {
+      "purpose": "any"
+    },
+    {
       "src": "/images/icon-48x48.png",
       "sizes": "48x48",
       "type": "image/png",
-      "density": "1.0"
-    }, {
+      "purpose": "any"
+    },
+    {
       "src": "/images/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
-      "density": "1.5"
-    }, {
+      "purpose": "any"
+    },
+    {
       "src": "/images/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png",
-      "density": "2.0"
-    }, {
+      "purpose": "any"
+    },
+    {
       "src": "/images/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png",
-      "density": "3.0"
-    }, {
+      "purpose": "any"
+    },
+    {
       "src": "/images/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "density": "4.0"
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "screenshots": [
     {
       "src": "/images/screenshot-root.png",
       "sizes": "1080x1920",
-      "type": "image/png"
-    }, {
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
       "src": "/images/screenshot-activity.png",
       "sizes": "1080x1920",
-      "type": "image/png"
-    }, {
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
       "src": "/images/screenshot-splash.png",
       "sizes": "1080x1920",
-      "type": "image/png"
+      "type": "image/png",
+      "form_factor": "narrow"
     }
   ],
   "shortcuts": [
@@ -69,17 +78,37 @@
       "name": "Random Activity",
       "short_name": "Random",
       "url": "/random/",
-      "icons": [{"src": "/images/icon-144x144.png", "sizes": "144x144"}]
-    }, {
+      "icons": [
+        {
+          "src": "/images/icon-144x144.png",
+          "sizes": "144x144",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
       "name": "Indoors",
       "short_name": "Indoors",
       "url": "/indoors/",
-      "icons": [{"src": "/images/icon-144x144.png", "sizes": "144x144"}]
-    }, {
+      "icons": [
+        {
+          "src": "/images/icon-144x144.png",
+          "sizes": "144x144",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
       "name": "Outdoors",
       "short_name": "Outdoors",
       "url": "/outdoors/",
-      "icons": [{"src": "/images/icon-144x144.png", "sizes": "144x144"}]
+      "icons": [
+        {
+          "src": "/images/icon-144x144.png",
+          "sizes": "144x144",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }
